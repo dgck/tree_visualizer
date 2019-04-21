@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "Tree.h"
+#include "tree.h"
 using namespace std;
 
 namespace Ui {

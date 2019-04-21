@@ -42,7 +42,8 @@ void MainWindow::on_quitBtn_clicked()
 
 void MainWindow::on_insertBtn_clicked()
 {
-    tree->insert();
+    Node*node = new Node(ui->treeElement->text().toInt());
+    tree->insert(node);
     ShowImageGV();
 }
 
