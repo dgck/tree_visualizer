@@ -18,14 +18,20 @@ Node *RBTree::getRoot() {
     return root;
 }
 
+/*
+ * This is not used anymore, the tree is printed to an intermediate file
+ *
 void RBTree::show() {
-    stackWrite();
+    stackWrite(-1);
     system("./show_png.sh");
-}
+}*/
 
-void RBTree::stackWrite() {
+void RBTree::stackWrite(int local_value) {
     ofstream dotFile;
-    dotFile.open ("./gr.dot");
+    string name_str = "gr";
+    name_str += std::to_string(local_value);
+    name_str += ".dot";
+    dotFile.open (name_str);
     dotFile << "digraph {\n";
     //dotFile << "\t" << "a" << " [fillcolor=red style=filled];";
 
@@ -86,6 +92,7 @@ void RBTree::insert(Node *i) {
     } else {
         y -> right = i;
     }
+    stackWrite(global_value++);
     insertFixup(i);
 
 }
@@ -108,6 +115,7 @@ void RBTree::insertFixup(Node *z) {
                 y -> color = 0;
                 z -> parent -> parent -> color = 1;
                 z = z -> parent -> parent;
+                stackWrite(global_value++);
             } else {
                 if (z -> parent -> right == z) {
                     z = z -> parent;
@@ -116,7 +124,7 @@ void RBTree::insertFixup(Node *z) {
                 z -> parent -> color = 0;
                 z -> parent -> parent -> color = 1;
                 rightRotate(z -> parent -> parent);
-
+                stackWrite(global_value++);
             }
         } else if (z -> parent == z -> parent -> parent -> right) {
             Node* y = z -> parent -> parent -> left;
@@ -125,20 +133,29 @@ void RBTree::insertFixup(Node *z) {
                 y -> color = 0;
                 z -> parent -> parent -> color = 1;
                 z = z -> parent -> parent;
+                stackWrite(global_value++);
             } else {
                 if (z -> parent -> left == z) {
                     z = z -> parent;
                     rightRotate(z);
+                    stackWrite(global_value++);
                 }
                 z -> parent -> color = 0;
                 z -> parent -> parent -> color = 1;
                 leftRotate(z -> parent -> parent);
+                stackWrite(global_value++);
             }
         }
     }
     if (root) {
         root -> color = 0;
     }
+}
+
+void RBTree::insert(int key)
+{
+    Node *new_node = getGoodNode(key);
+    insert(new_node);
 }
 
 void RBTree::leftRotate(Node *x) {
@@ -255,6 +272,7 @@ void RBTree::deleteNode(Node *z) {
             nil->parent = z->parent;
         }
         transplant(z, z -> right);
+        stackWrite(global_value++);
     } else if (z -> right == nullptr) {
         x = z -> left;
         if (!x) {
@@ -263,6 +281,7 @@ void RBTree::deleteNode(Node *z) {
             nil->parent = z->parent;
         }
         transplant(z, z -> left);
+        stackWrite(global_value++);
     } else {
         Node* y = treeMinimum(z -> right);
         original = y -> color;
@@ -272,12 +291,13 @@ void RBTree::deleteNode(Node *z) {
         if (y -> parent == z) {
             if (x)
                 x -> parent = y;
+                //stackWrite(global_value++);
             else {
 
                 ff = true;
                 nil = new Node;
                 nil -> color = 0;
-
+                stackWrite(global_value++);
             }
 
         }
@@ -287,11 +307,13 @@ void RBTree::deleteNode(Node *z) {
                 nil = new Node;
                 nil -> color = 0;
                 nil -> parent = y -> parent;
+                stackWrite(global_value++);
             }
 
             transplant(y, y -> right);
             y -> right = z -> right;
             y -> right -> parent = y;
+            stackWrite(global_value++);
         }
         y -> left = z -> left;
         y -> left -> parent = y;
@@ -300,6 +322,7 @@ void RBTree::deleteNode(Node *z) {
         if (ff) {
             nil -> parent = y -> parent;
         }
+        stackWrite(global_value++);
     }
 
     if (original == 0) {
@@ -316,9 +339,6 @@ void RBTree::deleteNode(Node *z) {
 void RBTree::fixDeletion(Node *x) {
 
     while (x != root && x -> color == 0) {
-
-
-
         if (x == x -> parent -> left) {
             Node* w = x -> parent -> right;
             if (w && w -> color == 1) {
@@ -326,23 +346,21 @@ void RBTree::fixDeletion(Node *x) {
                 x -> parent -> color = 1;
                 leftRotate(x -> parent);
                 w = x -> parent -> right;
-
+                stackWrite(global_value++);
             }
             if ((w && w -> left && w -> left -> color == 0 && w -> right && w -> right -> color == 0)
                 || (w && !(w -> left) && !(w -> right))){
                 w -> color = 1;
                 x = x -> parent;
-
+                stackWrite(global_value++);
             }
             else if ((w && w -> right -> color == 0) || (w && !(w -> right))) {
-
-
                 if (w -> left)
                     w -> left -> color = 0;
                 w -> color = 1;
                 rightRotate(w);
                 w = x -> parent -> right;
-
+                stackWrite(global_value++);
             }
 
             if (w) w -> color = x -> parent -> color;
@@ -350,7 +368,7 @@ void RBTree::fixDeletion(Node *x) {
             if (w && w -> right) w -> right -> color = 0;
             leftRotate(x -> parent);
             x = root;
-
+            stackWrite(global_value++);
         } else {
             Node* w = x -> parent -> left;
             if (w && w -> color == 1) {
@@ -358,7 +376,7 @@ void RBTree::fixDeletion(Node *x) {
                 x -> parent -> color = 1;
                 rightRotate(x -> parent);
                 w = x -> parent -> left;
-
+                stackWrite(global_value++);
             }
             if ((w && w -> right && w -> right -> color == 0 && w -> left && w -> left -> color == 0)
                 || (w && !(w -> right) && !(w -> left))
@@ -366,17 +384,15 @@ void RBTree::fixDeletion(Node *x) {
                 || (w && !(w -> left) && w -> right && w -> right -> color == 0)){
                 w -> color = 1;
                 x = x -> parent;
-
+                stackWrite(global_value++);
             }
             else if ((w && w -> left -> color == 0) || (w && !(w -> left))) {
-
-
                 if (w -> right)
                     w -> right -> color = 0;
                 w -> color = 1;
                 leftRotate(w);
                 w = x -> parent -> left;
-
+                stackWrite(global_value++);
             }
 
             if (w) w -> color = x -> parent -> color;
@@ -384,8 +400,9 @@ void RBTree::fixDeletion(Node *x) {
             if (w && w -> left) w -> left -> color = 0;
             rightRotate(x -> parent);
             x = root;
-
+            stackWrite(global_value++);
         }
     }
     x -> color = 0;
+    stackWrite(global_value++);
 }
