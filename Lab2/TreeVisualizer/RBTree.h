@@ -15,7 +15,7 @@ public:
 
     RBTree();
 
-    Node* getRoot();
+    Node* getRoot()override;
     void setRoot(Node* r);
     Node* getGoodNode(int v);
 
@@ -29,6 +29,7 @@ public:
     void fixDeletion(Node* x);
     void insert(int key);
 
+    Node *search(int key, Node *cur)override;
     void print_intermediate_steps();
 
 private:

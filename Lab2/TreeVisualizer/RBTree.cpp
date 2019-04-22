@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <stack>
+#include <cstdlib>
+#include<QDebug>
 
 using namespace std;
 
@@ -65,9 +67,37 @@ void RBTree::stackWrite(int local_value) {
 
     dotFile << "}\n";
     dotFile.close();
+
+    string comman_str = "";
+    comman_str += "F:\\tree_visualizer\\Lab2\\build-TreeVisualizer-Desktop_Qt_5_11_2_MinGW_32bit-Debug\\graphviz\\bin\\dot.exe -Tpng " + name_str + " -o step_" + std::to_string(global_value - 1) + ".png";
+    qDebug()<<comman_str.c_str();
+    system(comman_str.c_str());
+
+    ofstream out("meta.txt");
+    out << global_value;
+    out.close();
 }
 
+Node* RBTree::search(int key, Node *cur)
+{
+    if (!cur)
+    {
+        return nullptr;
+    }
 
+    if (cur -> key == key)
+    {
+        return cur;
+    }
+    if (cur -> key < key)
+    {
+        search(key, cur -> right);
+    }
+    else
+    {
+        search(key, cur -> left);
+    }
+}
 
 void RBTree::insert(Node *i) {
 

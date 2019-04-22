@@ -39,6 +39,8 @@ private slots:
 
     void DrawImage(const string&);
     void ShowStep(int new_index,int &current_index);
+    void on_removeBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 

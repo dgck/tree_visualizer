@@ -22,7 +22,9 @@ struct Node {
 class Tree
 {
 public:
+    virtual Node* getRoot() = 0;
     virtual void insert(Node*) = 0;
     virtual void deleteNode(Node*) = 0;
+    virtual Node* search(int key,Node*) = 0;
     virtual ~Tree(){}
 };

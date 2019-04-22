@@ -100,9 +100,12 @@ void MainWindow::on_quitBtn_clicked()
 
 void MainWindow::on_insertBtn_clicked()
 {
-    Node*node = new Node(ui->treeElement->text().toInt());
-    tree->insert(node);
-    ShowSequenceOfImages();
+    if(!timer.isActive())
+    {
+        Node*node = new Node(ui->treeElement->text().toInt());
+        tree->insert(node);
+        ShowSequenceOfImages();
+    }
 }
 
 void MainWindow::on_createBtn_clicked()
@@ -131,5 +134,15 @@ void MainWindow::on_nextStep_clicked()
             string filename = "step_" + QString::number(++index_of_current_step).toStdString() + ".png";
             DrawImage(filename);
         }
+    }
+}
+
+void MainWindow::on_removeBtn_clicked()
+{
+    if(tree->search(ui->treeElement->text().toInt(),tree->getRoot()))
+    {
+            Node* f = tree->search(ui->treeElement->text().toInt(),tree->getRoot());
+            tree->deleteNode(f);
+            ShowSequenceOfImages();
     }
 }
