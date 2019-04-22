@@ -69,7 +69,7 @@ void RBTree::stackWrite(int local_value) {
     dotFile.close();
 
     string comman_str = "";
-    comman_str += "F:\\tree_visualizer\\Lab2\\build-TreeVisualizer-Desktop_Qt_5_11_2_MinGW_32bit-Debug\\graphviz\\bin\\dot.exe -Tpng " + name_str + " -o step_" + std::to_string(global_value - 1) + ".png";
+    comman_str += "..\\TreeVisualizer\\graphviz\\bin\\dot.exe -Tpng " + name_str + " -o step_" + std::to_string(global_value - 1) + ".png";
     qDebug()<<comman_str.c_str();
     system(comman_str.c_str());
 
