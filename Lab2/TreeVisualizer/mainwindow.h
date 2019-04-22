@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "tree.h"
+#include "RBTree.h"
+#include <string>
+#include <QTimer>
+
 using namespace std;
 
 namespace Ui {
@@ -32,14 +35,21 @@ private slots:
 
     void on_nextStep_clicked();
 
-    void ShowImageGV();
+    void ShowSequenceOfImages();
 
+    void DrawImage(const string&);
+    void ShowStep(int new_index,int &current_index);
 private:
     Ui::MainWindow *ui;
 
-    int index = 0;
+    int overal_number_of_steps;
+    int index_of_current_step;
 
     Tree*tree;
+
+    const int TimePerStep;
+
+    QTimer timer;
 };
 
 #endif // MAINWINDOW_H
