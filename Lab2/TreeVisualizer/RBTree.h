@@ -9,6 +9,7 @@
 // 1 red
 // 0 black
 
+
 class RBTree:public Tree {
 public:
 
@@ -26,12 +27,15 @@ public:
     void transplant(Node* x, Node* y);
     void deleteNode(Node* x)override;
     void fixDeletion(Node* x);
+    void insert(int key);
+
+    void print_intermediate_steps();
 
 private:
     void insertFixup(Node* z);
-    void stackWrite();
+    void stackWrite(int local_value);
 
-
+    int global_value{0};
     Node* root;
 };
 
