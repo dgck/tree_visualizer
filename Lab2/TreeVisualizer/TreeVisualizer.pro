@@ -28,13 +28,15 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     RBTree.cpp \
-    imagewriter.cpp
+    imagewriter.cpp \
+    creator.cpp
 
 HEADERS += \
         mainwindow.h \
     RBTree.h \
     tree.h \
-    imagewriter.h
+    imagewriter.h \
+    creator.h
 
 FORMS += \
         mainwindow.ui

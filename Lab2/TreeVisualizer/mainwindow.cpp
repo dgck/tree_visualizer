@@ -1,11 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QString>
-#include <QPixmap>
-#include <QImage>
-#include <QFile>
-#include <QTextStream>
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    tree = new RBTree;
+    treeCreator = new Creator;
+
+    tree = treeCreator->createTree(Creator::RbTree);
 
     writer = new ImageWriter;
     connect(writer,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
@@ -92,7 +88,7 @@ void MainWindow::on_removeTreeBtn_clicked()
     if(tree)
     {
         delete tree;
-        tree = new RBTree;
+        tree = treeCreator->createTree(Creator::RbTree);
         writer->ResetSteps();
         ui->image->setText("There should be tree");
     }

@@ -2,9 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <creator.h>
 #include "RBTree.h"
-#include <string>
-#include <QTimer>
 #include "imagewriter.h"
 
 using namespace std;
@@ -45,6 +44,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    Creator*treeCreator;
+
+    //Bridge between UI and Tree realizations
     Tree*tree;
 
     ImageWriter *writer;

@@ -3,6 +3,8 @@
 
 #endif // TREE_H
 
+class RBTree;
+
 struct Node {
     Node(){}
     Node(int key)
@@ -28,3 +30,4 @@ public:
     virtual Node* search(int key,Node*) = 0;
     virtual ~Tree(){}
 };
+
