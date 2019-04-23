@@ -138,6 +138,19 @@
      <string>Tree</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="removeTreeBtn">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>150</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove Tree</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -5,6 +5,7 @@
 #include "RBTree.h"
 #include <string>
 #include <QTimer>
+#include "imagewriter.h"
 
 using namespace std;
 
@@ -35,23 +36,18 @@ private slots:
 
     void on_nextStep_clicked();
 
-    void ShowSequenceOfImages();
+    void DrawImage(const int&w,const int&h,const QPixmap&pix);
 
-    void DrawImage(const string&);
-    void ShowStep(int new_index,int &current_index);
     void on_removeBtn_clicked();
+
+    void on_removeTreeBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
 
-    int overal_number_of_steps;
-    int index_of_current_step;
-
     Tree*tree;
 
-    const int TimePerStep;
-
-    QTimer timer;
+    ImageWriter *writer;
 };
 
 #endif // MAINWINDOW_H
