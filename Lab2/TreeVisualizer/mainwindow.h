@@ -5,6 +5,7 @@
 #include <creator.h>
 #include "RBTree.h"
 #include "imagewriter.h"
+#include <QString>
 
 using namespace std;
 
@@ -21,35 +22,35 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_op1Btn_clicked();
+    void DrawImage(const int&w,const int&h,const QPixmap&pix,QLabel*image);
 
-    void on_op2Btn_clicked();
+    void MakeConnects();
 
-    void on_quitBtn_clicked();
+    void InsertInTree();
 
-    void on_insertBtn_clicked();
+    void RemoveFromTree();
 
-    void on_createBtn_clicked();
+    void DeleteTree();
 
-    void on_prevStep_clicked();
+    void PrevStep();
 
-    void on_nextStep_clicked();
+    void NextStep();
 
-    void DrawImage(const int&w,const int&h,const QPixmap&pix);
-
-    void on_removeBtn_clicked();
-
-    void on_removeTreeBtn_clicked();
+    void on_treeType_cb_currentIndexChanged(int index);
 
 private:
     Ui::MainWindow *ui;
 
+    //Factory
     Creator*treeCreator;
 
     //Bridge between UI and Tree realizations
-    Tree*tree;
+    Tree*tree1;
+    Tree*tree2;
 
-    ImageWriter *writer;
+    ImageWriter *writer1;
+    ImageWriter *writer2;
+    ImageWriter *writer3;//for result image
 };
 
 #endif // MAINWINDOW_H

@@ -8,7 +8,7 @@ class Creator
 public:
     Creator();
 
-    enum TreeType {SimpleTree,RbTree,SplayTree,OBSTTree,AVLTree};
+    enum TreeType {SimpleTree,RbTree,SplayTree,OBSTTree,BTree,BPlusTree};
 
     //factory method
     Tree*createTree(TreeType type);

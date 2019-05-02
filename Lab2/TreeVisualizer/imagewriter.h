@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <string>
 #include <QPixmap>
+#include <QLabel>
 
 using std::string;
 
@@ -11,7 +12,7 @@ class ImageWriter:public QObject
 {
     Q_OBJECT
 public:
-    ImageWriter();
+    ImageWriter(QLabel*image);
 
     void ShowSequenceOfImages();
     void CreateImage(const string&);
@@ -23,13 +24,14 @@ public:
     void DeleteImageFiles();
 
 signals:
-    void SendPictureInfo(const int&w,const int&h,const QPixmap&pix);
+    void SendPictureInfo(const int&w,const int&h,const QPixmap&pix,QLabel*image);
 
 private:
     int overal_number_of_steps;
     int index_of_current_step;
     const int TimePerStep;
     QTimer timer;
+    QLabel*image;
 };
 
 #endif // IMAGEWRITER_H

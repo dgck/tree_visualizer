@@ -4,10 +4,12 @@
 #include <QDebug>
 #include <QImage>
 
-ImageWriter::ImageWriter():TimePerStep(1000)
+ImageWriter::ImageWriter(QLabel*image):TimePerStep(1000)
 {
     overal_number_of_steps = 0;
     index_of_current_step = 0;
+
+    this->image = image;
 }
 
 void ImageWriter::ShowSequenceOfImages()
@@ -109,5 +111,5 @@ void ImageWriter::CreateImage(const string &filename)
     QPixmap pix(QPixmap::fromImage(*img));
     int w = pix.width();
     int h = pix.height();
-    emit SendPictureInfo(w,h,pix);
+    emit SendPictureInfo(w,h,pix,image);
 }

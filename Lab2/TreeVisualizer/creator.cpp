@@ -12,7 +12,7 @@ Tree *Creator::createTree(Creator::TreeType type)
     {
         case SimpleTree:
         {
-            //tree = new BinaryTree;
+            tree = new RBTree;
             break;
         }
         case RbTree:
@@ -22,17 +22,22 @@ Tree *Creator::createTree(Creator::TreeType type)
         }
         case SplayTree:
         {
-            //tree = new SplayTree;
+            tree = new RBTree;
             break;
         }
         case OBSTTree:
         {
-            //tree = new OBSTTree;
+            tree = new RBTree;
             break;
         }
-        case AVLTree:
+        case BTree:
         {
-            //tree = new AVLTree;
+            tree = new RBTree;
+            break;
+        }
+        case BPlusTree:
+        {
+            tree = new RBTree;
             break;
         }
     }

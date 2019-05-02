@@ -6,169 +6,355 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1031</width>
-    <height>657</height>
+    <width>997</width>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QRadioButton" name="oneTreeBtn">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>90</y>
-      <width>95</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>1</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="twoTreeBtn">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>90</y>
-      <width>95</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>2</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="treeTypeCb">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>30</y>
-      <width>73</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="insertBtn">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>150</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Insert</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="removeBtn">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>150</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remove</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="treeElement">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>150</y>
-      <width>113</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="createBtn">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>150</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Create</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="prevStep">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>340</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="nextStep">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>340</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="image">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>200</y>
-      <width>461</width>
-      <height>391</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Tree</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="removeTreeBtn">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>150</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remove Tree</string>
-    </property>
-   </widget>
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="2" column="0">
+     <widget class="QPushButton" name="mergeBTN">
+      <property name="text">
+       <string>Merge</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="prev3">
+      <property name="text">
+       <string>&lt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="3">
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="2" column="2">
+         <widget class="QComboBox" name="order_cb1">
+          <item>
+           <property name="text">
+            <string>Preorder</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Postorder</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Inorder</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLabel" name="lbl3">
+          <property name="text">
+           <string>To:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="insert1BTN">
+          <property name="text">
+           <string>Insert</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="Center1BTN">
+          <property name="text">
+           <string>Center</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1" colspan="2">
+         <widget class="QPushButton" name="delete1TreeBTN">
+          <property name="text">
+           <string>Delete tree</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QPushButton" name="next1">
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="9">
+         <widget class="QLabel" name="firstTree_img">
+          <property name="text">
+           <string>First Tree</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="diametr1BTN">
+          <property name="text">
+           <string>Diameter</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QSpinBox" name="to1"/>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="lbl2">
+          <property name="text">
+           <string>From:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QPushButton" name="prev1">
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QSpinBox" name="insElem1"/>
+        </item>
+        <item row="1" column="2">
+         <widget class="QSpinBox" name="removeElem1"/>
+        </item>
+        <item row="4" column="1" colspan="2">
+         <widget class="QPushButton" name="findPath1BTN">
+          <property name="text">
+           <string>Find path</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="remove1BTN">
+          <property name="text">
+           <string>Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="order1BTN">
+          <property name="text">
+           <string>Do</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="from1"/>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="2" column="1">
+         <widget class="QPushButton" name="order2BTN">
+          <property name="text">
+           <string>Do</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="Center2BTN">
+          <property name="text">
+           <string>Center</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QSpinBox" name="insElem2"/>
+        </item>
+        <item row="8" column="1">
+         <widget class="QPushButton" name="prev2">
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1" colspan="2">
+         <widget class="QPushButton" name="delete2TreeBTN">
+          <property name="text">
+           <string>Delete tree</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="diametr2BTN">
+          <property name="text">
+           <string>Diameter</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="lbl4">
+          <property name="text">
+           <string>From:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="2">
+         <widget class="QPushButton" name="findPath2BTN">
+          <property name="text">
+           <string>Find path</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QPushButton" name="next2">
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QSpinBox" name="to2"/>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLabel" name="lbl5">
+          <property name="text">
+           <string>To:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="from2"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="insert2BTN">
+          <property name="text">
+           <string>Insert</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="remove2BTN">
+          <property name="text">
+           <string>Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QSpinBox" name="removeElem2"/>
+        </item>
+        <item row="2" column="2">
+         <widget class="QComboBox" name="order_cb2">
+          <item>
+           <property name="text">
+            <string>Preorder</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Postorder</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Inorder</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="9">
+         <widget class="QLabel" name="secondTree_img">
+          <property name="text">
+           <string>Second Tree</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="1">
+       <widget class="QComboBox" name="treeType_cb">
+        <item>
+         <property name="text">
+          <string>Binary</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Red-Black</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Splay</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>OBST</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>B</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>B+</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbl1">
+        <property name="text">
+         <string>Tree Type</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="resultImg">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QPushButton" name="next3">
+      <property name="text">
+       <string>&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="inclusionBTN">
+      <property name="text">
+       <string>Inclusion</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="intersectionBTN">
+      <property name="text">
+       <string>Intersection</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1031</width>
+     <width>997</width>
      <height>26</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
