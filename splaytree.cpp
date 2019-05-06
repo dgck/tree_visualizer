@@ -151,6 +151,7 @@ void SplayTree::zig_zag(Node *x, Node *p, Node *g)
 
 Node *SplayTree::findMax(Node *x)
 {
+    if (!x) return NULL;
     Node* p = x;
     while (p->right != NULL)
         p = p->right;
@@ -216,6 +217,16 @@ void SplayTree::WriteToGV(ofstream &fout, Node *p)
 
 }
 
+void SplayTree::getElementsRecursion(Node *x, vector<int> &elements)
+{
+    if (x)
+    {
+        getElementsRecursion(x->left, elements);
+        elements.push_back(x->key);
+        getElementsRecursion(x->right, elements);
+    }
+}
+
 void SplayTree::show()
 {
     recursive_print(root);
@@ -228,7 +239,13 @@ void SplayTree::show_inorder()
 
 void SplayTree::merge(SplayTree *t)
 {
-    splay(findMax(root));
+    if (root)
+        splay(findMax(root));
+    else
+    {
+        root = t->root;
+        return;
+    }
     root->right = t->root;
     t->root->parent = root;
 }
@@ -309,4 +326,11 @@ void SplayTree::del(int data)
     t.root = deleted->right;
     root = deleted->left;
     merge(&t);
+}
+
+vector<int> SplayTree::getElements()
+{
+    vector<int> elements;
+    getElementsRecursion(root, elements);
+    return elements;
 }

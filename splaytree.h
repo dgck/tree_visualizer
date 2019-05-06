@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -38,6 +39,8 @@ private:
 
         void WriteToGV(ofstream &fout, Node* p);
 
+        void getElementsRecursion(Node *x, vector<int> &elements);
+
 public:
 
         SplayTree() : root(NULL) {}
@@ -60,6 +63,8 @@ public:
         Node* search(int data);
 
         void del(int data);
+
+        vector<int> getElements();
 };
 
 #endif // SPLAYTREE_H
