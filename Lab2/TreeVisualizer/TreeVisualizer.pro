@@ -29,14 +29,29 @@ SOURCES += \
         mainwindow.cpp \
     RBTree.cpp \
     imagewriter.cpp \
-    creator.cpp
+    creator.cpp \
+    TreeAlgorithms/treealgorithms.cpp \
+    TreeAlgorithms/simpletreealgorithms.cpp \
+    TreeAlgorithms/rbtreealgorithms.cpp \
+    TreeAlgorithms/splaytreealgorithms.cpp \
+    TreeAlgorithms/obsttreealgorithms.cpp \
+    TreeAlgorithms/btreealgorithms.cpp \
+    TreeAlgorithms/bplustreealgorithms.cpp
 
 HEADERS += \
         mainwindow.h \
     RBTree.h \
     tree.h \
     imagewriter.h \
-    creator.h
+    creator.h \
+    TreeAlgorithms/treealgorithms.h \
+    TreeAlgorithms/simpletreealgorithms.h \
+    TreeAlgorithms/rbtreealgorithms.h \
+    TreeAlgorithms/splaytreealgorithms.h \
+    TreeAlgorithms/obsttreealgorithms.h \
+    TreeAlgorithms/btreealgorithms.h \
+    TreeAlgorithms/bplustreealgorithms.h
+
 
 FORMS += \
         mainwindow.ui

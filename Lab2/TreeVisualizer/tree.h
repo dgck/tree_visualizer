@@ -1,9 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
 
-#endif // TREE_H
-
-class RBTree;
+#include "TreeAlgorithms/treealgorithms.h"
 
 struct Node {
     Node(){}
@@ -29,5 +27,8 @@ public:
     virtual void deleteNode(Node*) = 0;
     virtual Node* search(int key,Node*) = 0;
     virtual ~Tree(){}
+protected:
+    TreeAlgorithms*algorithms;
 };
 
+#endif // TREE_H
