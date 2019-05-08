@@ -1,4 +1,5 @@
 #include "rbtreealgorithms.h"
+#include "tree.h"
 
 RbTreeAlgorithms::RbTreeAlgorithms()
 {

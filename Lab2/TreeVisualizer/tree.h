@@ -28,6 +28,7 @@ public:
     virtual Node* search(int key,Node*) = 0;
     virtual ~Tree(){}
 protected:
+    TreeAlgorithms*algorithms;
 };
 
 #endif // TREE_H

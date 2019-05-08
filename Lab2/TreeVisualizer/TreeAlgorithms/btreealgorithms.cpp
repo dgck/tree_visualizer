@@ -1,4 +1,5 @@
 #include "btreealgorithms.h"
+#include "tree.h"
 
 BTreeAlgorithms::BTreeAlgorithms()
 {

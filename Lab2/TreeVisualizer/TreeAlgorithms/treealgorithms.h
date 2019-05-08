@@ -1,7 +1,7 @@
 #ifndef TREEALGORITHMS_H
 #define TREEALGORITHMS_H
 
-#include "tree.h"
+class Tree;
 
 class TreeAlgorithms
 {

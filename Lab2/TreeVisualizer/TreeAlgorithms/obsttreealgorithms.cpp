@@ -1,4 +1,5 @@
 #include "obsttreealgorithms.h"
+#include "tree.h"
 
 ObstTreeAlgorithms::ObstTreeAlgorithms()
 {

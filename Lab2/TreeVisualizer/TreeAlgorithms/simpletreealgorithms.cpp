@@ -1,4 +1,5 @@
 #include "simpletreealgorithms.h"
+#include "tree.h"
 
 SimpleTreeAlgorithms::SimpleTreeAlgorithms()
 {

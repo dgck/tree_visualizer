@@ -8,12 +8,13 @@
 #include <stack>
 #include <cstdlib>
 #include<QDebug>
-
+#include "TreeAlgorithms/rbtreealgorithms.h"
 using namespace std;
 
 RBTree::RBTree() {
     root = new Node;
     root = nullptr;
+    algorithms = new RbTreeAlgorithms;
 }
 
 Node *RBTree::getRoot() {

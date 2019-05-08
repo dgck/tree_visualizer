@@ -1,4 +1,5 @@
 #include "bplustreealgorithms.h"
+#include "tree.h"
 
 BPlusTreeAlgorithms::BPlusTreeAlgorithms()
 {

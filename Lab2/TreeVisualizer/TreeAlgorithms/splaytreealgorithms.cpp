@@ -1,4 +1,5 @@
 #include "splaytreealgorithms.h"
+#include "tree.h"
 
 SplayTreeAlgorithms::SplayTreeAlgorithms()
 {
