@@ -1,6 +1,6 @@
 #include "splaytree.h"
+#include "splaytree.h"
 #include <stdlib.h>
-
 
 void SplayTree::zig(Node *x)
 {
@@ -333,4 +333,81 @@ vector<int> SplayTree::getElements()
     vector<int> elements;
     getElementsRecursion(root, elements);
     return elements;
+}
+
+void SplayTree::getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices)
+{
+    if (x)
+    {
+        getVerticesRecursion(x->left, vertices);
+        vertices.push_back(make_tuple(0, x));
+        getVerticesRecursion(x->right, vertices);
+    }
+}
+
+vector<tuple<int, Node *> > SplayTree::getVertices()
+{
+    vector<tuple<int, Node*>> v;
+    getVerticesRecursion(root, v);
+    for (int i = 0; i < v.size(); ++i)
+        get<0>(v[i]) = i;
+    return v;
+}
+
+vector<vector<tuple<int, int> > > SplayTree::convertToGraph()
+{
+    vector<vector<tuple<int, int>>> adjacencyLists;
+    vector<tuple<int, Node*>> vertices = getVertices();
+    for (int i = 0; i < vertices.size(); ++i)
+    {
+        vector<tuple<int, int>> curList;
+        curList.push_back(make_tuple(i, (get<1>(vertices[i]))->key));
+
+        int k;
+
+        if (get<1>(vertices[i])->left)
+        {
+            for (int j = 0; j < vertices.size(); ++j)
+            {
+                if (get<1>(vertices[i])->left == get<1>(vertices[j]))
+                {
+                    k = j;
+                    break;
+                }
+            }
+
+            curList.push_back(make_tuple(k, (get<1>(vertices[k]))->key));
+        }
+
+        if (get<1>(vertices[i])->right)
+        {
+            for (int j = 0; j < vertices.size(); ++j)
+            {
+                if (get<1>(vertices[i])->right == get<1>(vertices[j]))
+                {
+                    k = j;
+                    break;
+                }
+            }
+
+            curList.push_back(make_tuple(k, (get<1>(vertices[k]))->key));
+        }
+
+        if (get<1>(vertices[i])->parent)
+        {
+            for (int j = 0; j < vertices.size(); ++j)
+            {
+                if (get<1>(vertices[i])->parent == get<1>(vertices[j]))
+                {
+                    k = j;
+                    break;
+                }
+            }
+
+            curList.push_back(make_tuple(k, (get<1>(vertices[k]))->key));
+        }
+
+        adjacencyLists.push_back(curList);
+    }
+    return adjacencyLists;
 }
