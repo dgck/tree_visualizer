@@ -254,4 +254,10 @@ vector<tuple<int, Node*>> diameter(SplayTree t)
         return routesU[maxIndex];
 }
 
+vector<tuple<int, Node*>> pathBetween(vector<vector<tuple<int, Node*>>> graph, tuple<int, Node*> v, tuple<int, Node*> u)
+{
+        vector<vector<tuple<int, Node*>>> pathesToV = BFS(graph, v, graph.size());
+        return pathesToV[get<0>(u)];
+}
+
 #endif // SPLAYTREE_H
