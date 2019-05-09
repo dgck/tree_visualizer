@@ -6,12 +6,12 @@ RbTreeAlgorithms::RbTreeAlgorithms()
 
 }
 
-void RbTreeAlgorithms::WriteToGV(Tree *tree)
+Tree *RbTreeAlgorithms::Intersection(Tree *tree1, Tree *tree2)
 {
 
 }
 
-void RbTreeAlgorithms::CreateImageFromGV(Tree *tree)
+Tree *RbTreeAlgorithms::Inclusion(Tree *tree1, Tree *tree2)
 {
 
 }

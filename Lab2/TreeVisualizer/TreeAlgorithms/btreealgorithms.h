@@ -7,9 +7,9 @@ class BTreeAlgorithms:public TreeAlgorithms
 {
 public:
     BTreeAlgorithms();
-    void WriteToGV(Tree*tree)override;
-    void CreateImageFromGV(Tree*tree)override;
-    Tree* Merge(Tree*tree1,Tree*tree2)override;
+    virtual Tree* Merge(Tree*tree1,Tree*tree2) = 0;
+    virtual Tree* Inclusion(Tree*tree1,Tree*tree2) = 0;
+    virtual Tree* Intersection(Tree*tree1,Tree*tree2) = 0;
 };
 
 #endif // BTREEALGORITHMS_H

@@ -6,12 +6,12 @@ BPlusTreeAlgorithms::BPlusTreeAlgorithms()
 
 }
 
-void BPlusTreeAlgorithms::WriteToGV(Tree *tree)
+Tree *BPlusTreeAlgorithms::Intersection(Tree *tree1, Tree *tree2)
 {
 
 }
 
-void BPlusTreeAlgorithms::CreateImageFromGV(Tree *tree)
+Tree *BPlusTreeAlgorithms::Inclusion(Tree *tree1, Tree *tree2)
 {
 
 }

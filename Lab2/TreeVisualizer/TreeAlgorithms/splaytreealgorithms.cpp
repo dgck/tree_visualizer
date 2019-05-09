@@ -6,12 +6,12 @@ SplayTreeAlgorithms::SplayTreeAlgorithms()
 
 }
 
-void SplayTreeAlgorithms::WriteToGV(Tree *tree)
+Tree *SplayTreeAlgorithms::Intersection(Tree *tree1, Tree *tree2)
 {
 
 }
 
-void SplayTreeAlgorithms::CreateImageFromGV(Tree *tree)
+Tree *SplayTreeAlgorithms::Inclusion(Tree *tree1, Tree *tree2)
 {
 
 }

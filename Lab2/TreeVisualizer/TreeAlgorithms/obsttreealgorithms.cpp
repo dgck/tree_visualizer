@@ -6,12 +6,12 @@ ObstTreeAlgorithms::ObstTreeAlgorithms()
 
 }
 
-void ObstTreeAlgorithms::WriteToGV(Tree *tree)
+Tree *ObstTreeAlgorithms::Intersection(Tree *tree1, Tree *tree2)
 {
 
 }
 
-void ObstTreeAlgorithms::CreateImageFromGV(Tree *tree)
+Tree *ObstTreeAlgorithms::Inclusion(Tree *tree1, Tree *tree2)
 {
 
 }

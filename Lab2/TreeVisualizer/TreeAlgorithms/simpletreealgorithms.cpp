@@ -6,12 +6,12 @@ SimpleTreeAlgorithms::SimpleTreeAlgorithms()
 
 }
 
-void SimpleTreeAlgorithms::WriteToGV(Tree *tree)
+Tree *SimpleTreeAlgorithms::Intersection(Tree *tree1, Tree *tree2)
 {
 
 }
 
-void SimpleTreeAlgorithms::CreateImageFromGV(Tree *tree)
+Tree *SimpleTreeAlgorithms::Inclusion(Tree *tree1, Tree *tree2)
 {
 
 }
