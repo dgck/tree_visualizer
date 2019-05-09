@@ -260,4 +260,18 @@ vector<tuple<int, Node*>> pathBetween(vector<vector<tuple<int, Node*>>> graph, t
         return pathesToV[get<0>(u)];
 }
 
+vector<tuple<int, Node*>> center(SplayTree t)
+{
+        vector<tuple<int, Node*>> c;
+        vector<tuple<int, Node*>> d = diameter(t);
+        if (d.size() % 2 == 1)
+                c.push_back(d[d.size() / 2]);
+        else
+        {
+                c.push_back(d[d.size() / 2]);
+                c.push_back(d[d.size() / 2 - 1]);
+        }
+        return c;
+}
+
 #endif // SPLAYTREE_H
