@@ -154,4 +154,104 @@ void demo2()
         }
 }
 
+vector<vector<tuple<int, Node*>>> BFS(vector<vector<tuple<int, Node*>>> graph, tuple<int, Node*> vertex, int graphSize)
+{
+        vector<vector<tuple<int, Node*>>> routes(graphSize);
+
+        queue<int> q;
+        q.push(get<0>(vertex));
+        vector<bool> visited(graphSize);
+        visited[get<0>(vertex)] = true;
+        vector<int> d(graphSize), p(graphSize);
+        p[get<0>(vertex)] = -1;
+
+
+        while (!q.empty())
+        {
+                int v = q.front();
+                q.pop();
+
+                for (int i = 0; i < graph[v].size(); ++i)
+                {
+                        int to = get<0>(graph[v][i]);
+                        if (!visited[to])
+                        {
+                                visited[to] = true;
+                                q.push(to);
+
+                                d[to] = d[v] + 1;
+                                p[to] = v;
+                        }
+                }
+        }
+
+        for (int j = 0; j < graphSize; ++j)
+        {
+
+                int to = get<0>(graph[j][0]);
+                vector<int> path;
+                for (int v = to; v != -1; v = p[v])
+                        path.push_back(v);
+                reverse(path.begin(), path.end());
+                cout << "Path to " << j << endl;
+                for (size_t i = 0; i < path.size(); ++i)
+                        cout << path[i] << " ";
+                cout << endl;
+
+                for (size_t i = 0; i < path.size(); ++i)
+                        for (int k = 0; k < graphSize; ++k)
+                        {
+                                if (path[i] == get<0>(graph[k][0]))
+                                {
+                                        tuple<int, Node*> t = make_tuple(path[i], get<1>(graph[k][0]));
+                                        // восстанавливаем путь к вершине под номером j
+                                        routes[j].push_back(t);
+                                }
+                        }
+        }
+
+
+        return routes;
+}
+
+vector<tuple<int, Node*>> diameter(SplayTree t)
+{
+        vector<vector<tuple<int, Node*>>> graph = t.convertToGraph();
+        vector<tuple<int, Node*>> path;
+        int n = t.getElements().size();
+
+        vector<vector<tuple<int, Node*>>> routesV = BFS(graph, graph[0][0], n);
+
+        int max = -1;
+        int maxIndex = -1;
+
+        for (int i = 0; i < routesV.size(); ++i)
+        {
+                int cur = routesV[i].size();
+                if (cur > max)
+                {
+                        max = cur;
+                        maxIndex = i;
+                }
+        }
+
+        // нашли вершину u - самую далекую от v; она хранится в graph[maxIndex][0]
+        if (maxIndex == -1) return routesV[0];
+        vector<vector<tuple<int, Node*>>> routesU = BFS(graph, graph[maxIndex][0], n);
+
+        max = maxIndex = -1;
+
+        for (int i = 0; i < routesU.size(); ++i)
+        {
+                int cur = routesU[i].size();
+                if (cur > max)
+                {
+                        max = cur;
+                        maxIndex = i;
+                }
+        }
+
+        return routesU[maxIndex];
+}
+
 #endif // SPLAYTREE_H
