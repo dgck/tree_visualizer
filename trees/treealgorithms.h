@@ -44,6 +44,7 @@ public:
             }
     }
 
+
     vector<int> intersection(RBTree t1, RBTree t2){
         vector<int> v1=t1.getElements(), v2=t2.getElements(), inters;
         inters = intersection(v1,v2);
