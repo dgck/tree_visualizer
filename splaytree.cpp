@@ -1,33 +1,31 @@
 #include "splaytree.h"
-#include "splaytree.h"
-#include <stdlib.h>
 
 void SplayTree::zig(Node *x)
 {
-    Node* p = x->parent;
+    Node* p = x->father;
     if (x == p->left)
     {
         Node* xright = x->right;
 
-        x->parent = NULL;
+        x->father = nullptr;
         x->right = p;
 
-        p->parent = x;
+        p->father = x;
         p->left = xright;
-        if (xright != NULL)
-            xright->parent = p;
+        if (xright != nullptr)
+            xright->father = p;
     }
     else
     {
         Node* xleft = x->left;
 
-        x->parent = NULL;
+        x->father = nullptr;
         x->left = p;
 
-        p->parent = x;
+        p->father = x;
         p->right = xleft;
-        if (xleft != NULL)
-            xleft->parent = p;
+        if (xleft != nullptr)
+            xleft->father = p;
     }
 }
 
@@ -38,56 +36,56 @@ void SplayTree::zig_zig(Node *x, Node *p, Node *g)
         Node* xright = x->right;
         Node* pright = p->right;
 
-        x->parent = g->parent;
+        x->father = g->father;
         x->right = p;
 
-        if (x->parent != NULL)
+        if (x->father != nullptr)
         {
-            if (g == x->parent->left)
-                x->parent->left = x;
+            if (g == x->father->left)
+                x->father->left = x;
             else
-                x->parent->right = x;
+                x->father->right = x;
         }
 
-        p->parent = x;
+        p->father = x;
         p->left = xright;
         p->right = g;
 
-        g->parent = p;
+        g->father = p;
         g->left = pright;
 
-        if (xright != NULL)
-            xright->parent = p;
-        if (pright != NULL)
-            pright->parent = g;
+        if (xright != nullptr)
+            xright->father = p;
+        if (pright != nullptr)
+            pright->father = g;
     }
     else
     {
         Node* xleft = x->left;
         Node* pleft = p->left;
 
-        x->parent = g->parent;
+        x->father = g->father;
         x->left = p;
 
-        if (x->parent != NULL)
+        if (x->father != nullptr)
         {
-            if (g == x->parent->left)
-                x->parent->left = x;
+            if (g == x->father->left)
+                x->father->left = x;
             else
-                x->parent->right = x;
+                x->father->right = x;
         }
 
-        p->parent = x;
+        p->father = x;
         p->left = g;
         p->right = xleft;
 
-        g->parent = p;
+        g->father = p;
         g->right = pleft;
 
-        if (xleft != NULL)
-            xleft->parent = p;
-        if (pleft != NULL)
-            pleft->parent = g;
+        if (xleft != nullptr)
+            xleft->father = p;
+        if (pleft != nullptr)
+            pleft->father = g;
     }
 }
 
@@ -98,73 +96,73 @@ void SplayTree::zig_zag(Node *x, Node *p, Node *g)
         Node* xleft = x->left;
         Node* xright = x->right;
 
-        x->parent = g->parent;
+        x->father = g->father;
         x->left = p;
         x->right = g;
 
-        if (x->parent != NULL)
+        if (x->father != nullptr)
         {
-            if (g == x->parent->left)
-                x->parent->left = x;
+            if (g == x->father->left)
+                x->father->left = x;
             else
-                x->parent->right = x;
+                x->father->right = x;
         }
 
-        p->parent = x;
-        g->parent = x;
+        p->father = x;
+        g->father = x;
         p->right = xleft;
         g->left = xright;
 
-        if (xleft != NULL)
-            xleft->parent = p;
-        if (xright != NULL)
-            xright->parent = g;
+        if (xleft != nullptr)
+            xleft->father = p;
+        if (xright != nullptr)
+            xright->father = g;
     }
     else
     {
         Node* xleft = x->left;
         Node* xright = x->right;
 
-        x->parent = g->parent;
+        x->father = g->father;
         x->left = g;
         x->right = p;
 
-        if (x->parent != NULL)
+        if (x->father != nullptr)
         {
-            if (g == x->parent->left)
-                x->parent->left = x;
+            if (g == x->father->left)
+                x->father->left = x;
             else
-                x->parent->right = x;
+                x->father->right = x;
         }
 
-        p->parent = x;
-        g->parent = x;
+        p->father = x;
+        g->father = x;
         p->left = xright;
         g->right = xleft;
 
-        if (xleft != NULL)
-            xleft->parent = g;
-        if (xright != NULL)
-            xright->parent = p;
+        if (xleft != nullptr)
+            xleft->father = g;
+        if (xright != nullptr)
+            xright->father = p;
     }
 }
 
 Node *SplayTree::findMax(Node *x)
 {
-    if (!x) return NULL;
+    if (!x) return nullptr;
     Node* p = x;
-    while (p->right != NULL)
+    while (p->right != nullptr)
         p = p->right;
     return p;
 }
 
 void SplayTree::splay(Node *x)
 {
-    while (x->parent != NULL)
+    while (x->father != nullptr)
     {
-        Node* p = x->parent;
-        Node* g = p->parent;
-        if (g == NULL)
+        Node* p = x->father;
+        Node* g = p->father;
+        if (g == nullptr)
             zig(x);
         else if (((g->left == p) && (p->left == x)) || ((g->right == p) && (p->right == x)))
             zig_zig(x, p, g);
@@ -189,8 +187,8 @@ void SplayTree::recursive_inorder(Node *start)
     if (start)
     {
         cout << "Key: " << start->key << "\tParent: ";
-        if (start->parent)
-            cout << start->parent->key;
+        if (start->father)
+            cout << start->father->key;
         else
             cout << "ROOT";
         cout << endl;
@@ -198,23 +196,6 @@ void SplayTree::recursive_inorder(Node *start)
         recursive_inorder(start->left);
         recursive_inorder(start->right);
     }
-}
-
-void SplayTree::WriteToGV(ofstream &fout, Node *p)
-{
-    if (p != NULL)
-    {
-        fout << '"' << p->key << "\";";
-        if (p->left != NULL) fout << '"' << p->key << "\" -> \"" << p->left->key << "\";\n";
-        if (p->right != NULL) fout << '"' << p->key << "\" -> \"" << p->right->key << "\";\n";
-    }
-
-    if (p->left != NULL)
-        WriteToGV(fout, p->left);
-
-    if (p->right != NULL)
-        WriteToGV(fout, p->right);
-
 }
 
 void SplayTree::getElementsRecursion(Node *x, vector<int> &elements)
@@ -237,6 +218,12 @@ void SplayTree::show_inorder()
     recursive_inorder(root);
 }
 
+void SplayTree::merge(Tree *t)
+{
+    SplayTree* t1 = dynamic_cast<SplayTree*>(t);
+    merge(t1);
+}
+
 void SplayTree::merge(SplayTree *t)
 {
     if (root)
@@ -247,25 +234,27 @@ void SplayTree::merge(SplayTree *t)
         return;
     }
     root->right = t->root;
-    t->root->parent = root;
+    t->root->father = root;
 }
 
-SplayTree *SplayTree::split(Node *x)
+Tree* SplayTree::split(int y)
 {
+    Node* x = new Node(y);
     splay(x);
     SplayTree *t = new SplayTree();
     t->root = x->left;
-    x->left = NULL;
-    return t;
+    x->left = nullptr;
+    Tree* t1 = dynamic_cast<Tree*>(t);
+    return t1;
 }
 
 void SplayTree::insert(int data)
 {
     Node* n = new Node(data);
 
-    Node *tempR = root, *temp = NULL;
+    Node *tempR = root, *temp = nullptr;
 
-    while (tempR != NULL)
+    while (tempR != nullptr)
     {
         temp = tempR;
 
@@ -275,9 +264,9 @@ void SplayTree::insert(int data)
             tempR = tempR->right;
     }
 
-    n->parent = temp;
+    n->father = temp;
 
-    if (temp == NULL)
+    if (temp == nullptr)
         root = n;
     else if (n->key < temp->key)
         temp->left = n;
@@ -285,15 +274,6 @@ void SplayTree::insert(int data)
         temp->right = n;
 
     splay(n);
-}
-
-void SplayTree::FWrite(string fileName)
-{
-    ofstream fout(fileName);
-    fout << "digraph {\n";
-    WriteToGV(fout, root);
-    fout << "}";
-    fout.close();
 }
 
 Node *SplayTree::search(int data)
@@ -313,10 +293,10 @@ Node *SplayTree::search(int data)
         splay(p);
         return p;
     }
-    return NULL;
+    return nullptr;
 }
 
-void SplayTree::del(int data)
+void SplayTree::deleteNode(int data)
 {
     Node* deleted = search(data);
     if (!deleted) return;
@@ -345,6 +325,11 @@ void SplayTree::getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &verti
     }
 }
 
+SplayTree::SplayTree()
+{
+    root = nullptr;
+}
+
 vector<tuple<int, Node *> > SplayTree::getVertices()
 {
     vector<tuple<int, Node*>> v;
@@ -354,7 +339,65 @@ vector<tuple<int, Node *> > SplayTree::getVertices()
     return v;
 }
 
-vector<vector<tuple<int, int> > > SplayTree::convertToGraph()
+vector<int> SplayTree::intersection(Tree *)
+{
+    return vector<int>(0);
+}
+
+vector<int> SplayTree::intersection(vector<int> v1, vector<int> v2)
+{
+    return vector<int>(0);
+}
+
+tuple<bool, int> SplayTree::inclusion()
+{
+    return make_tuple(false, 0);
+}
+
+void SplayTree::dfs()
+{
+
+}
+
+void SplayTree::dfs(int v, vector<vector<tuple<int, int> > > g, vector<bool> &used, vector<int> &path)
+{
+
+}
+
+void SplayTree::dfs(int v, vector<vector<tuple<int, string> > > g, vector<bool> &used, vector<int> &path)
+{
+
+}
+
+vector<vector<tuple<int, int> > > SplayTree::bfs(tuple<int, int>)
+{
+    vector<vector<tuple<int, int> > > v;
+    return v;
+}
+
+vector<vector<tuple<int, string> > > SplayTree::bfs(tuple<int, string>)
+{
+    vector<vector<tuple<int, string> > > v;
+    return v;
+}
+
+vector<vector<tuple<int, int *> > > SplayTree::bfs(tuple<int, int *>)
+{
+    vector<vector<tuple<int, int *> > > v;
+    return v;
+}
+
+void SplayTree::diameter()
+{
+
+}
+
+void SplayTree::center()
+{
+
+}
+
+/*vector<vector<tuple<int, int> > > SplayTree::convertToGraph()
 {
     vector<vector<tuple<int, int>>> adjacencyLists;
     vector<tuple<int, Node*>> vertices = getVertices();
@@ -411,3 +454,4 @@ vector<vector<tuple<int, int> > > SplayTree::convertToGraph()
     }
     return adjacencyLists;
 }
+*/
