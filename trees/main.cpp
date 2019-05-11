@@ -3,6 +3,7 @@
 #include "rbtree.h"
 #include "treealgorithms.h"
 #include <clocale>
+#include "bplustree.h"
 
 int main()
 {
@@ -11,7 +12,7 @@ int main()
    // MainWindow w;
    // w.show();
 
-   RBTree t;
+   /*RBTree t;
     t.insert(10);
     t.insert(5);
     t.insert(15);
@@ -32,8 +33,35 @@ vector<vector<tuple<int,int>>> al = t.convertToGraph();
     }
 
     TreeAlgorithms alg;
-    alg.dsf(t);
+    //alg.dsf(t);
 
+*/
+    Tree*  t= new BplusTree();
+    Tree*  t2= new BplusTree();
+    t->insert(10);
+    t->insert(5);
+    t->insert(15);
+    t->insert(1);
+    t->insert(20);
+    t->insert(13);
+    t->insert(7);
+    t->insert(11);
+
+    t2->insert(10);
+    t2->insert(5);
+    t2->insert(15);
+    t2->insert(1);
+    t2->insert(24);
+
+
+    t->dfs();
+    vector<int> v=t->intersection(t2);
+    cout<<endl;
+    for (int i=0;i<v.size();i++) {
+        cout<<v[i]<<endl;
+    }
+
+    t->diameter();
 
         system("pause");
         return 0;

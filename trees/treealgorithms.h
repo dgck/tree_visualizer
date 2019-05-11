@@ -11,7 +11,7 @@ class TreeAlgorithms
 {
 public:
     TreeAlgorithms();
-    void dsf(Tree t){
+    /*void dsf(Tree t){
         vector<vector<tuple<int, int>>> adj = t.convertToGraph();
         vector<vector<tuple<int, int>>> v = {
                 {make_tuple(0,1),make_tuple(1,5)},
@@ -69,7 +69,7 @@ public:
         if(v1.size()>v2.size()&& v2.size()==inters.size())
             return make_tuple(true,2); //first tree includes second
         return make_tuple(false, 0);
-    }
+    }*/
 };
 
 

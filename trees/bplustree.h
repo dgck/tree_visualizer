@@ -8,12 +8,12 @@
 using namespace std;
 const int MAX = 50;
 
-struct Node {
+struct BNode {
     int nElems;
-    Node *parent;
+    BNode *parent;
     int value[MAX];
-    Node *child[MAX];
-    Node() {
+    BNode *child[MAX];
+    BNode() {
         nElems = 0;
         parent = nullptr;
         for (int i = 0; i < MAX; i++) {
@@ -28,27 +28,27 @@ class BplusTree:public Tree
 
 private:
     int T = 4; //степінь [t = t + 1]
-    void splitLeaf(Node *curr);
-    void splitNonLeaf(Node *curr);
-    void insertNode(Node* curr, int val);
-    void redistributeCell(Node *left, Node *right, bool isLeaf, int posOfLeftBlock, int isCurBlock);
-    void mergeCell(Node *left, Node *right, bool isLeaf, int posOfRightBlock);
-    void deleteNode(Node *curr, int value, int currPos);
-    void getElem(vector <Node*> Nodes, vector<int>& v);
-    void graphvizRec(vector <Node*> Nodes);
-    void getVerticesRecursion(Node *, vector<tuple<int, Node *>> &);
-    vector<tuple<int, Node *>> getVertices();
-    void dfs(int v, vector<vector<tuple<int, Node*>>> g, vector<bool> &used, vector<int> &path);
+    void splitLeaf(BNode *curr);
+    void splitNonLeaf(BNode *curr);
+    void insertNode(BNode* curr, int val);
+    void redistributeCell(BNode *left, BNode *right, bool isLeaf, int posOfLeftBlock, int isCurBlock);
+    void mergeCell(BNode *left, BNode *right, bool isLeaf, int posOfRightBlock);
+    void deleteNode(BNode *curr, int value, int currPos);
+    void getElem(vector <BNode*> Nodes, vector<int>& v);
+    void graphvizRec(vector <BNode*> Nodes);
+    void getVerticesRecursion(BNode *, vector<tuple<int, BNode *>> &);
+    vector<tuple<int, BNode *>> getVertices();
+    void dfs(int v, vector<vector<tuple<int, BNode*>>> g, vector<bool> &used, vector<int> &path);
 
 
 public:
-    Node* root;
+    BNode* root;
 
     BplusTree();
     ~BplusTree()override;
 
-    Node* getRoot() { return root; }
-    vector<vector<tuple<int, Node*>>> convertToGraph();
+    BNode* getRoot() { return root; }
+    vector<vector<tuple<int, BNode*>>> convertToGraph();
     void graphviz();
 
 

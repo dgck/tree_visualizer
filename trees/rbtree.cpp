@@ -9,7 +9,7 @@
 #include <tuple>
 using namespace std;
 
-
+/*
 
 RBTree::RBTree(const RBTree &tree)
 {
@@ -197,9 +197,9 @@ Node* RBTree::search(int in)
     else if (t->key == in)
         return t;
     return nullptr;
-}
+}*/
 
-
+/*
 int RBTree::BlackHeight() {
     Node *p;
     p = root;
@@ -587,49 +587,39 @@ void RBTree::join(RBTree rbTree2) {
     return;
 }
 
-Tree* RBTree::split(int x) {
-    RBTree t1, t2;
+RBTree* RBTree::splitR(int x) {
+    RBTree* t1, *t2;
     Node* k = root;
 
     while (k != nullptr) {
         if (x == k->key) {
             RBTree tempR(k->right); RBTree tR(tempR); tR.root->father = nullptr;
-            t2.join(tR);
+            t2->join(tR);
             RBTree tempL(k->left); RBTree tL(tempL);
-            t1.join(tL);
+            t1->join(tL);
             break;
         }
         if (x < k->key) {
 
             RBTree temp(k); RBTree t(temp); t.root->left = nullptr; t.root->father = nullptr;
-            t2.join(t);
+            t2->join(t);
             if(k->left) k = k->left; else break;
         }
         else{
             RBTree temp(k); RBTree t(temp); t.root->right = nullptr;
-            t1.join(t);
+            t1->join(t);
             if(k->right) k = k->right; else break;
         }
     }
-    if(k!=nullptr && k->key != x) k->key < x ? t1.insert(k->key) : t2.insert(k->key);
-    root = t1.root;
+    if(k!=nullptr && k->key != x) k->key < x ? t1->insert(k->key) : t2->insert(k->key);
+    root = t1->root;
     if(root)root->father = nullptr;
-    if(t2.root)t2.root->father = nullptr;
+    if(t2->root)t2->root->father = nullptr;
 
-    BinaryTree b = t2;
-    Tree* t = new BinaryTree();
-    t = &b;
-    return t;
+    return t2;
 }
 
 void RBTree::merge(RBTree t) {
-    /*function union(t1, t2):
-    if t1 = nil:
-        return t2
-    if t2 = nil:
-        return t1
-    t<, t> ← split t2 on t1.root
-    return join(t1.root, tL.merge(new RBTree(root->left), tR.merge(new RBTree(root->right))*/
 
     if (root == nullptr) {
         root = t.root;
@@ -638,12 +628,12 @@ void RBTree::merge(RBTree t) {
     if (t.root == nullptr)
         return;
 
-    RBTree tL(t), tR;
-    tR =tL.split(root->key);
+    RBTree tL(t), *tR;
+    tR = tL.splitR(root->key);
     //tL.insert(root->key);
     //tL.merge(RBTree(root->left));
     //tR.merge(RBTree(root->right));
-    tR.join(tL);
+    tR->join(tL);
     root = tL.root;
 
 }
@@ -743,3 +733,15 @@ vector<vector<tuple<int, int> > > RBTree::convertToGraph()
     }
     return adjacencyLists;
 }
+
+
+
+void RBTree::merge(Tree *)
+{
+}
+
+Tree *RBTree::split(int)
+{
+    return nullptr;
+}
+*/

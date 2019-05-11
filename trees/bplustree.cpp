@@ -3,18 +3,19 @@
 #include <vector>
 #include <tuple>
 #include <fstream>
+#include <queue>
 
 using namespace std;
 
 BplusTree::BplusTree()
 {
-    root = new Node();
+    root = new BNode();
 }
 BplusTree::~BplusTree()
 {
 }
 
-void BplusTree::splitLeaf(Node *curr) {
+void BplusTree::splitLeaf(BNode *curr) {
     int x, i, j;
 
     if (T % 2)
@@ -25,7 +26,7 @@ void BplusTree::splitLeaf(Node *curr) {
     {
         x = T / 2;
     }
-    Node *right = new Node();
+    BNode *right = new BNode();
     curr->nElems = x;
     right->nElems = T - x;
     right->parent = curr->parent;
@@ -38,7 +39,7 @@ void BplusTree::splitLeaf(Node *curr) {
 
     //якщо листок це корінь
     if (curr->parent == nullptr) {
-        Node *parentNode = new Node();
+        BNode *parentNode = new BNode();
         parentNode->parent = nullptr;
         parentNode->nElems = 1;
         parentNode->value[0] = item;
@@ -52,7 +53,7 @@ void BplusTree::splitLeaf(Node *curr) {
     else
     {
         curr = curr->parent;
-        Node *newChild = new Node();
+        BNode *newChild = new BNode();
         newChild = right;
         for (i = 0; i <= curr->nElems; i++) {
             if (item < curr->value[i]) {
@@ -74,11 +75,11 @@ void BplusTree::splitLeaf(Node *curr) {
 }
 
 //функція для розбиття нелистового вузла
-void BplusTree::splitNonLeaf(Node *curr) {
+void BplusTree::splitNonLeaf(BNode *curr) {
     int x, i, j;
 
     x = T / 2;
-    Node *right = new Node();
+    BNode *right = new BNode();
     curr->nElems = x;
     right->nElems = T - x - 1;
     right->parent = curr->parent;
@@ -102,7 +103,7 @@ void BplusTree::splitNonLeaf(Node *curr) {
 
     //якщо розбитий вузол це корінь
     if (curr->parent == nullptr) {
-        Node *parentNode = new Node();
+        BNode *parentNode = new BNode();
         parentNode->parent = nullptr;
         parentNode->nElems = 1;
         parentNode->value[0] = item;
@@ -118,7 +119,7 @@ void BplusTree::splitNonLeaf(Node *curr) {
     else
     {
         curr = curr->parent;
-        Node *newChild = new Node();
+        BNode *newChild = new BNode();
         newChild = right;
 
         for (i = 0; i <= curr->nElems; i++) {
@@ -145,7 +146,7 @@ void BplusTree::insert(int val) {
     insertNode(root, val);
 }
 
-void BplusTree::insertNode(Node *curr, int val) {
+void BplusTree::insertNode(BNode *curr, int val) {
     for (int i = 0; i <= curr->nElems; i++) {
         if (val < curr->value[i] && curr->child[i] != nullptr) {
             insertNode(curr->child[i], val);
@@ -168,7 +169,7 @@ void BplusTree::insertNode(Node *curr, int val) {
 }
 
 //операція перерозроділу вузлів
-void BplusTree::redistributeCell(Node *left, Node *right, bool isLeaf, int posOfLeftBlock, int isCurBlock) {
+void BplusTree::redistributeCell(BNode *left, BNode *right, bool isLeaf, int posOfLeftBlock, int isCurBlock) {
 
     int PrevRightFirstVal = right->value[0];
     if (isCurBlock == 0) {
@@ -220,7 +221,7 @@ void BplusTree::redistributeCell(Node *left, Node *right, bool isLeaf, int posOf
 }
 
 //операція злиття вузлів
-void BplusTree::mergeCell(Node *left, Node *right, bool isLeaf, int posOfRightBlock) {
+void BplusTree::mergeCell(BNode *left, BNode *right, bool isLeaf, int posOfRightBlock) {
 
     if (!isLeaf) {
 
@@ -246,7 +247,7 @@ void BplusTree::deleteNode(int val) {
     deleteNode(root, val, 0);
 }
 
-void BplusTree::deleteNode(Node *curr, int value, int currPos) {
+void BplusTree::deleteNode(BNode *curr, int value, int currPos) {
 
     bool isLeaf;
     if (curr->child[0] == nullptr)
@@ -292,7 +293,7 @@ void BplusTree::deleteNode(Node *curr, int value, int currPos) {
 
     if (isLeaf && curr->parent != nullptr) {
         if (currPos == 0) {
-            Node *right = new Node();
+            BNode *right = new BNode();
 
             right = curr->parent->child[1];
             if (right != nullptr && right->nElems > (T + 1) / 2) {
@@ -305,8 +306,8 @@ void BplusTree::deleteNode(Node *curr, int value, int currPos) {
         }
         else
         {
-            Node *left = new Node();
-            Node *right = new Node();
+            BNode *left = new BNode();
+            BNode *right = new BNode();
 
             left = curr->parent->child[currPos - 1];
 
@@ -329,7 +330,7 @@ void BplusTree::deleteNode(Node *curr, int value, int currPos) {
     else if (!isLeaf && curr->parent != nullptr)
     {
         if (currPos == 0) {
-            Node *right = new Node();
+            BNode *right = new BNode();
             right = curr->parent->child[1];
 
             if (right != nullptr && right->nElems - 1 >= ceil((T - 1) / 2)) {
@@ -341,8 +342,8 @@ void BplusTree::deleteNode(Node *curr, int value, int currPos) {
         }
         else
         {
-            Node *left = new Node();
-            Node *right = new Node();
+            BNode *left = new BNode();
+            BNode *right = new BNode();
 
 
             left = curr->parent->child[currPos - 1];
@@ -364,7 +365,7 @@ void BplusTree::deleteNode(Node *curr, int value, int currPos) {
         }
 
     }
-    Node *temp = new Node();
+    BNode *temp = new BNode();
     temp = curr->parent;
     while (temp != nullptr) {
         for (int i = 0; i < temp->nElems; i++) {
@@ -384,18 +385,18 @@ void BplusTree::graphviz()
     errno_t err = fopen_s(&f, "graphviz.dat", "w");
     fputs("digraph G{\n", f);
     fclose(f);
-    vector<Node*> nodes={root};
+    vector<BNode*> nodes={root};
     graphvizRec(nodes);
     err = fopen_s(&f, "graphviz.dat", "a");
     fputc('}', f);
     fclose(f);
 }
 
-void BplusTree::graphvizRec(vector <Node*> Nodes)
+void BplusTree::graphvizRec(vector <BNode*> Nodes)
 {
-    vector <Node*> newCells;
+    vector <BNode*> newCells;
     for (int i = 0; i < Nodes.size(); i++) {
-        Node *curr = Nodes[i];
+        BNode *curr = Nodes[i];
 
 
 
@@ -474,17 +475,17 @@ void BplusTree::graphvizRec(vector <Node*> Nodes)
 
 vector<int> BplusTree::getElements() {
     vector<int> v;
-    vector<Node*> t = { root };
+    vector<BNode*> t = { root };
     getElem(t, v);
     return v;
 }
 
-void BplusTree::getElem(vector <Node*> Nodes, vector<int>& v) {
+void BplusTree::getElem(vector <BNode*> Nodes, vector<int>& v) {
 
 
-    vector <Node*> newCells;
+    vector <BNode*> newCells;
     for (int i = 0; i < Nodes.size(); i++) {
-        Node *curr = Nodes[i];
+        BNode *curr = Nodes[i];
 
 
         int j;
@@ -515,7 +516,7 @@ void BplusTree::getElem(vector <Node*> Nodes, vector<int>& v) {
     }
 }
 
-void BplusTree::getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices)
+void BplusTree::getVerticesRecursion(BNode *x, vector<tuple<int, BNode *> > &vertices)
 {
     if (x)
     {
@@ -525,22 +526,22 @@ void BplusTree::getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &verti
     }
 }
 
-vector<tuple<int, Node *>> BplusTree::getVertices()
+vector<tuple<int, BNode *>> BplusTree::getVertices()
 {
-    vector<tuple<int, Node*>> v;
+    vector<tuple<int, BNode*>> v;
     getVerticesRecursion(root, v);
     for (int i = 0; i < v.size(); ++i)
         get<0>(v[i]) = i;
     return v;
 }
 
-vector<vector<tuple<int, Node*>>> BplusTree::convertToGraph()
+vector<vector<tuple<int, BNode*>>> BplusTree::convertToGraph()
 {
-    vector<vector<tuple<int, Node*>>> adjacencyLists;
-    vector<tuple<int, Node*>> vertices = getVertices();
+    vector<vector<tuple<int, BNode*>>> adjacencyLists;
+    vector<tuple<int, BNode*>> vertices = getVertices();
     for (int i = 0; i < vertices.size(); ++i)
     {
-        vector<tuple<int, Node*>> curList;
+        vector<tuple<int, BNode*>> curList;
         curList.push_back(make_tuple(i, get<1>(vertices[i])));
 
         int k;
@@ -624,7 +625,7 @@ tuple<bool, int> BplusTree::inclusion(Tree* t2)
 void BplusTree::dfs()
 {
     graphviz();
-    vector<vector<tuple<int, Node*>>> adj = convertToGraph();
+    vector<vector<tuple<int, BNode*>>> adj = convertToGraph();
     vector<bool> used(adj.size(), false);
     vector<int> path;
     dfs (0, adj, used, path);
@@ -636,7 +637,7 @@ void BplusTree::dfs()
 
 }
 
-void BplusTree::dfs(int v, vector<vector<tuple<int, Node*>>> g, vector<bool> &used, vector<int> &path){
+void BplusTree::dfs(int v, vector<vector<tuple<int, BNode*>>> g, vector<bool> &used, vector<int> &path){
     used[v] = true;
     cout<<v<<endl;
     path.push_back(v);
@@ -657,16 +658,116 @@ vector<vector<tuple<int, string> > > BplusTree::bfs(tuple<int, string>)
     return v;
 }
 
-vector<vector<tuple<int, int*> > > BplusTree::bfs(tuple<int, int *>)
+vector<vector<tuple<int, int*> > > BplusTree::bfs(tuple<int, int *> vertex)
 {
-    vector<vector<tuple<int, int*>>> v;
-    return v;
+    vector<vector<tuple<int, BNode*> > > graph = convertToGraph();
+    int graphSize = graph.size();
+    vector<vector<tuple<int, int*>>> routes(graphSize);
+
+            queue<int> q;
+            q.push(get<0>(vertex));
+            vector<bool> visited(graphSize);
+            visited[get<0>(vertex)] = true;
+            vector<int> d(graphSize), p(graphSize);
+            p[get<0>(vertex)] = -1;
+
+
+            while (!q.empty())
+            {
+                    int v = q.front();
+                    q.pop();
+
+                    for (int i = 0; i < graph[v].size(); ++i)
+                    {
+                            int to = get<0>(graph[v][i]);
+                            if (!visited[to])
+                            {
+                                    visited[to] = true;
+                                    q.push(to);
+
+                                    d[to] = d[v] + 1;
+                                    p[to] = v;
+                            }
+                    }
+            }
+
+            for (int j = 0; j < graphSize; ++j)
+            {
+
+                    int to = get<0>(graph[j][0]);
+                    vector<int> path;
+                    for (int v = to; v != -1; v = p[v])
+                            path.push_back(v);
+                    reverse(path.begin(), path.end());
+                    cout << "Path to " << j << endl;
+                    for (size_t i = 0; i < path.size(); ++i)
+                            cout << path[i] << " ";
+                    cout << endl;
+
+                    for (size_t i = 0; i < path.size(); ++i)
+                            for (int k = 0; k < graphSize; ++k)
+                            {
+                                    if (path[i] == get<0>(graph[k][0]))
+                                    {
+                                            tuple<int, int*> t = make_tuple(path[i], get<1>(graph[k][0])->value);
+                                            // восстанавливаем путь к вершине под номером j
+                                            routes[j].push_back(t);
+                                    }
+                            }
+            }
+
+
+            return routes;
 }
 
 void BplusTree::diameter()
 {
+    vector<vector<tuple<int, BNode*>>> graph = convertToGraph();
+    vector<tuple<int, BNode*>> path;
+    int n = getElements().size();
+
+    vector<vector<tuple<int, int*>>> routesV = bfs(make_tuple(get<0>(graph[0][0]), get<1>(graph[0][0])->value));
+
+    int max = -1;
+    int maxIndex = -1;
+
+    for (int i = 0; i < routesV.size(); ++i)
+    {
+        int cur = routesV[i].size();
+        if (cur > max)
+        {
+            max = cur;
+            maxIndex = i;
+        }
+    }
+
+            // нашли вершину u - самую далекую от v; она хранится в graph[maxIndex][0]
+            if (maxIndex == -1) ;//return routesV[0];
+            vector<vector<tuple<int, int*>>> routesU = bfs(make_tuple(get<0>(graph[maxIndex][0]), get<1>(graph[maxIndex][0])->value));
+
+
+            max = maxIndex = -1;
+
+            for (int i = 0; i < routesU.size(); ++i)
+            {
+                    int cur = routesU[i].size();
+                    if (cur > max)
+                    {
+                            max = cur;
+                            maxIndex = i;
+                    }
+            }
+
+            cout << "DIAMETR\n";
+            for (int i = 0; i < routesU[maxIndex].size(); ++i)
+                cout << get<0>(routesU[maxIndex][i]) << "\tKey: " <<
+                        get<1>(routesU[maxIndex][i])[0] << endl;
+            //return routesU[maxIndex];
+
+
 }
 
 void BplusTree::center()
 {
+    // return root;
 }

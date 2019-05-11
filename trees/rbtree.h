@@ -8,7 +8,7 @@
 
 
 using namespace std;
-
+/*
 class RBTree : public BinaryTree
 {
    private:
@@ -30,18 +30,13 @@ class RBTree : public BinaryTree
     void getElem(Node*, vector<int>&);
     void getElementsRecursion(Node *x, vector<int> &elements);
 
-    void getVerticesRecursion(Node *x, vector<tuple<int,Node*>> &vertices);
-
 public:
     RBTree();
     RBTree(const RBTree &);
 
     void WriteToGV(ofstream &, Node*);
     void display(string);
-
     void Show();
-    void insert(int input)override;
-    void deleteNode(int)override;
 
     void inorder();
     void preorder();
@@ -52,13 +47,12 @@ public:
     Node* maxValueNode(Node*&);
 
     void merge(RBTree rbTree2);
-    Tree* split(int)override;
-    vector<int> getElements()override;
+    RBTree* splitR(int);
 
-//    vector<tuple<int, Node*>> getVertices();
+    vector<vector<tuple<int, int>>> convertToGraph();
+    vector<tuple<int, Node*>> getVertices();
+    void getVerticesRecursion(Node *x, vector<tuple<int,Node*>> &vertices);
 
-    // списки смежности вершин; вершина представляет из себя пару  ( ключ / значение )
-    vector<vector<tuple<int, int>>> convertToGraph()override;
 
 
 
@@ -67,6 +61,16 @@ public:
     int global_value{0};
     void print_intermediate_steps();
 
-};
 
+
+
+    // Tree interface
+public:
+    void insert(int);
+    void deleteNode(int);
+    void merge(Tree *);
+    Tree *split(int);
+    vector<int> getElements();
+};
+*/
 #endif // RBTREE_H
