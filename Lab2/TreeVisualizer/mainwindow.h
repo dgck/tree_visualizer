@@ -40,6 +40,12 @@ private slots:
     \
     void HideButtonsforBTree(bool shouldHide);
 
+    void MergeTrees();
+
+    void FindIntersetion();
+
+    void CheckInclusion();
+
 private:
     Ui::MainWindow *ui;
 

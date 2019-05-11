@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>997</width>
-    <height>468</height>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,25 +15,53 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_5">
-    <item row="2" column="0">
-     <widget class="QPushButton" name="mergeBTN">
-      <property name="text">
-       <string>Merge</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QPushButton" name="prev3">
-      <property name="text">
-       <string>&lt;</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0" colspan="3">
      <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
+      <item row="0" column="1">
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="2" column="2">
+        <item row="1" column="0">
+         <widget class="QPushButton" name="remove1BTN">
+          <property name="text">
+           <string>Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="2">
+         <widget class="QPushButton" name="delete1TreeBTN">
+          <property name="text">
+           <string>Delete tree</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="lbl2">
+          <property name="text">
+           <string>From:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QPushButton" name="next1">
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="diametr1BTN">
+          <property name="text">
+           <string>Diameter</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QPushButton" name="findPath1BTN">
+          <property name="text">
+           <string>Find path</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
          <widget class="QComboBox" name="order_cb1">
           <item>
            <property name="text">
@@ -52,93 +80,27 @@
           </item>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="5" column="1">
          <widget class="QLabel" name="lbl3">
           <property name="text">
            <string>To:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="insert1BTN">
-          <property name="text">
-           <string>Insert</string>
-          </property>
-         </widget>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="removeElem1"/>
         </item>
-        <item row="3" column="2">
+        <item row="3" column="1">
          <widget class="QPushButton" name="Center1BTN">
           <property name="text">
            <string>Center</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="1" colspan="2">
-         <widget class="QPushButton" name="delete1TreeBTN">
-          <property name="text">
-           <string>Delete tree</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="2">
-         <widget class="QPushButton" name="next1">
-          <property name="text">
-           <string>&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" rowspan="9">
-         <widget class="QLabel" name="firstTree_img">
-          <property name="text">
-           <string>First Tree</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="diametr1BTN">
-          <property name="text">
-           <string>Diameter</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
-         <widget class="QSpinBox" name="to1"/>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLabel" name="lbl2">
-          <property name="text">
-           <string>From:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QPushButton" name="prev1">
-          <property name="text">
-           <string>&lt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
+        <item row="0" column="1">
          <widget class="QSpinBox" name="insElem1"/>
         </item>
-        <item row="1" column="2">
-         <widget class="QSpinBox" name="removeElem1"/>
-        </item>
-        <item row="4" column="1" colspan="2">
-         <widget class="QPushButton" name="findPath1BTN">
-          <property name="text">
-           <string>Find path</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="remove1BTN">
-          <property name="text">
-           <string>Remove</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
+        <item row="2" column="0">
          <widget class="QPushButton" name="order1BTN">
           <property name="text">
            <string>Do</string>
@@ -146,102 +108,99 @@
          </widget>
         </item>
         <item row="6" column="1">
+         <widget class="QSpinBox" name="to1"/>
+        </item>
+        <item row="8" column="0">
+         <widget class="QPushButton" name="prev1">
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
          <widget class="QSpinBox" name="from1"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="insert1BTN">
+          <property name="text">
+           <string>Insert</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
-      <item row="0" column="1">
+      <item row="0" column="3">
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="2" column="1">
+        <item row="2" column="0">
          <widget class="QPushButton" name="order2BTN">
           <property name="text">
            <string>Do</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QPushButton" name="Center2BTN">
-          <property name="text">
-           <string>Center</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QSpinBox" name="insElem2"/>
-        </item>
-        <item row="8" column="1">
-         <widget class="QPushButton" name="prev2">
-          <property name="text">
-           <string>&lt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1" colspan="2">
-         <widget class="QPushButton" name="delete2TreeBTN">
-          <property name="text">
-           <string>Delete tree</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="diametr2BTN">
-          <property name="text">
-           <string>Diameter</string>
-          </property>
-         </widget>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="removeElem2"/>
         </item>
         <item row="5" column="1">
-         <widget class="QLabel" name="lbl4">
-          <property name="text">
-           <string>From:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" colspan="2">
-         <widget class="QPushButton" name="findPath2BTN">
-          <property name="text">
-           <string>Find path</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="2">
-         <widget class="QPushButton" name="next2">
-          <property name="text">
-           <string>&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
-         <widget class="QSpinBox" name="to2"/>
-        </item>
-        <item row="5" column="2">
          <widget class="QLabel" name="lbl5">
           <property name="text">
            <string>To:</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="QSpinBox" name="from2"/>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="diametr2BTN">
+          <property name="text">
+           <string>Diameter</string>
+          </property>
+         </widget>
         </item>
-        <item row="0" column="1">
+        <item row="7" column="0" colspan="2">
+         <widget class="QPushButton" name="delete2TreeBTN">
+          <property name="text">
+           <string>Delete tree</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QPushButton" name="next2">
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
          <widget class="QPushButton" name="insert2BTN">
           <property name="text">
            <string>Insert</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="4" column="0" colspan="2">
+         <widget class="QPushButton" name="findPath2BTN">
+          <property name="text">
+           <string>Find path</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <widget class="QPushButton" name="remove2BTN">
           <property name="text">
            <string>Remove</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QSpinBox" name="removeElem2"/>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="insElem2"/>
         </item>
-        <item row="2" column="2">
+        <item row="8" column="0">
+         <widget class="QPushButton" name="prev2">
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
          <widget class="QComboBox" name="order_cb2">
           <item>
            <property name="text">
@@ -260,16 +219,42 @@
           </item>
          </widget>
         </item>
-        <item row="0" column="0" rowspan="9">
-         <widget class="QLabel" name="secondTree_img">
+        <item row="6" column="0">
+         <widget class="QSpinBox" name="from2"/>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="to2"/>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="lbl4">
           <property name="text">
-           <string>Second Tree</string>
+           <string>From:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="Center2BTN">
+          <property name="text">
+           <string>Center</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
+      <item row="0" column="0">
+       <widget class="QGraphicsView" name="firstTree_img"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QGraphicsView" name="secondTree_img"/>
+      </item>
      </layout>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="inclusionBTN">
+      <property name="text">
+       <string>Inclusion</string>
+      </property>
+     </widget>
     </item>
     <item row="0" column="0" colspan="2">
      <layout class="QGridLayout" name="gridLayout">
@@ -316,24 +301,10 @@
       </item>
      </layout>
     </item>
-    <item row="3" column="1">
-     <widget class="QLabel" name="resultImg">
+    <item row="2" column="0">
+     <widget class="QPushButton" name="mergeBTN">
       <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="2">
-     <widget class="QPushButton" name="next3">
-      <property name="text">
-       <string>&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="inclusionBTN">
-      <property name="text">
-       <string>Inclusion</string>
+       <string>Merge</string>
       </property>
      </widget>
     </item>
@@ -341,6 +312,23 @@
      <widget class="QPushButton" name="intersectionBTN">
       <property name="text">
        <string>Intersection</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="prev3">
+      <property name="text">
+       <string>&lt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QGraphicsView" name="resultImg"/>
+    </item>
+    <item row="4" column="2">
+     <widget class="QPushButton" name="next3">
+      <property name="text">
+       <string>&gt;</string>
       </property>
      </widget>
     </item>

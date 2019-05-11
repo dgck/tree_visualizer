@@ -13,12 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //Singleton
     treeCreator = new Creator;
 
-    writer1 = new ImageWriter(ui->firstTree_img);
-    writer2 = new ImageWriter(ui->secondTree_img);
-    writer3 = new ImageWriter(ui->resultImg);
-    connect(writer1,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
-    connect(writer2,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
-    connect(writer3,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
+    //writer1 = new ImageWriter(ui->firstTree_img);
+    //writer2 = new ImageWriter(ui->secondTree_img);
+    //writer3 = new ImageWriter(ui->resultImg);
+   // connect(writer1,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
+    //connect(writer2,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
+    //(writer3,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
 
     tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
     tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
@@ -52,6 +52,10 @@ void MainWindow::MakeConnects()
 
     connect(ui->next1,&QPushButton::clicked,this,&MainWindow::NextStep);
     connect(ui->next2,&QPushButton::clicked,this,&MainWindow::NextStep);
+
+    connect(ui->mergeBTN,&QPushButton::clicked,this,&MainWindow::MergeTrees);
+    connect(ui->intersectionBTN,&QPushButton::clicked,this,&MainWindow::FindIntersetion);
+    connect(ui->inclusionBTN,&QPushButton::clicked,this,&MainWindow::CheckInclusion);
 
     ui->resultImg->setVisible(false);
     ui->prev3->setVisible(false);
@@ -116,7 +120,7 @@ void MainWindow::DeleteTree()
             delete tree1;
             tree1 = treeCreator->createTree(Creator::RbTree);
             writer1->ResetSteps();
-            ui->firstTree_img->setText("First tree");
+           // ui->firstTree_img->setText("First tree");
         }
     }
     else
@@ -126,7 +130,7 @@ void MainWindow::DeleteTree()
             delete tree2;
             tree2 = treeCreator->createTree(Creator::RbTree);
             writer2->ResetSteps();
-            ui->secondTree_img->setText("Second tree");
+            //ui->secondTree_img->setText("Second tree");
         }
     }
 }
@@ -171,8 +175,8 @@ void MainWindow::NextStep()
 
 MainWindow::~MainWindow()
 {
-    writer1->ResetSteps();
-    writer2->ResetSteps();
+    //writer1->ResetSteps();
+    //writer2->ResetSteps();
     delete ui;
 }
 
@@ -181,10 +185,10 @@ void MainWindow::on_treeType_cb_currentIndexChanged(int index)
 {
     delete tree1;
     delete tree2;
-    writer1->ResetSteps();
-    writer2->ResetSteps();
-    ui->firstTree_img->setText("First tree");
-    ui->secondTree_img->setText("Second tree");
+    //writer1->ResetSteps();
+    //writer2->ResetSteps();
+    //ui->firstTree_img->setText("First tree");
+    //ui->secondTree_img->setText("Second tree");
 
     switch (index)
     {
@@ -237,4 +241,23 @@ void MainWindow::HideButtonsforBTree(bool shouldHide)
     ui->to1->setEnabled(!shouldHide);
     ui->from2->setEnabled(!shouldHide);
     ui->to2->setEnabled(!shouldHide);
+    ui->mergeBTN->setEnabled(!shouldHide);
+    ui->intersectionBTN->setEnabled(!shouldHide);
+    ui->inclusionBTN->setEnabled(!shouldHide);
+
+}
+
+void MainWindow::MergeTrees()
+{
+
+}
+
+void MainWindow::FindIntersetion()
+{
+
+}
+
+void MainWindow::CheckInclusion()
+{
+
 }
