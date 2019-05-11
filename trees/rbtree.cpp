@@ -10,9 +10,6 @@
 using namespace std;
 
 
-Node* RBTree::getRoot() {
-    return root;
-}
 
 RBTree::RBTree(const RBTree &tree)
 {
@@ -590,11 +587,11 @@ void RBTree::join(RBTree rbTree2) {
     return;
 }
 
-RBTree RBTree::split(int x) {
+Tree* RBTree::split(int x) {
     RBTree t1, t2;
     Node* k = root;
 
-    while (k != nullptr && (k->left != nullptr || k->right != nullptr)) {
+    while (k != nullptr) {
         if (x == k->key) {
             RBTree tempR(k->right); RBTree tR(tempR); tR.root->father = nullptr;
             t2.join(tR);
@@ -606,20 +603,23 @@ RBTree RBTree::split(int x) {
 
             RBTree temp(k); RBTree t(temp); t.root->left = nullptr; t.root->father = nullptr;
             t2.join(t);
-            k = k->left;
+            if(k->left) k = k->left; else break;
         }
         else{
-            //RBTree temp(k->left);
             RBTree temp(k); RBTree t(temp); t.root->right = nullptr;
             t1.join(t);
-            k = k->right;
+            if(k->right) k = k->right; else break;
         }
     }
     if(k!=nullptr && k->key != x) k->key < x ? t1.insert(k->key) : t2.insert(k->key);
     root = t1.root;
     if(root)root->father = nullptr;
     if(t2.root)t2.root->father = nullptr;
-    return t2;
+
+    BinaryTree b = t2;
+    Tree* t = new BinaryTree();
+    t = &b;
+    return t;
 }
 
 void RBTree::merge(RBTree t) {
@@ -639,7 +639,7 @@ void RBTree::merge(RBTree t) {
         return;
 
     RBTree tL(t), tR;
-    tR = tL.split(root->key);
+    tR =tL.split(root->key);
     //tL.insert(root->key);
     //tL.merge(RBTree(root->left));
     //tR.merge(RBTree(root->right));
@@ -671,6 +671,10 @@ void RBTree::getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices
         vertices.push_back(make_tuple(0, x));
         getVerticesRecursion(x->right, vertices);
     }
+}
+
+RBTree::RBTree()  {
+    root=nullptr;
 }
 
 vector<tuple<int, Node *> > RBTree::getVertices()

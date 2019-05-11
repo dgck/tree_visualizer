@@ -1,6 +1,6 @@
 #ifndef RBTREE_H
 #define RBTREE_H
-#include "tree.h"
+#include "binarytree.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class RBTree : public Tree
+class RBTree : public BinaryTree
 {
    private:
 
@@ -29,21 +29,19 @@ class RBTree : public Tree
 
     void getElem(Node*, vector<int>&);
     void getElementsRecursion(Node *x, vector<int> &elements);
+
     void getVerticesRecursion(Node *x, vector<tuple<int,Node*>> &vertices);
 
 public:
-    Node *root;
-    RBTree() :root(nullptr) {}
+    RBTree();
     RBTree(const RBTree &);
 
     void WriteToGV(ofstream &, Node*);
     void display(string);
 
     void Show();
-    Node* getRoot()override;
     void insert(int input)override;
     void deleteNode(int)override;
-    Node* search(int)override;
 
     void inorder();
     void preorder();
@@ -54,10 +52,10 @@ public:
     Node* maxValueNode(Node*&);
 
     void merge(RBTree rbTree2);
-    RBTree split(int);
+    Tree* split(int)override;
     vector<int> getElements()override;
 
-    vector<tuple<int, Node*>> getVertices();
+//    vector<tuple<int, Node*>> getVertices();
 
     // списки смежности вершин; вершина представляет из себя пару  ( ключ / значение )
     vector<vector<tuple<int, int>>> convertToGraph()override;

@@ -26,20 +26,20 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
     tree.cpp \
     rbtree.cpp \
     bplustree.cpp \
     treealgorithms.cpp \
-    obst.cpp
+    obst.cpp \
+    binarytree.cpp
 
 HEADERS += \
-        mainwindow.h \
     tree.h \
     rbtree.h \
     bplustree.h \
     treealgorithms.h \
-    obst.h
+    obst.h \
+    binarytree.h
 
 FORMS += \
         mainwindow.ui

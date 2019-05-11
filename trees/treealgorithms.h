@@ -1,6 +1,6 @@
 #ifndef TREEALGORITHMS_H
 #define TREEALGORITHMS_H
-#include "rbtree.h"
+#include "tree.h"
 #include <tuple>
 #include <iostream>
 #include <algorithm>
@@ -11,7 +11,7 @@ class TreeAlgorithms
 {
 public:
     TreeAlgorithms();
-    void dsf(RBTree t){
+    void dsf(Tree t){
         vector<vector<tuple<int, int>>> adj = t.convertToGraph();
         vector<vector<tuple<int, int>>> v = {
                 {make_tuple(0,1),make_tuple(1,5)},
@@ -45,7 +45,7 @@ public:
     }
 
 
-    vector<int> intersection(RBTree t1, RBTree t2){
+    vector<int> intersection(Tree t1, Tree t2){
         vector<int> v1=t1.getElements(), v2=t2.getElements(), inters;
         inters = intersection(v1,v2);
         return inters;
@@ -59,7 +59,7 @@ public:
         return inters;
     }
 
-    tuple<bool,int> inclusion(RBTree t1, RBTree t2){
+    tuple<bool,int> inclusion(Tree t1, Tree t2){
         vector<int> v1=t1.getElements(), v2=t2.getElements(), inters;
         inters = intersection(v1,v2);
         if(v1.size()==v2.size()&& v2.size()==inters.size())

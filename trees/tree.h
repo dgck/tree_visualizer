@@ -4,38 +4,36 @@
 #include <vector>
 using namespace std;
 
-enum colors { red, black };
-struct Node {
-public:
-    int key;
-    Node *father;
-    Node *left;
-    Node *right;
-    int color;
 
-    Node(int input)
-    {
-        key = input;
-        left = nullptr;
-        right = nullptr;
-        father = nullptr;
-        color = red;
-
-    }
+class TNode {
+    protected:
+   TNode();
 };
 
 class Tree
 {
 public:
-
-    virtual Node* getRoot() = 0;
+    TNode* root;
     virtual void insert(int) = 0;
     virtual void deleteNode(int) = 0;
-    virtual Node* search(int key) = 0;
     virtual vector<int> getElements()=0;
+
+    virtual void merge(Tree*) = 0;
+    virtual Tree* split(int) = 0;
+
+    virtual vector<int> intersection(Tree*) = 0;
+    virtual vector<int> intersection(vector<int> v1, vector<int> v2) = 0;
+    virtual tuple<bool, int> inclusion() = 0;
+
+    virtual void dfs() = 0;
+    virtual void dfs(int v,vector<vector<tuple<int, int>>> g, vector<bool>& used, vector<int>& path)=0;
+    virtual vector<vector<tuple<int,TNode*>>> bfs()=0;
+    //path, center, diameter
+
     virtual vector<vector<tuple<int, int>>> convertToGraph()=0;
-   // virtual int bfs();
-   // virtual int dfs();
+    virtual vector<tuple<int, TNode *>> getVertices()=0;
+    virtual void getVerticesRecursion(TNode *x, vector<tuple<int, TNode *> > &vertices) = 0;
+
     virtual ~Tree(){}
 };
 
