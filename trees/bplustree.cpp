@@ -378,13 +378,14 @@ void BplusTree::deleteNode(Node *curr, int value, int currPos) {
 
 }
 
-void BplusTree::graphviz(vector <Node*> Nodes)
+void BplusTree::graphviz()
 {
     FILE *f = nullptr;
     errno_t err = fopen_s(&f, "graphviz.dat", "w");
     fputs("digraph G{\n", f);
     fclose(f);
-    graphvizRec(Nodes);
+    vector<Node*> nodes={root};
+    graphvizRec(nodes);
     err = fopen_s(&f, "graphviz.dat", "a");
     fputc('}', f);
     fclose(f);
@@ -577,4 +578,95 @@ vector<vector<tuple<int, Node*>>> BplusTree::convertToGraph()
         adjacencyLists.push_back(curList);
     }
     return adjacencyLists;
+}
+
+
+void BplusTree::merge(Tree *)
+{
+
+}
+
+Tree *BplusTree::split(int)
+{
+    return nullptr;
+}
+
+vector<int> BplusTree::intersection(Tree *t2)
+{
+    vector<int> v1=getElements(), v2=t2->getElements(), inters;
+    inters = intersection(v1,v2);
+    return inters;
+}
+
+
+vector<int> BplusTree::intersection(vector<int> v1, vector<int> v2)
+{
+    vector<int> inters;
+    for (int i=0;i<v1.size();i++)
+        if(find(v2.begin(), v2.end(), v1[i]) != v2.end())
+            inters.push_back(v1[i]);
+    return inters;
+}
+
+tuple<bool, int> BplusTree::inclusion(Tree* t2)
+{
+    vector<int> v1=getElements(), v2=t2->getElements(), inters;
+    inters = intersection(v1,v2);
+    if(v1.size()==v2.size()&& v2.size()==inters.size())
+        return make_tuple(true,0); //trees are equal
+    if(v1.size()<v2.size()&& v1.size()==inters.size())
+        return make_tuple(true,1); //second tree includes first
+    if(v1.size()>v2.size()&& v2.size()==inters.size())
+        return make_tuple(true,2); //first tree includes second
+    return make_tuple(false, 0);
+}
+
+void BplusTree::dfs()
+{
+    graphviz();
+    vector<vector<tuple<int, Node*>>> adj = convertToGraph();
+    vector<bool> used(adj.size(), false);
+    vector<int> path;
+    dfs (0, adj, used, path);
+    cout<<"dfs"<<endl;
+
+    for (int i=0;i<path.size();i++) {
+        cout<<path[i];
+    }
+
+}
+
+void BplusTree::dfs(int v, vector<vector<tuple<int, Node*>>> g, vector<bool> &used, vector<int> &path){
+    used[v] = true;
+    cout<<v<<endl;
+    path.push_back(v);
+    for(int i=0; i<g[v].size(); i++){
+        if (!used[get<0>(g[v][i])]) dfs(get<0>(g[v][i]), g, used,path);
+    }
+}
+
+vector<vector<tuple<int, int> > > BplusTree::bfs(tuple<int, int>)
+{
+    vector<vector<tuple<int, int>>> v;
+    return v;
+}
+
+vector<vector<tuple<int, string> > > BplusTree::bfs(tuple<int, string>)
+{
+    vector<vector<tuple<int, string>>> v;
+    return v;
+}
+
+vector<vector<tuple<int, int*> > > BplusTree::bfs(tuple<int, int *>)
+{
+    vector<vector<tuple<int, int*>>> v;
+    return v;
+}
+
+void BplusTree::diameter()
+{
+}
+
+void BplusTree::center()
+{
 }
