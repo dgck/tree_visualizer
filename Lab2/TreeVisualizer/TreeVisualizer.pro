@@ -24,6 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+
+SRCDIRRR = /home/artyom/qtprojects/build-QGraphViz-Desktop-Debug/lib
+LIBS += -L$$SRCDIRRR/../lib -lQGVCore
+INCLUDEPATH += /home/artyom/qtprojects/qgv/QGVCore
+DEPENDPATH += /home/artyom/qtprojects/qgv/QGVCore
+
 SOURCES += \
         main.cpp \
         mainwindow.cpp \

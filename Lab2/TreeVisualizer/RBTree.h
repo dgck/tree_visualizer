@@ -31,13 +31,13 @@ public:
 
     Node *search(int key, Node *cur)override;
     void print_intermediate_steps();
+    Node* root;
 
 private:
     void insertFixup(Node* z);
     void stackWrite(int local_value);
 
     int global_value{0};
-    Node* root;
 };
 
 
