@@ -8,19 +8,19 @@
 
 
 using namespace std;
-/*
+
 class RBTree : public BinaryTree
 {
    private:
 
     RBTree(Node*);
-    void Show(Node*, int);
+    void show(Node*, int);
 
-    Node* Successor(Node*);
-    void RotateLeft(Node*);
-    void RotateRight(Node*);
-    void InsertFix(Node*);
-    void DeleteFix(Node*);
+    Node* successor(Node*);
+    void rotateLeft(Node*);
+    void rotateRight(Node*);
+    void insertFix(Node*);
+    void deleteFix(Node*);
 
     void inorderBST(Node*);
     void preorderBST(Node*);
@@ -34,15 +34,16 @@ public:
     RBTree();
     RBTree(const RBTree &);
 
-    void WriteToGV(ofstream &, Node*);
+    void writeToGV(ofstream &, Node*);
     void display(string);
-    void Show();
+    void show();
+    Node *search(int);
 
     void inorder();
     void preorder();
 
-    int BlackHeight();
-    int BlackHeight(Node*);
+    int blackHeight();
+    int blackHeight(Node*);
     Node* minValueNode(Node*&);
     Node* maxValueNode(Node*&);
 
@@ -52,9 +53,6 @@ public:
     vector<vector<tuple<int, int>>> convertToGraph();
     vector<tuple<int, Node*>> getVertices();
     void getVerticesRecursion(Node *x, vector<tuple<int,Node*>> &vertices);
-
-
-
 
 
     void stackWrite(int local_value);
@@ -72,5 +70,4 @@ public:
     Tree *split(int);
     vector<int> getElements();
 };
-*/
 #endif // RBTREE_H
