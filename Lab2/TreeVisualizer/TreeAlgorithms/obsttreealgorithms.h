@@ -7,9 +7,9 @@ class ObstTreeAlgorithms:public TreeAlgorithms
 {
 public:
     ObstTreeAlgorithms();
-    virtual Tree* Merge(Tree*tree1,Tree*tree2) = 0;
-    virtual Tree* Inclusion(Tree*tree1,Tree*tree2) = 0;
-    virtual Tree* Intersection(Tree*tree1,Tree*tree2) = 0;
+    Tree* Merge(Tree*tree1,Tree*tree2);
+    Tree* Inclusion(Tree*tree1,Tree*tree2);
+    Tree* Intersection(Tree*tree1,Tree*tree2);
 };
 
 #endif // OBSTTREEALGORITHMS_H

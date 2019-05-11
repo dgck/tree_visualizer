@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
     tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
 
+    QPalette pal = this->palette();
+    pal.setColor(QPalette::Window, Qt::white);
+    this->setPalette(pal);
+
     MakeConnects();
 }
 
@@ -187,26 +191,50 @@ void MainWindow::on_treeType_cb_currentIndexChanged(int index)
         case 0:
             tree1 = treeCreator->createTree(Creator::TreeType::SimpleTree);
             tree2 = treeCreator->createTree(Creator::TreeType::SimpleTree);
+            HideButtonsforBTree(false);
             break;
         case 1:
             tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
             tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
+            HideButtonsforBTree(false);
             break;
         case 2:
             tree1 = treeCreator->createTree(Creator::TreeType::SplayTree);
             tree2 = treeCreator->createTree(Creator::TreeType::SplayTree);
+            HideButtonsforBTree(false);
             break;
         case 3:
             tree1 = treeCreator->createTree(Creator::TreeType::OBSTTree);
             tree2 = treeCreator->createTree(Creator::TreeType::OBSTTree);
+            HideButtonsforBTree(false);
             break;
         case 4:
             tree1 = treeCreator->createTree(Creator::TreeType::BTree);
             tree2 = treeCreator->createTree(Creator::TreeType::BTree);
+            HideButtonsforBTree(true);
             break;
         case 5:
             tree1 = treeCreator->createTree(Creator::TreeType::BPlusTree);
             tree2 = treeCreator->createTree(Creator::TreeType::BPlusTree);
+            HideButtonsforBTree(true);
             break;
-     }
+    }
+}
+
+void MainWindow::HideButtonsforBTree(bool shouldHide)
+{
+    ui->diametr1BTN->setEnabled(!shouldHide);
+    ui->diametr2BTN->setEnabled(!shouldHide);
+    ui->Center1BTN->setEnabled(!shouldHide);
+    ui->Center2BTN->setEnabled(!shouldHide);
+    ui->order1BTN->setEnabled(!shouldHide);
+    ui->order2BTN->setEnabled(!shouldHide);
+    ui->order_cb1->setEnabled(!shouldHide);
+    ui->order_cb2->setEnabled(!shouldHide);
+    ui->findPath1BTN->setEnabled(!shouldHide);
+    ui->findPath2BTN->setEnabled(!shouldHide);
+    ui->from1->setEnabled(!shouldHide);
+    ui->to1->setEnabled(!shouldHide);
+    ui->from2->setEnabled(!shouldHide);
+    ui->to2->setEnabled(!shouldHide);
 }

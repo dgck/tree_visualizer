@@ -37,6 +37,8 @@ private slots:
     void NextStep();
 
     void on_treeType_cb_currentIndexChanged(int index);
+    \
+    void HideButtonsforBTree(bool shouldHide);
 
 private:
     Ui::MainWindow *ui;

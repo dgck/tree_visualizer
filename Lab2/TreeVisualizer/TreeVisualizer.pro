@@ -35,8 +35,7 @@ SOURCES += \
     TreeAlgorithms/rbtreealgorithms.cpp \
     TreeAlgorithms/splaytreealgorithms.cpp \
     TreeAlgorithms/obsttreealgorithms.cpp \
-    TreeAlgorithms/btreealgorithms.cpp \
-    TreeAlgorithms/bplustreealgorithms.cpp
+    TreeAlgorithms/btreealgorithms.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,8 +48,7 @@ HEADERS += \
     TreeAlgorithms/rbtreealgorithms.h \
     TreeAlgorithms/splaytreealgorithms.h \
     TreeAlgorithms/obsttreealgorithms.h \
-    TreeAlgorithms/btreealgorithms.h \
-    TreeAlgorithms/bplustreealgorithms.h
+    TreeAlgorithms/btreealgorithms.h
 
 
 FORMS += \
