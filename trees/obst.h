@@ -5,69 +5,37 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include "binarytree.h"
 using namespace std;
 
-template <typename T>
-class Node
+
+class OBST : public BinaryTree
 {
-public:
+    void subTreeShowIn(Node* start);
 
-    T key;
-    int frequency;
-    Node<T> *left, *right;
+    void subTreeShowPre(Node* start);
 
-    Node(T data, int cost) : key(data), frequency(cost), left(NULL), right(NULL) {}
-};
+    void generateTree(int **Roots, vector<string> input, vector<int> costs);
 
-void ShowMatrixes(int** M, /*int** W, */int** Root, int n)
-{
-    cout << "Matrix e:\n";
-    for (int i = 1; i < n + 2; ++i)
-    {
-        for (int j = 0; j < n + 1; ++j)
-            cout << setw(13) << M[i][j] << " ";
-        cout << endl;
-    }
-    cout << endl;
+    void generateSubTree(int **Roots, vector<string> input, vector<int> costs, Node* &r, int first, int last);
 
-    cout << endl;
-    cout << "Matrix root:\n";
-    for (int i = 1; i < n + 1; ++i)
-    {
-        for (int j = 1; j < n + 1; ++j)
-            cout << setw(13) << Root[i][j] << " ";
-        cout << endl;
-    }
-    cout << endl << endl;
-}
+    void WriteToGV(Node* p);
 
-template <typename T>
-class OBST
-{
-    Node<T>* root;
-
-    void subTreeShowIn(Node<T>* start);
-
-    void subTreeShowPre(Node<T>* start);
-
-    void generateTree(int **Roots, vector<T> input, vector<int> costs);
-
-    void generateSubTree(int **Roots, vector<T> input, vector<int> costs, Node<T>* &r, int first, int last);
-
-    void WriteToGV( Node<T>* p);
+    void Preparation(vector<string>&, vector<int>&);
 
 public:
 
-    OBST() : root(NULL) {}
+    OBST();
 
     // input must be sorted
-    OBST(vector<T> input, vector<int> p);
+    OBST(vector<string> input, vector<int> p);
 
     void FWrite(string fileName);
 
     void Inorder();
 
     void Preorder();
+
 };
 
 

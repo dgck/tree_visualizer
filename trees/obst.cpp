@@ -1,14 +1,55 @@
 #include "obst.h"
+#include "obst.h"
 #include <fstream>
 #include <stdlib.h>
 #include <cstdlib>
 #include <vector>
 #include <string>
+
 using namespace std;
 
+void Sort(vector<string> &a)
+{
+  string temp;
+  int n = a.size();
+  for (int i = 0; i < n; ++i)
+    for (int j = n - 1; j > i; --j)
+      if (a[j - 1] > a[j])
+      {
+        temp = a[j - 1];
+        a[j - 1] = a[j];
+        a[j] = temp;
+      }
+}
 
-template<typename T>
-void OBST<T>::subTreeShowIn(Node<T> *start)
+string readText()
+{
+ string text;
+          text="In computer science, an optimal binary search tree (Optimal BST), sometimes called a weight-balanced binary tree,";
+          text+="is a binary search tree which provides the smallest possible search time (or expected search time) for a given sequence of accesses";
+          text+="(or access probabilities). Optimal BSTs are generally divided into two types: static and dynamic.\n";
+          text+="In the static optimality problem, the tree cannot be modified after it has been constructed.";
+          text+="In this case, there exists some particular layout of the nodes of the tree which provides the smallest expected search ";
+          text+="time for the given access probabilities. Various algorithms exist to construct or approximate the statically optimal";
+          text+="tree given the information on the access probabilities of the elements.\n";
+          text+="In the dynamic optimality problem, the tree can be modified at any time, typically by permitting tree rotations.";
+          text+="The tree is considered to have a cursor starting at the root which it can move or use to perform modifications.";
+          text+="In this case, there exists some minimal-cost sequence of these operations which causes the cursor to visit every node";
+          text+="in the target access sequence in order. The splay tree is conjectured to have a constant competitive ratio compared to the";
+          text+="dynamically optimal tree in all cases, though this has not yet been proven.\n";
+  return text;
+}
+
+void removeChars(string &text)
+{
+  string newText = "";
+  for (unsigned int i = 0; i < text.length(); ++i)
+    if (!(text[i] == ')' || text[i] == '(' || text[i] == '.' || text[i] == ',' || text[i] == ':'))
+      newText += text[i];
+  text = newText;
+}
+
+void OBST::subTreeShowIn(Node *start)
 {
     if (start)
     {
@@ -18,8 +59,7 @@ void OBST<T>::subTreeShowIn(Node<T> *start)
     }
 }
 
-template<typename T>
-void OBST<T>::subTreeShowPre(Node<T> *start)
+void OBST::subTreeShowPre(Node *start)
 {
     if (start)
     {
@@ -29,8 +69,7 @@ void OBST<T>::subTreeShowPre(Node<T> *start)
     }
 }
 
-template<typename T>
-void OBST<T>::generateTree(int **Roots, vector<T> input, vector<int> costs)
+void OBST::generateTree(int **Roots, vector<string> input, vector<int> costs)
 {
     int n = input.size();
 
@@ -38,11 +77,10 @@ void OBST<T>::generateTree(int **Roots, vector<T> input, vector<int> costs)
 
 }
 
-template<typename T>
-void OBST<T>::generateSubTree(int **Roots, vector<T> input, vector<int> costs, Node<T> *&r, int first, int last)
+void OBST::generateSubTree(int **Roots, vector<string> input, vector<int> costs, Node *&r, int first, int last)
 {
     int k = Roots[first][last];
-    r = new Node<T>(input[k - 1], costs[k]);
+    r = new Node(input[k - 1], costs[k]);
     if (k - 1 >= first)
         generateSubTree(Roots, input, costs, r->left, first, k - 1);
     if (last >= k + 1)
@@ -50,15 +88,14 @@ void OBST<T>::generateSubTree(int **Roots, vector<T> input, vector<int> costs, N
 
 }
 
-template<typename T>
-void OBST<T>::WriteToGV(Node<T> *p)
+void OBST::WriteToGV(Node *p)
 {
     ofstream fout("test.gv", ios::app);
     if (p != NULL)
     {
-        fout << "\"" << p->key << " : " << p->frequency << "\";";
-        if (p->left != NULL) fout << '"' << p->key << " : " << p->frequency << "\" -> \"" << p->left->key << " : " << p->left->frequency << "\";\n";
-        if (p->right != NULL) fout << '"' << p->key << " : " << p->frequency << "\" -> \"" << p->right->key << " : " << p->right->frequency << "\";\n";
+        fout << "\"" << p->data << " : " << p->frequency << "\";";
+        if (p->left != NULL) fout << '"' << p->data << " : " << p->frequency << "\" -> \"" << p->left->data << " : " << p->left->frequency << "\";\n";
+        if (p->right != NULL) fout << '"' << p->data << " : " << p->frequency << "\" -> \"" << p->right->data << " : " << p->right->frequency << "\";\n";
     }
     fout.close();
     if (p->left != NULL)
@@ -69,8 +106,66 @@ void OBST<T>::WriteToGV(Node<T> *p)
 
 }
 
-template<typename T>
-OBST<T>::OBST(vector<T> input, vector<int> p)
+void OBST::Preparation(vector<string> &uwords, vector<int> &frequencies)
+{
+    string text = readText();
+    removeChars(text);
+
+    vector<string> words;
+
+    int l = 0;
+    for (int i = 0; i < text.length(); ++i)
+    {
+      if (text[i] == ' ' || text[i] == '\n' || text[i] == '\t')
+      {
+        if (text.substr(l, i - l) == " ")
+          ++i;
+        else
+        {
+          words.push_back(text.substr(l, i - l));
+          l = i + 1;
+        }
+      }
+    }
+    Sort(words);
+     vector<string> temp;
+
+     for (int i = 0; i < words.size(); ++i)
+       if (words[i] != " ")
+         temp.push_back(words[i]);
+     words = temp;
+     for (int i = 0; i < temp.size(); ++i)
+       cout << temp[i] << " x ";
+
+     uwords.push_back(words[0]);
+     frequencies.push_back(0);   frequencies.push_back(0);
+     int cur = 1;
+
+     for (int i = 0; i < words.size(); i++)
+       if (words[i] == uwords.back())
+         frequencies[cur]++;
+       else{
+         uwords.push_back(words[i]);
+         frequencies.push_back(0);
+         cur++;
+         i--;
+       }
+
+     for (int i = 1; i < frequencies.size(); ++i)
+       cout <<uwords[i-1] <<'-'<< frequencies[i] << endl;
+
+}
+
+OBST::OBST()
+{
+    vector<string> uwords;
+    vector<int> frequencies;
+    Preparation(uwords, frequencies);
+       this->root=OBST(uwords,frequencies).root;
+       FWrite("test.gv");
+}
+
+OBST::OBST(vector<string> input, vector<int> p)
 {
     int n = input.size();
     int** Costs = new int*[n + 2];
@@ -118,8 +213,7 @@ OBST<T>::OBST(vector<T> input, vector<int> p)
 
 }
 
-template<typename T>
-void OBST<T>::FWrite(string fileName)
+void OBST::FWrite(string fileName)
 {
     ofstream fout(fileName);
     fout << "digraph {\n";
@@ -130,14 +224,12 @@ void OBST<T>::FWrite(string fileName)
     fou.close();
 }
 
-template<typename T>
-void OBST<T>::Inorder()
+void OBST::Inorder()
 {
     subTreeShowIn(root);
 }
 
-template<typename T>
-void OBST<T>::Preorder()
+void OBST::Preorder()
 {
     subTreeShowPre(root);
 }
