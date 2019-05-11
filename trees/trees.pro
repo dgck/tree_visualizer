@@ -31,7 +31,8 @@ SOURCES += \
     bplustree.cpp \
     treealgorithms.cpp \
     obst.cpp \
-    binarytree.cpp
+    binarytree.cpp \
+    splaytree.cpp
 
 HEADERS += \
     tree.h \
@@ -39,7 +40,8 @@ HEADERS += \
     bplustree.h \
     treealgorithms.h \
     obst.h \
-    binarytree.h
+    binarytree.h \
+    splaytree.h
 
 FORMS += \
         mainwindow.ui
