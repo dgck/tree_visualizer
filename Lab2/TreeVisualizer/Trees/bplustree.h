@@ -1,10 +1,13 @@
 #ifndef BPLUSTREE_H
 #define BPLUSTREE_H
+
 #include <iostream>
 #include <vector>
 #include <string>
 #include <stack>
 #include "tree.h"
+
+#include <numeric>
 
 using namespace std;
 const int MAX = 50;
@@ -18,7 +21,7 @@ struct BNode {
         nElems = 0;
         parent = nullptr;
         for (int i = 0; i < MAX; i++) {
-            value[i] = INT_MAX;
+            value[i] = std::numeric_limits <int>::max();
             child[i] = nullptr;
         }
     }
@@ -26,8 +29,6 @@ struct BNode {
 
 class BplusTree:public Tree
 {
-
-private:
     int T = 4; //степінь [t = t + 1]
     void splitLeaf(BNode *curr);
     void splitNonLeaf(BNode *curr);
@@ -41,20 +42,14 @@ private:
     vector<tuple<int, BNode *>> getVertices();
     void dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path);
 
-
 public:
     BNode* root;
-
     BplusTree();
     ~BplusTree()override;
-
     BNode* getRoot() { return root; }
     vector<vector<int>> convertToGraph();
-    void graphviz();
-
 
     // Tree interface
-public:
     void insert(int val)override;
     void deleteNode(int val)override;
     vector<int> getElements()override;
@@ -105,12 +100,9 @@ public:
          st.push(_Ptr);
     }
 
-
     void next()
     {
-
         if(st.empty()) return;
-
         while (!st.empty()) {
             BNode* next=st.top();
             bool finishedSubtrees = false;
@@ -129,11 +121,8 @@ public:
                     if(next->child[i]!=nullptr) {st.push(next->child[i]);}
                 }
             }
-
         }
     }
-
-
 };
 
 class PreIterator : public BplusIterator

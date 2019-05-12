@@ -1,0 +1,2 @@
+#include "qgvabstracttreescenefactory.h"
+

@@ -88,23 +88,6 @@ void OBST::generateSubTree(int **Roots, vector<string> input, vector<int> costs,
 
 }
 
-void OBST::WriteToGV(Node *p)
-{
-    ofstream fout("test.gv", ios::app);
-    if (p != NULL)
-    {
-        fout << "\"" << p->data << " : " << p->frequency << "\";";
-        if (p->left != NULL) fout << '"' << p->data << " : " << p->frequency << "\" -> \"" << p->left->data << " : " << p->left->frequency << "\";\n";
-        if (p->right != NULL) fout << '"' << p->data << " : " << p->frequency << "\" -> \"" << p->right->data << " : " << p->right->frequency << "\";\n";
-    }
-    fout.close();
-    if (p->left != NULL)
-        WriteToGV( p->left);
-
-    if (p->right != NULL)
-        WriteToGV( p->right);
-
-}
 
 void OBST::Preparation(vector<string> &uwords, vector<int> &frequencies)
 {
@@ -161,8 +144,7 @@ OBST::OBST()
     vector<string> uwords;
     vector<int> frequencies;
     Preparation(uwords, frequencies);
-       this->root=OBST(uwords,frequencies).root;
-       FWrite("test.gv");
+    this->root=OBST(uwords,frequencies).root;
 }
 
 OBST::OBST(vector<string> input, vector<int> p)
@@ -189,7 +171,7 @@ OBST::OBST(vector<string> input, vector<int> p)
         for (int i = 1; i <= n - d; ++i)
         {
             int j = i + d;
-            int minval = INT_MAX;
+            int minval = std::numeric_limits<int>::max();
             int kmin;
             for (int k = i; k <= j; ++k)
                 if (Costs[i][k - 1] + Costs[k + 1][j] < minval)
@@ -211,17 +193,6 @@ OBST::OBST(vector<string> input, vector<int> p)
 
     cout << "Average search cost multiplied by 10: " << Costs[1][n] << endl;
 
-}
-
-void OBST::FWrite(string fileName)
-{
-    ofstream fout(fileName);
-    fout << "digraph {\n";
-    fout.close();
-    WriteToGV(root);
-    ofstream fou(fileName, ios::app);
-    fou << "}";
-    fou.close();
 }
 
 void OBST::Inorder()

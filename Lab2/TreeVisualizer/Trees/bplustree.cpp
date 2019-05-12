@@ -5,6 +5,13 @@
 #include <fstream>
 #include <queue>
 
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cerrno>
+#include <cmath>
+
 using namespace std;
 
 BplusTree::BplusTree()
@@ -33,7 +40,7 @@ void BplusTree::splitLeaf(BNode *curr) {
 
     for (i = x, j = 0; i < T; i++, j++) {
         right->value[j] = curr->value[i];
-        curr->value[i] = INT_MAX;
+        curr->value[i] = std::numeric_limits<int>::max();//INT_MAX;
     }
     int item = right->value[0];
 
@@ -87,7 +94,7 @@ void BplusTree::splitNonLeaf(BNode *curr) {
     for (i = x, j = 0; i <= T; i++, j++) {
         right->value[j] = curr->value[i];
         right->child[j] = curr->child[i];
-        curr->value[i] = INT_MAX;
+        curr->value[i] = std::numeric_limits<int>::max();
         if (i != x)curr->child[i] = nullptr;
     }
     int item = right->value[0];
@@ -202,7 +209,7 @@ void BplusTree::redistributeCell(BNode *left, BNode *right, bool isLeaf, int pos
 
             right->nElems++;
             left->parent->value[posOfLeftBlock] = left->value[left->nElems - 1];
-            left->value[left->nElems - 1] = INT_MAX;
+            left->value[left->nElems - 1] = std::numeric_limits<int>::max();
             left->child[left->nElems] = nullptr;
             left->nElems--;
         }
@@ -212,7 +219,7 @@ void BplusTree::redistributeCell(BNode *left, BNode *right, bool isLeaf, int pos
             right->value[0] = left->value[left->nElems - 1];
             right->nElems++;
 
-            left->value[left->nElems - 1] = INT_MAX;
+            left->value[left->nElems - 1] = std::numeric_limits<int>::max();
             left->nElems--;
 
             left->parent->value[posOfLeftBlock] = right->value[0];
@@ -379,100 +386,6 @@ void BplusTree::deleteNode(BNode *curr, int value, int currPos) {
 
 }
 
-void BplusTree::graphviz()
-{
-    FILE *f = nullptr;
-    errno_t err = fopen_s(&f, "graphviz.dat", "w");
-    fputs("digraph G{\n", f);
-    fclose(f);
-    vector<BNode*> nodes={root};
-    graphvizRec(nodes);
-    err = fopen_s(&f, "graphviz.dat", "a");
-    fputc('}', f);
-    fclose(f);
-}
-
-void BplusTree::graphvizRec(vector <BNode*> Nodes)
-{
-    vector <BNode*> newCells;
-    for (int i = 0; i < Nodes.size(); i++) {
-        BNode *curr = Nodes[i];
-
-
-
-        FILE *f = nullptr;
-        errno_t err = fopen_s(&f, "graphviz.dat", "a");
-        string str = "\"";
-        str += "[|";
-        int j;
-        for (j = 0; j < curr->nElems; j++) {  //проходимо синів, виводимо значення і зберігаєм всіх дітей
-            str += to_string(curr->value[j]);
-            str += "|";
-            if (curr->child[j] != nullptr)
-            {
-                newCells.push_back(curr->child[j]);
-
-            }
-
-        }
-        if (curr->value[j] == INT_MAX && curr->child[j] != nullptr)
-            newCells.push_back(curr->child[j]);
-
-        str += "]\"";
-        for (j = 0; j < curr->nElems; j++)
-        {
-            if (curr->child[j] != nullptr)
-            {
-                string str2 = "\"[|";
-                for (int k = 0; k < curr->child[j]->nElems; ++k)
-                {
-
-                    str2 += to_string(curr->child[j]->value[k]);
-                    str2 += "|";
-                }
-                str2 += "]\"";
-                fputs(str.c_str(), f);
-                fputs("->", f);
-                fputs(str2.c_str(), f);
-                fputs(";\n", f);
-            }
-        }
-        if (curr->child[j] != nullptr)
-        {
-            string str2 = "\"[|";
-            for (int k = 0; k < curr->child[j]->nElems; ++k)
-            {
-
-                str2 += to_string(curr->child[j]->value[k]);
-                str2 += "|";
-            }
-            str2 += "]\"";
-            fputs(str.c_str(), f);
-            fputs("->", f);
-            fputs(str2.c_str(), f);
-            fputs(";\n", f);
-        }
-
-        fclose(f);
-
-
-    }
-
-    if (newCells.size() == 0) { //якщо немає більше синів, закінчуєм рекурсію
-
-        puts("");
-        puts("");
-        Nodes.clear();
-    }
-    else {                    //інакше відправляєм синів до рекурсії
-        puts("");
-        puts("");
-        Nodes.clear();
-        graphvizRec(newCells);
-    }
-}
-
-
 vector<int> BplusTree::getElements() {
     vector<int> v;
     vector<BNode*> t = { root };
@@ -491,7 +404,7 @@ void BplusTree::getElem(vector <BNode*> Nodes, vector<int>& v) {
         int j;
         if (curr->child[0] == nullptr) {
             for (j = 0; j < MAX; j++) {  //проходимо синів, виводимо значення і зберігаєм всіх дітей
-                if (curr->value[j] != INT_MAX) v.push_back(curr->value[j]);
+                if (curr->value[j] != std::numeric_limits<int>::max()) v.push_back(curr->value[j]);
             }
         }
         else
@@ -500,7 +413,7 @@ void BplusTree::getElem(vector <BNode*> Nodes, vector<int>& v) {
                 if (curr->child[j] != nullptr)
                     newCells.push_back(curr->child[j]);
             }
-        if (curr->value[j] == INT_MAX && curr->child[j] != nullptr)
+        if (curr->value[j] == std::numeric_limits<int>::max() && curr->child[j] != nullptr)
             newCells.push_back(curr->child[j]);
 
 

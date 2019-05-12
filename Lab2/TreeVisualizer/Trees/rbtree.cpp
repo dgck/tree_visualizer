@@ -406,39 +406,6 @@ void RBTree::deleteFix(Node *p)
     root->color = black;
 }
 
-
-void RBTree::display(string fileName){
-    ofstream fout(fileName);
-    fout << "digraph {\n";
-    writeToGV(fout, root);
-    fout << "}";
-    fout.close();
-}
-
-void RBTree::writeToGV(ofstream &fout, Node* p)
-{
-    if (p != nullptr) {
-        fout << '"' << p->key << "\" [color=" << (p->color == black ? "black];\n" : "red];\n");
-        if (p->left != nullptr) fout << '"' << p->key << "\" -> \"" << p->left->key << "\";\n";
-        else
-            fout << '"' << p->key << "\" -> \"NULL\";\n";
-
-        if (p->right != nullptr) fout << '"' << p->key << "\" -> \"" << p->right->key << "\";\n";
-        else
-            fout << '"' << p->key << "\" -> \"NULL\";\n";
-
-    }
-
-    if (p->left != nullptr) {
-        writeToGV(fout, p->left);
-    }
-    if (p->right != nullptr) {
-        writeToGV(fout, p->right);
-    }
-
-}
-
-
 void RBTree::inorderBST(Node *ptr) {
     if (ptr == nullptr)
         return;

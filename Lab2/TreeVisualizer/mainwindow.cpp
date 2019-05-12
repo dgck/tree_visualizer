@@ -5,24 +5,12 @@
 #include <QDebug>
 
 // trash includes for example purposes only
-#include "RBTree.h"
 #include "QGVEdge.h"
 #include "QGVNode.h"
-
 #include <stack>
 using std::stack;
-
-
 #include "QGVEdge.h"
 #include "QGVNode.h"
-
-RBTree* example_tree()
-{
-    RBTree* res = new RBTree;
-    for (int i = 0; i < 5; i++)
-        res -> insert(res -> getGoodNode(i));
-    return res;
-}
 
 /*
 void sWrite(RBTree* src, QGVScene *sc) {
@@ -79,7 +67,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //will be a Singleton
     treeCreator = new Creator;
 
-    auto new_shit = example_tree();
     m_scene = new QGVScene("DEMO", this);
     ui->firstTree_img->setScene(m_scene);
 
@@ -94,26 +81,26 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_scene->applyLayout();
     ui -> firstTree_img -> fitInView(m_scene -> sceneRect(), Qt::KeepAspectRatio);
-    //ui -> firstTree_img -> fitInView_fixed(m_scene -> sceneRect(), Qt::KeepAspectRatio);
-
     // trash example end
+
+    //will be a Singleton
+    treeCreator = new Creator;
 
     //writer1 = new ImageWriter(ui->firstTree_img);
     //writer2 = new ImageWriter(ui->secondTree_img);
     //writer3 = new ImageWriter(ui->resultImg);
-   // connect(writer1,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
+    //connect(writer1,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
     //connect(writer2,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
     //(writer3,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
 
-    //tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
-    //tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
-
+    tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
+    tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
 
     /*QPalette pal = this->palette();
     pal.setColor(QPalette::Window, Qt::white);
     this->setPalette(pal);*/
 
-    //MakeConnects();
+    MakeConnects();
 }
 
 void MainWindow::DrawImage(const int&w,const int&h,const QPixmap&pix,QLabel*image)

@@ -40,30 +40,28 @@ SOURCES += \
     Trees/obst.cpp \
     Trees/rbtree.cpp \
     Trees/splaytree.cpp \
-    Trees/tree.cpp
-	qcgview.cpp
+    Trees/tree.cpp \
+	qcgview.cpp \
+    QGVGraphRelated/qgvcontextfactory.cpp \
+    QGVGraphRelated/qgvabstracttreescenefactory.cpp \
+    QGVGraphRelated/qgvredblacktreescenefactory.cpp
 
 
 HEADERS += \
         mainwindow.h \
     imagewriter.h \
     creator.h \
-
     Trees/binarytree.h \
     Trees/bplustree.h \
     Trees/obst.h \
     Trees/rbtree.h \
     Trees/splaytree.h \
-    Trees/tree.h
-	qcgview.h
-
-    TreeAlgorithms/treealgorithms.h \
-    TreeAlgorithms/simpletreealgorithms.h \
-    TreeAlgorithms/rbtreealgorithms.h \
-    TreeAlgorithms/splaytreealgorithms.h \
-    TreeAlgorithms/obsttreealgorithms.h \
-    TreeAlgorithms/btreealgorithms.h \
-   
+    Trees/tree.h \
+        qcgview.h \
+    QGVGraphRelated/qgvcontextfactory.h \
+    QGVGraphRelated/qgvabstracttreescenefactory.h \
+    QGVGraphRelated/qgvredblacktreescenefactory.h \
+    QGVGraphRelated/commons.h
 
 
 FORMS += \
