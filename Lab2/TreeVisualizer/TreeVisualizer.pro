@@ -25,7 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 
-SRCDIRRR = /home/artyom/qtprojects/build-QGraphViz-Desktop-Debug/lib
+SRCDIRRR = /home/artyom/qtprojects/qgv/lib
 LIBS += -L$$SRCDIRRR/../lib -lQGVCore
 INCLUDEPATH += /home/artyom/qtprojects/qgv/QGVCore
 DEPENDPATH += /home/artyom/qtprojects/qgv/QGVCore
@@ -41,7 +41,8 @@ SOURCES += \
     TreeAlgorithms/rbtreealgorithms.cpp \
     TreeAlgorithms/splaytreealgorithms.cpp \
     TreeAlgorithms/obsttreealgorithms.cpp \
-    TreeAlgorithms/btreealgorithms.cpp
+    TreeAlgorithms/btreealgorithms.cpp \
+    qcgview.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,7 +55,8 @@ HEADERS += \
     TreeAlgorithms/rbtreealgorithms.h \
     TreeAlgorithms/splaytreealgorithms.h \
     TreeAlgorithms/obsttreealgorithms.h \
-    TreeAlgorithms/btreealgorithms.h
+    TreeAlgorithms/btreealgorithms.h \
+    qcgview.h
 
 
 FORMS += \

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>997</width>
-    <height>487</height>
+    <height>505</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -242,7 +242,7 @@
        </layout>
       </item>
       <item row="0" column="0">
-       <widget class="QGraphicsView" name="firstTree_img"/>
+       <widget class="QCGView" name="firstTree_img"/>
       </item>
       <item row="0" column="2">
        <widget class="QGraphicsView" name="secondTree_img"/>
@@ -340,13 +340,20 @@
      <x>0</x>
      <y>0</y>
      <width>997</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCGView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">qcgview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
