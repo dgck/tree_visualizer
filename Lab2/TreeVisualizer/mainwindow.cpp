@@ -82,8 +82,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // graph settings
     m_scene->setGraphAttribute("label", "DEMO");
-    m_scene->setGraphAttribute("splines", "curved");
-    m_scene->setGraphAttribute("rankdir", "UD");
+    m_scene->setGraphAttribute("splines", "true");
+    m_scene->setGraphAttribute("rankdir", "TB");
     m_scene->setGraphAttribute("nodesep", "0.4");
     m_scene->setNodeAttribute("shape", "circle");
     m_scene->setNodeAttribute("style", "filled");
@@ -96,11 +96,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QGVNode *n1 = m_scene -> addNode("n1"),
             *n2 = m_scene -> addNode("n2"),
             *n3 = m_scene -> addNode("n3"),
-            *n4 = m_scene -> addNode("n4"),
-            *n5 = m_scene -> addNode("n5");
-    QGVEdge *e1 = m_scene -> addEdge(n1, n2),
-            *e2 = m_scene -> addEdge(n1, n3),
-            *e3 = m_scene -> addEdge(n1, n4);
+            *n4 = m_scene -> addNode("n4");
+    QGVEdge *e1 = m_scene -> addEdge(n1, n2, "a"),
+            *e2 = m_scene -> addEdge(n1, n3, "b"),
+            *e3 = m_scene -> addEdge(n1, n4, "c");
 
     m_scene->applyLayout();
     ui -> firstTree_img -> fitInView(m_scene -> sceneRect(), Qt::KeepAspectRatio);
