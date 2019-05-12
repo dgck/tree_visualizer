@@ -24,6 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+
+SRCDIRRR = /home/artyom/qtprojects/qgv/lib
+LIBS += -L$$SRCDIRRR/../lib -lQGVCore
+INCLUDEPATH += /home/artyom/qtprojects/qgv/QGVCore
+DEPENDPATH += /home/artyom/qtprojects/qgv/QGVCore
+
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
@@ -35,17 +41,29 @@ SOURCES += \
     Trees/rbtree.cpp \
     Trees/splaytree.cpp \
     Trees/tree.cpp
+	qcgview.cpp
+
 
 HEADERS += \
         mainwindow.h \
     imagewriter.h \
     creator.h \
+
     Trees/binarytree.h \
     Trees/bplustree.h \
     Trees/obst.h \
     Trees/rbtree.h \
     Trees/splaytree.h \
     Trees/tree.h
+	qcgview.h
+
+    TreeAlgorithms/treealgorithms.h \
+    TreeAlgorithms/simpletreealgorithms.h \
+    TreeAlgorithms/rbtreealgorithms.h \
+    TreeAlgorithms/splaytreealgorithms.h \
+    TreeAlgorithms/obsttreealgorithms.h \
+    TreeAlgorithms/btreealgorithms.h \
+   
 
 
 FORMS += \

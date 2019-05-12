@@ -4,6 +4,72 @@
 #include <QPushButton>
 #include <QDebug>
 
+// trash includes for example purposes only
+#include "RBTree.h"
+#include "QGVEdge.h"
+#include "QGVNode.h"
+
+#include <stack>
+using std::stack;
+
+
+#include "QGVEdge.h"
+#include "QGVNode.h"
+
+RBTree* example_tree()
+{
+    RBTree* res = new RBTree;
+    for (int i = 0; i < 5; i++)
+        res -> insert(res -> getGoodNode(i));
+    return res;
+}
+
+/*
+void sWrite(RBTree* src, QGVScene *sc) {
+    stack <Node*> st;
+    Node* cur = src ->root;
+    while (cur || !st.empty()) {
+        while (cur) {
+            st.push(cur);
+            cur = cur -> left;
+        }
+        cur = st.top();
+        st.pop();
+        if (cur -> color == 1)
+        {
+            QGVNode* res = sc -> addNode(QString::number(cur -> key));
+            res ->setAttribute(QString("fillcolor"), QString("red"));
+            res ->setAttribute(QString("style"), QString("filled"));
+        }
+        else if (cur -> color == 0)
+        {
+            QGVNode* res = sc -> addNode(QString::number(cur -> key));
+        }
+        if (cur -> left) {
+            QGVNode *parent = sc -> addNode(QString::number(cur -> key));
+            QGVNode *son  = sc -> addNode(QString::number(cur -> left -> key));
+            sc -> addEdge(parent, son);
+
+            if (cur -> left -> color == 1)
+            {
+                son->setAttribute(QString("fillcolor"), QString("red"));
+            }
+        }
+        if (cur -> right) {
+            QGVNode *parent = sc -> addNode(QString::number(cur -> key));
+            QGVNode *son  = sc -> addNode(QString::number(cur -> right -> key));
+            sc -> addEdge(parent, son);
+
+            if (cur -> right -> color == 1)
+            {
+                son->setAttribute(QString("fillcolor"), QString("red"));
+            }
+        }
+        cur = cur -> right;
+    }
+}
+*/
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -13,6 +79,25 @@ MainWindow::MainWindow(QWidget *parent) :
     //will be a Singleton
     treeCreator = new Creator;
 
+    auto new_shit = example_tree();
+    m_scene = new QGVScene("DEMO", this);
+    ui->firstTree_img->setScene(m_scene);
+
+
+    QGVNode *n1 = m_scene -> addNode("n1"),
+            *n2 = m_scene -> addNode("n2"),
+            *n3 = m_scene -> addNode("n3"),
+            *n4 = m_scene -> addNode("n4");
+    QGVEdge *e1 = m_scene -> addEdge(n1, n2, "a"),
+            *e2 = m_scene -> addEdge(n1, n3, "b"),
+            *e3 = m_scene -> addEdge(n1, n4, "c");
+
+    m_scene->applyLayout();
+    ui -> firstTree_img -> fitInView(m_scene -> sceneRect(), Qt::KeepAspectRatio);
+    //ui -> firstTree_img -> fitInView_fixed(m_scene -> sceneRect(), Qt::KeepAspectRatio);
+
+    // trash example end
+
     //writer1 = new ImageWriter(ui->firstTree_img);
     //writer2 = new ImageWriter(ui->secondTree_img);
     //writer3 = new ImageWriter(ui->resultImg);
@@ -20,14 +105,15 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(writer2,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
     //(writer3,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
 
-    tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
-    tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
+    //tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
+    //tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
+
 
     /*QPalette pal = this->palette();
     pal.setColor(QPalette::Window, Qt::white);
     this->setPalette(pal);*/
 
-    MakeConnects();
+    //MakeConnects();
 }
 
 void MainWindow::DrawImage(const int&w,const int&h,const QPixmap&pix,QLabel*image)

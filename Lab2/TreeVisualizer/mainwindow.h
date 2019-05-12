@@ -8,6 +8,8 @@
 #include "Trees/binarytree.h"
 #include <QString>
 
+#include "QGVScene.h"
+
 using namespace std;
 
 namespace Ui {
@@ -60,6 +62,9 @@ private:
     ImageWriter *writer1;
     ImageWriter *writer2;
     ImageWriter *writer3;//for result image
+
+    QGVScene *m_scene;
+
 };
 
 #endif // MAINWINDOW_H
