@@ -4,6 +4,7 @@
 #include <clocale>
 #include "bplustree.h"
 #include "obst.h"
+#include "splaytree.h"
 
 int main()
 {
@@ -12,7 +13,7 @@ int main()
    // MainWindow w;
    // w.show();
 
-  /* RBTree t;
+   RBTree t;
     t.insert(10);
     t.insert(5);
     t.insert(15);
@@ -20,9 +21,9 @@ int main()
     t.insert(20);
     t.insert(13);
     t.insert(7);
-    t.insert(11);*/
+    t.insert(11);
 
-//    t.show();
+    t.show();
     //t.display("Test.gv");
    // t.split(13);
 //t.display("Test.gv");
@@ -70,6 +71,22 @@ vector<vector<tuple<int,int>>> al = t.convertToGraph();
   //  OBST b;
    // b.Preparation();
 
+   /* SplayTree t;
+    t.insert(4);
+    t.insert(10);
+    t.insert(41);
+    t.insert(11);
+    t.insert(6);
+    t.insert(70);
+    t.insert(43);
+    t.insert(1);
+    t.insert(14);
+    t.insert(7);
+    t.insert(8);
+    t.insert(19);
+
+    t.show();
+*/
         system("pause");
         return 0;
 

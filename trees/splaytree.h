@@ -54,7 +54,7 @@ public:
 
         void deleteNode(int data);
 
-
+        void insertFix(Node* x)override;
 
 };
 

@@ -25,15 +25,44 @@ Node::Node(string data, int cost){
 
 
 
+void BinaryTree::insertFix(Node *)
+{
+
+}
+
 BinaryTree::BinaryTree()
 {
 
 }
 
-void BinaryTree::insert(int)
+void BinaryTree::insert(int data)
 {
+    Node* n = new Node(data);
 
+        Node *tempR = root, *temp = NULL;
+
+        while (tempR != NULL)
+        {
+            temp = tempR;
+
+            if (n->key < tempR->key)
+                tempR = tempR->left;
+            else
+                tempR = tempR->right;
+        }
+
+        n->father = temp;
+
+        if (temp == NULL)
+            root = n;
+        else if (n->key < temp->key)
+            temp->left = n;
+        else
+            temp->right = n;
+
+        insertFix(n);
 }
+
 
 void BinaryTree::deleteNode(int)
 {
@@ -276,9 +305,6 @@ vector<vector<int > > BinaryTree::convertToGraph()
     }
     return adjacencyLists;
 }
-
-
-
 
 vector<tuple<int, Node*>> BinaryTree::getVertices()
 {

@@ -35,7 +35,7 @@ RBTree::RBTree(Node * in)
 
 
 void RBTree::insert(int input) {
-    Node *p, *q;
+   /* Node *p, *q;
     Node *create = new Node(input);
     p = root;
     q = nullptr;
@@ -57,8 +57,8 @@ void RBTree::insert(int input) {
         if (q->key < create->key) q->right = create;
         else if (q->key > create->key)q->left = create;
         else return;
-    }
-    insertFix(create);
+    }*/
+    BinaryTree::insert(input);
 
 
 }

@@ -170,6 +170,7 @@ void SplayTree::splay(Node *x)
             zig_zag(x, p, g);
     }
     root = x;
+    cout << "In splay()\n";
 }
 
 void SplayTree::recursive_print(Node *start)
@@ -227,6 +228,11 @@ void SplayTree::merge(SplayTree *t)
     t->root->father = root;
 }
 
+void SplayTree::insert(int data)
+{
+    BinaryTree::insert(data);
+}
+
 Tree* SplayTree::split(int y)
 {
     Node* x = new Node(y);
@@ -238,32 +244,9 @@ Tree* SplayTree::split(int y)
     return t1;
 }
 
-void SplayTree::insert(int data)
+void SplayTree::insertFix(Node *x)
 {
-    Node* n = new Node(data);
-
-    Node *tempR = root, *temp = nullptr;
-
-    while (tempR != nullptr)
-    {
-        temp = tempR;
-
-        if (n->key < tempR->key)
-            tempR = tempR->left;
-        else
-            tempR = tempR->right;
-    }
-
-    n->father = temp;
-
-    if (temp == nullptr)
-        root = n;
-    else if (n->key < temp->key)
-        temp->left = n;
-    else
-        temp->right = n;
-
-    splay(n);
+    splay(x);
 }
 
 Node *SplayTree::search(int data)

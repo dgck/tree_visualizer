@@ -19,7 +19,7 @@ class RBTree : public BinaryTree
     Node* successor(Node*);
     void rotateLeft(Node*);
     void rotateRight(Node*);
-    void insertFix(Node*);
+    void insertFix(Node*)override;
     void deleteFix(Node*);
 
     void inorderBST(Node*);
