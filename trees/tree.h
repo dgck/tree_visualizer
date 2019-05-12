@@ -21,10 +21,8 @@ public:
        virtual tuple<bool, int> inclusion(Tree*) = 0;
 
        virtual void dfs() = 0;
-       virtual vector<vector<tuple<int,int>>> bfs(tuple<int,int>)=0;
-       virtual vector<vector<tuple<int,string>>> bfs(tuple<int,string>)=0;
-       virtual vector<vector<tuple<int,int*>>> bfs(tuple<int,int*>)=0;
-       virtual void diameter()=0;
+       virtual vector<vector<int>> bfs(int)=0;
+       virtual vector<int> diameter()=0;
        virtual void center()=0;
 
        virtual ~Tree(){}

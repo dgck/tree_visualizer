@@ -27,8 +27,6 @@ class RBTree : public BinaryTree
 
     void join(RBTree rbTree2);
 
-    void getElem(Node*, vector<int>&);
-    void getElementsRecursion(Node *x, vector<int> &elements);
 
 public:
     RBTree();
@@ -50,10 +48,6 @@ public:
     void merge(RBTree rbTree2);
     RBTree* splitR(int);
 
-    vector<vector<tuple<int, int>>> convertToGraph();
-    vector<tuple<int, Node*>> getVertices();
-    void getVerticesRecursion(Node *x, vector<tuple<int,Node*>> &vertices);
-
 
     void stackWrite(int local_value);
     int global_value{0};
@@ -68,6 +62,5 @@ public:
     void deleteNode(int);
     void merge(Tree *);
     Tree *split(int);
-    vector<int> getElements();
 };
 #endif // RBTREE_H

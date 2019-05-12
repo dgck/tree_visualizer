@@ -42,35 +42,18 @@ public:
     tuple<bool, int> inclusion(Tree*) override;
     void dfs() override;
 
-    void dfs(int v, vector<vector<tuple<int, int>>> g, vector<bool> &used, vector<int> &path);
-    void dfs(int v, vector<vector<tuple<int, string>>> g, vector<bool> &used, vector<int> &path);
+    void dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path);
 
-    vector<vector<tuple<int, int>>> bfs(tuple<int, int>) override;
-    vector<vector<tuple<int, string>>> bfs(tuple<int, string>) override;
-    vector<vector<tuple<int, int*>>> bfs(tuple<int, int*>) override;
+    vector<vector<int>> bfs(int) override;
 
-    void diameter() override;
+    vector<int> diameter() override;
     void center() override;
 
-    vector<vector<tuple<int, int> > > convertToGraph();
+    vector<vector<int > > convertToGraph();
     vector<tuple<int, Node *> > getVertices();
     void getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices);
+    void getElementsRecursion(Node *x, vector<int > &vertices);
 
-
-   /* void insert(int);
-    void deleteNode(int);
-    vector<int> getElements();
-    void merge(Tree*);
-    Tree *split(int);
-    vector<int> intersection(Tree *);
-    vector<int> intersection(vector<int> v1, vector<int> v2);
-    tuple<bool, int> inclusion();
-    void dfs();
-    void dfs(int v, vector<vector<tuple<int, int> > > g, vector<bool> &used, vector<int> &path);
-    vector<vector<tuple<int, TNode *> > > bfs();
-    vector<vector<tuple<int, int> > > convertToGraph();
-    vector<tuple<int, TNode *> > getVertices();
-    void getVerticesRecursion(TNode *x, vector<tuple<int, TNode *> > &vertices);*/
 };
 
 #endif // BINARYTREE_H

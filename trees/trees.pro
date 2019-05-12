@@ -29,7 +29,6 @@ SOURCES += \
     tree.cpp \
     rbtree.cpp \
     bplustree.cpp \
-    treealgorithms.cpp \
     obst.cpp \
     binarytree.cpp \
     splaytree.cpp
@@ -38,7 +37,6 @@ HEADERS += \
     tree.h \
     rbtree.h \
     bplustree.h \
-    treealgorithms.h \
     obst.h \
     binarytree.h \
     splaytree.h

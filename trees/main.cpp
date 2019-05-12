@@ -1,9 +1,9 @@
 #include <QApplication>
 #include "tree.h"
 #include "rbtree.h"
-#include "treealgorithms.h"
 #include <clocale>
 #include "bplustree.h"
+#include "obst.h"
 
 int main()
 {
@@ -12,7 +12,7 @@ int main()
    // MainWindow w;
    // w.show();
 
-   /*RBTree t;
+  /* RBTree t;
     t.insert(10);
     t.insert(5);
     t.insert(15);
@@ -20,9 +20,13 @@ int main()
     t.insert(20);
     t.insert(13);
     t.insert(7);
-    t.insert(11);
-t.display("Test.gv");
+    t.insert(11);*/
 
+//    t.show();
+    //t.display("Test.gv");
+   // t.split(13);
+//t.display("Test.gv");
+/*
 vector<vector<tuple<int,int>>> al = t.convertToGraph();
     cout << endl;
     for (int i = 0; i < al.size(); ++i)
@@ -36,7 +40,7 @@ vector<vector<tuple<int,int>>> al = t.convertToGraph();
     //alg.dsf(t);
 
 */
-    Tree*  t= new BplusTree();
+ /*   Tree*  t= new BplusTree();
     Tree*  t2= new BplusTree();
     t->insert(10);
     t->insert(5);
@@ -62,6 +66,9 @@ vector<vector<tuple<int,int>>> al = t.convertToGraph();
     }
 
     t->diameter();
+*/
+  //  OBST b;
+   // b.Preparation();
 
         system("pause");
         return 0;

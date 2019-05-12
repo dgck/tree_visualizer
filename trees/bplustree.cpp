@@ -535,14 +535,14 @@ vector<tuple<int, BNode *>> BplusTree::getVertices()
     return v;
 }
 
-vector<vector<tuple<int, BNode*>>> BplusTree::convertToGraph()
+vector<vector<int>> BplusTree::convertToGraph()
 {
-    vector<vector<tuple<int, BNode*>>> adjacencyLists;
+    vector<vector<int>> adjacencyLists;
     vector<tuple<int, BNode*>> vertices = getVertices();
     for (int i = 0; i < vertices.size(); ++i)
     {
-        vector<tuple<int, BNode*>> curList;
-        curList.push_back(make_tuple(i, get<1>(vertices[i])));
+        vector<int> curList;
+        curList.push_back(i);
 
         int k;
 
@@ -557,7 +557,7 @@ vector<vector<tuple<int, BNode*>>> BplusTree::convertToGraph()
                 }
             }
 
-            curList.push_back(make_tuple(k, get<1>(vertices[k])));
+            curList.push_back(k);
         }
 
         for (int l = 0; l <= get<1>(vertices[i])->nElems; ++l)
@@ -572,7 +572,7 @@ vector<vector<tuple<int, BNode*>>> BplusTree::convertToGraph()
                         break;
                     }
                 }
-                curList.push_back(make_tuple(k, get<1>(vertices[k])));
+                curList.push_back(k);
             }
         }
 
@@ -624,8 +624,7 @@ tuple<bool, int> BplusTree::inclusion(Tree* t2)
 
 void BplusTree::dfs()
 {
-    graphviz();
-    vector<vector<tuple<int, BNode*>>> adj = convertToGraph();
+    vector<vector<int>> adj = convertToGraph();
     vector<bool> used(adj.size(), false);
     vector<int> path;
     dfs (0, adj, used, path);
@@ -637,39 +636,29 @@ void BplusTree::dfs()
 
 }
 
-void BplusTree::dfs(int v, vector<vector<tuple<int, BNode*>>> g, vector<bool> &used, vector<int> &path){
+void BplusTree::dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path){
     used[v] = true;
     cout<<v<<endl;
     path.push_back(v);
     for(int i=0; i<g[v].size(); i++){
-        if (!used[get<0>(g[v][i])]) dfs(get<0>(g[v][i]), g, used,path);
+        if (!used[g[v][i]]) dfs(g[v][i], g, used,path);
     }
 }
 
-vector<vector<tuple<int, int> > > BplusTree::bfs(tuple<int, int>)
-{
-    vector<vector<tuple<int, int>>> v;
-    return v;
-}
 
-vector<vector<tuple<int, string> > > BplusTree::bfs(tuple<int, string>)
-{
-    vector<vector<tuple<int, string>>> v;
-    return v;
-}
 
-vector<vector<tuple<int, int*> > > BplusTree::bfs(tuple<int, int *> vertex)
+vector<vector<int > > BplusTree::bfs(int vertex)
 {
-    vector<vector<tuple<int, BNode*> > > graph = convertToGraph();
+    vector<vector<int >> graph = convertToGraph();
     int graphSize = graph.size();
-    vector<vector<tuple<int, int*>>> routes(graphSize);
+    vector<vector<int>> routes(graphSize);
 
             queue<int> q;
-            q.push(get<0>(vertex));
+            q.push(vertex);
             vector<bool> visited(graphSize);
-            visited[get<0>(vertex)] = true;
+            visited[vertex] = true;
             vector<int> d(graphSize), p(graphSize);
-            p[get<0>(vertex)] = -1;
+            p[vertex] = -1;
 
 
             while (!q.empty())
@@ -679,7 +668,7 @@ vector<vector<tuple<int, int*> > > BplusTree::bfs(tuple<int, int *> vertex)
 
                     for (int i = 0; i < graph[v].size(); ++i)
                     {
-                            int to = get<0>(graph[v][i]);
+                            int to = graph[v][i];
                             if (!visited[to])
                             {
                                     visited[to] = true;
@@ -694,7 +683,7 @@ vector<vector<tuple<int, int*> > > BplusTree::bfs(tuple<int, int *> vertex)
             for (int j = 0; j < graphSize; ++j)
             {
 
-                    int to = get<0>(graph[j][0]);
+                    int to = graph[j][0];
                     vector<int> path;
                     for (int v = to; v != -1; v = p[v])
                             path.push_back(v);
@@ -707,9 +696,9 @@ vector<vector<tuple<int, int*> > > BplusTree::bfs(tuple<int, int *> vertex)
                     for (size_t i = 0; i < path.size(); ++i)
                             for (int k = 0; k < graphSize; ++k)
                             {
-                                    if (path[i] == get<0>(graph[k][0]))
+                                    if (path[i] == graph[k][0])
                                     {
-                                            tuple<int, int*> t = make_tuple(path[i], get<1>(graph[k][0])->value);
+                                            int t = path[i];
                                             // восстанавливаем путь к вершине под номером j
                                             routes[j].push_back(t);
                                     }
@@ -720,13 +709,13 @@ vector<vector<tuple<int, int*> > > BplusTree::bfs(tuple<int, int *> vertex)
             return routes;
 }
 
-void BplusTree::diameter()
+vector<int> BplusTree::diameter()
 {
-    vector<vector<tuple<int, BNode*>>> graph = convertToGraph();
+    vector<vector<int>> graph = convertToGraph();
     vector<tuple<int, BNode*>> path;
     int n = getElements().size();
 
-    vector<vector<tuple<int, int*>>> routesV = bfs(make_tuple(get<0>(graph[0][0]), get<1>(graph[0][0])->value));
+    vector<vector<int>> routesV = bfs(graph[0][0]);
 
     int max = -1;
     int maxIndex = -1;
@@ -742,8 +731,8 @@ void BplusTree::diameter()
     }
 
             // нашли вершину u - самую далекую от v; она хранится в graph[maxIndex][0]
-            if (maxIndex == -1) ;//return routesV[0];
-            vector<vector<tuple<int, int*>>> routesU = bfs(make_tuple(get<0>(graph[maxIndex][0]), get<1>(graph[maxIndex][0])->value));
+            if (maxIndex == -1) return routesV[0];
+            vector<vector<int>> routesU = bfs(graph[maxIndex][0]);
 
 
             max = maxIndex = -1;
@@ -760,9 +749,8 @@ void BplusTree::diameter()
 
             cout << "DIAMETR\n";
             for (int i = 0; i < routesU[maxIndex].size(); ++i)
-                cout << get<0>(routesU[maxIndex][i]) << "\tKey: " <<
-                        get<1>(routesU[maxIndex][i])[0] << endl;
-            //return routesU[maxIndex];
+                cout << routesU[maxIndex][i] << endl;
+            return routesU[maxIndex];
 
 
 }

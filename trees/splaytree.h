@@ -33,10 +33,6 @@ private:
 
         void recursive_inorder(Node* start);
 
-        void getElementsRecursion(Node *x, vector<int> &elements);
-
-        void getVerticesRecursion(Node *x, vector<tuple<int,Node*>> &vertices);
-
 public:
 
         SplayTree();
@@ -58,25 +54,7 @@ public:
 
         void deleteNode(int data);
 
-        vector<int> getElements();
 
-        vector<tuple<int, Node*>> getVertices();
-
-        // списки смежности вершин; вершина представляет из себя пару  ( ключ / значение )
-        //vector<vector<tuple<int, int>>> convertToGraph();
-
-        vector<int> intersection(Tree*);
-        vector<int> intersection(vector<int> v1, vector<int> v2);
-        tuple<bool, int> inclusion();
-
-        void dfs();
-        void dfs(int v, vector<vector<tuple<int, int>>> g, vector<bool> &used, vector<int> &path);
-        void dfs(int v, vector<vector<tuple<int, string>>> g, vector<bool> &used, vector<int> &path);
-        vector<vector<tuple<int,int>>> bfs(tuple<int,int>);
-        vector<vector<tuple<int,string>>> bfs(tuple<int,string>);
-        vector<vector<tuple<int,int*>>> bfs(tuple<int,int*>);
-        void diameter();
-        void center();
 
 };
 

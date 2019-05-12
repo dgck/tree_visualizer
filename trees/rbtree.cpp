@@ -487,16 +487,24 @@ Node* RBTree::maxValueNode(Node *&node) {
 
 
 void RBTree::join(RBTree rbTree2) {
+
     if (root == nullptr) { root = rbTree2.root; return; }
     if (rbTree2.root == nullptr) return;
+    vector<int> e = rbTree2.getElements();
+    for (int i = 0; i < e.size(); ++i) { insert(e[i]);}
+    if(root != nullptr) return;
+
     int temp;
     Node *c, *temp_ptr = nullptr;
     Node *root1 = root;
     Node *root2 = rbTree2.root;
     if (!root1->left && !root1->right) { rbTree2.insert(root1->key); root = rbTree2.root; return; }
     if (!root2->left && !root2->right) { insert(root1->key); return; }
+   // vector<int> e = rbTree2.getElements();
     int initialblackheight1 = blackHeight(root1);
     int initialblackheight2 = blackHeight(root2);
+  //  for (int i = 0; i < e.size(); ++i) { insert(e[i]);}
+  //  if(root != nullptr) return;
     if (initialblackheight1 > initialblackheight2) {
         c = maxValueNode(root1);
         temp = c->key;
@@ -588,35 +596,51 @@ void RBTree::join(RBTree rbTree2) {
 }
 
 RBTree* RBTree::splitR(int x) {
-    RBTree* t1, *t2;
+
+    RBTree *t1, *t2;
+
     Node* k = root;
 
-    while (k != nullptr) {
-        if (x == k->key) {
-            RBTree tempR(k->right); RBTree tR(tempR); tR.root->father = nullptr;
-            t2->join(tR);
-            RBTree tempL(k->left); RBTree tL(tempL);
-            t1->join(tL);
+    while (k && (k->left || k->right))
+    {
+        cout << k->key << endl;
+        if (x == k->key)
+        {
+            t2->join(RBTree(RBTree(k->right)));
+            t1->join(RBTree(RBTree(k->left)));
             break;
         }
-        if (x < k->key) {
+        if (x < k->key)
+        {
+            cout << "BEFORE join <" << endl;
+            t2->join(RBTree(k->right));
+            cout << "AFTER join <" << endl;
+            k = k->left;
+        }
+        else
+        {
+            cout << "Copy\n";
+            RBTree(k).show();
+            t1->join(RBTree(RBTree(k->left)));
 
-            RBTree temp(k); RBTree t(temp); t.root->left = nullptr; t.root->father = nullptr;
-            t2->join(t);
-            if(k->left) k = k->left; else break;
+            k = k->right;
         }
-        else{
-            RBTree temp(k); RBTree t(temp); t.root->right = nullptr;
-            t1->join(t);
-            if(k->right) k = k->right; else break;
-        }
+
+        cout << "T1" << endl;
+        if (t1) t1->show();
+
+        cout << endl;
+        cout << "T2" << endl;
+        if(t2) t2->show();
+
+        cout << "----------\n\n";
     }
-    if(k!=nullptr && k->key != x) k->key < x ? t1->insert(k->key) : t2->insert(k->key);
-    root = t1->root;
-    if(root)root->father = nullptr;
-    if(t2->root)t2->root->father = nullptr;
 
-    return t2;
+    (k && k->key)<x?t1->insert(k->key):t2->insert(k->key);
+
+    root = t1->root;
+    show();
+    return  t2;
 }
 
 void RBTree::merge(RBTree t) {
@@ -639,102 +663,10 @@ void RBTree::merge(RBTree t) {
 }
 
 
-vector<int> RBTree::getElements() {
-    vector<int> v;
-    getElem(root, v);
-    return v;
-}
-
-void RBTree::getElem(Node* node, vector<int>& v) {
-    if (node) {
-        if (node->left) getElem(node->left, v);
-        v.push_back(node->key);
-        if (node->right) getElem(node->right, v);
-    }
-}
-
-void RBTree::getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices)
-{
-    if (x)
-    {
-        getVerticesRecursion(x->left, vertices);
-        vertices.push_back(make_tuple(0, x));
-        getVerticesRecursion(x->right, vertices);
-    }
-}
 
 RBTree::RBTree()  {
     root=nullptr;
 }
-
-vector<tuple<int, Node *> > RBTree::getVertices()
-{
-    vector<tuple<int, Node*>> v;
-    getVerticesRecursion(root, v);
-    for (int i = 0; i < v.size(); ++i)
-        get<0>(v[i]) = i;
-    return v;
-}
-
-vector<vector<tuple<int, int> > > RBTree::convertToGraph()
-{
-    vector<vector<tuple<int, int>>> adjacencyLists;
-    vector<tuple<int, Node*>> vertices = getVertices();
-    for (int i = 0; i < vertices.size(); ++i)
-    {
-        vector<tuple<int, int>> curList;
-        curList.push_back(make_tuple(i, (get<1>(vertices[i]))->key));
-
-        int k;
-
-        if (get<1>(vertices[i])->left)
-        {
-            for (int j = 0; j < vertices.size(); ++j)
-            {
-                if (get<1>(vertices[i])->left == get<1>(vertices[j]))
-                {
-                    k = j;
-                    break;
-                }
-            }
-
-            curList.push_back(make_tuple(k, (get<1>(vertices[k]))->key));
-        }
-
-        if (get<1>(vertices[i])->right)
-        {
-            for (int j = 0; j < vertices.size(); ++j)
-            {
-                if (get<1>(vertices[i])->right == get<1>(vertices[j]))
-                {
-                    k = j;
-                    break;
-                }
-            }
-
-            curList.push_back(make_tuple(k, (get<1>(vertices[k]))->key));
-        }
-
-        if (get<1>(vertices[i])->father)
-        {
-            for (int j = 0; j < vertices.size(); ++j)
-            {
-                if (get<1>(vertices[i])->father == get<1>(vertices[j]))
-                {
-                    k = j;
-                    break;
-                }
-            }
-
-            curList.push_back(make_tuple(k, (get<1>(vertices[k]))->key));
-        }
-
-        adjacencyLists.push_back(curList);
-    }
-    return adjacencyLists;
-}
-
-
 
 void RBTree::merge(Tree *t)
 {
@@ -748,4 +680,6 @@ Tree *RBTree::split(int k)
     Tree* t=dynamic_cast<Tree*>(splitR(k));
     return nullptr;
 }
+
+
 

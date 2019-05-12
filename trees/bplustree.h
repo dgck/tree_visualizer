@@ -38,7 +38,7 @@ private:
     void graphvizRec(vector <BNode*> Nodes);
     void getVerticesRecursion(BNode *, vector<tuple<int, BNode *>> &);
     vector<tuple<int, BNode *>> getVertices();
-    void dfs(int v, vector<vector<tuple<int, BNode*>>> g, vector<bool> &used, vector<int> &path);
+    void dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path);
 
 
 public:
@@ -48,7 +48,7 @@ public:
     ~BplusTree()override;
 
     BNode* getRoot() { return root; }
-    vector<vector<tuple<int, BNode*>>> convertToGraph();
+    vector<vector<int>> convertToGraph();
     void graphviz();
 
 
@@ -63,10 +63,8 @@ public:
     vector<int> intersection(vector<int> v1, vector<int> v2) override;
     tuple<bool, int> inclusion(Tree*) override;
     void dfs() override;
-    vector<vector<tuple<int, int> > > bfs(tuple<int, int>) override;
-    vector<vector<tuple<int, string> > > bfs(tuple<int, string>) override;
-    vector<vector<tuple<int, int *> > > bfs(tuple<int, int *>) override;
-    void diameter() override;
+    vector<vector<int> > bfs(int) override;
+    vector<int> diameter() override;
     void center() override;
 };
 
