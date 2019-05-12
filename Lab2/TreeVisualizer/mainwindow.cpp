@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //Singleton
+    //will be a Singleton
     treeCreator = new Creator;
 
     //writer1 = new ImageWriter(ui->firstTree_img);
@@ -23,9 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
     tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
     tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
 
-    QPalette pal = this->palette();
+    /*QPalette pal = this->palette();
     pal.setColor(QPalette::Window, Qt::white);
-    this->setPalette(pal);
+    this->setPalette(pal);*/
 
     MakeConnects();
 }
