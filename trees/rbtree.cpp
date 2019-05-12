@@ -491,20 +491,16 @@ void RBTree::join(RBTree rbTree2) {
     if (root == nullptr) { root = rbTree2.root; return; }
     if (rbTree2.root == nullptr) return;
     vector<int> e = rbTree2.getElements();
-    for (int i = 0; i < e.size(); ++i) { insert(e[i]);}
-    if(root != nullptr) return;
-
     int temp;
     Node *c, *temp_ptr = nullptr;
     Node *root1 = root;
     Node *root2 = rbTree2.root;
+    for (size_t i = 0; i < e.size(); ++i) { insert(e[i]);}
+    if(root != nullptr) return;
     if (!root1->left && !root1->right) { rbTree2.insert(root1->key); root = rbTree2.root; return; }
     if (!root2->left && !root2->right) { insert(root1->key); return; }
-   // vector<int> e = rbTree2.getElements();
     int initialblackheight1 = blackHeight(root1);
     int initialblackheight2 = blackHeight(root2);
-  //  for (int i = 0; i < e.size(); ++i) { insert(e[i]);}
-  //  if(root != nullptr) return;
     if (initialblackheight1 > initialblackheight2) {
         c = maxValueNode(root1);
         temp = c->key;
@@ -643,22 +639,25 @@ RBTree* RBTree::splitR(int x) {
     return  t2;
 }
 
-void RBTree::merge(RBTree t) {
+void RBTree::merge(RBTree* t) {
 
+    cout<<"merge";
     if (root == nullptr) {
-        root = t.root;
+        root = t->root;
         return;
     }
-    if (t.root == nullptr)
+    if (t->root == nullptr)
         return;
 
-    RBTree tL(t), *tR;
-    tR = tL.splitR(root->key);
+    join(*t);
+   // show();
+    //RBTree tL(t), *tR;
+    //tR = tL.splitR(root->key);
     //tL.insert(root->key);
     //tL.merge(RBTree(root->left));
     //tR.merge(RBTree(root->right));
-    tR->join(tL);
-    root = tL.root;
+    //tR->join(tL);
+    //root = tL.root;
 
 }
 
@@ -672,12 +671,12 @@ void RBTree::merge(Tree *t)
 {
     RBTree *rbt=dynamic_cast<RBTree*>(t);
     merge(rbt);
-
+    show();
 }
 
 Tree *RBTree::split(int k)
 {
-    Tree* t=dynamic_cast<Tree*>(splitR(k));
+    //Tree* t=dynamic_cast<Tree*>(splitR(k));
     return nullptr;
 }
 

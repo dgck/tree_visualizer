@@ -45,7 +45,7 @@ public:
     Node* minValueNode(Node*&);
     Node* maxValueNode(Node*&);
 
-    void merge(RBTree rbTree2);
+    void merge(RBTree* rbTree2);
     RBTree* splitR(int);
 
 

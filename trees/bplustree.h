@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <stack>
 #include "tree.h"
 
 using namespace std;
@@ -69,5 +70,99 @@ public:
 };
 
 
+class BplusIterator{
+public:
+    BplusIterator(BplusTree &bt):tree(bt), _Ptr(nullptr) {}
+    int val()
+    {
+        return _Ptr->value[0];
+    }
 
+    bool IsDone() const
+    {
+        return st.empty();
+    }
+
+    virtual void next() = 0;
+
+    void printTreeInterator()
+    {
+        while(!IsDone())
+            next();
+    }
+protected:
+    BplusTree &tree;
+    typename BNode *_Ptr;
+    stack<BNode*> st;
+
+};
+
+class PostIterator : public BplusIterator
+{
+public:
+    PostIterator(BplusTree &bt):BplusIterator(bt){
+        _Ptr = tree.root;
+         st.push(_Ptr);
+    }
+
+
+    void next()
+    {
+
+        if(st.empty()) return;
+
+        while (!st.empty()) {
+            BNode* next=st.top();
+            bool finishedSubtrees = false;
+            for (int i=0;i<=next->nElems;i++) {
+                if(next->child[i]==_Ptr) {finishedSubtrees=true; break;}
+            }
+            bool isLeaf = (next->child[0]==nullptr);
+            if(finishedSubtrees||isLeaf){
+                st.pop();
+                _Ptr=next;
+                cout<<"return"<<_Ptr->nElems<<endl;
+                return;
+            }
+            else {
+                for (int i=next->nElems;i>=0;i--) {
+                    if(next->child[i]!=nullptr) {st.push(next->child[i]);}
+                }
+            }
+
+        }
+    }
+
+
+};
+
+class PreIterator : public BplusIterator
+{
+public:
+    PreIterator(BplusTree &bt):BplusIterator(bt){
+        if (tree.root == nullptr)
+               return;
+        _Ptr = tree.root;
+         st.push(_Ptr);
+    }
+
+
+    void next(){
+
+        if(st.empty()) return;
+
+        while (!st.empty())
+        {
+            BNode *next = st.top();
+            cout<<"return"<<next->nElems<<endl;
+            st.pop();
+
+            for (int i=next->nElems;i>=0;i--) {
+                if(next->child[i]!=nullptr) {st.push(next->child[i]);}
+            }
+            return;
+         }
+    }
+
+};
 #endif // BPLUSTREE_H
