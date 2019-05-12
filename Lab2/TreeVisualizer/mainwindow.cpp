@@ -80,18 +80,6 @@ MainWindow::MainWindow(QWidget *parent) :
     m_scene = new QGVScene("DEMO", this);
     ui->firstTree_img->setScene(m_scene);
 
-    // graph settings
-    m_scene->setGraphAttribute("label", "DEMO");
-    m_scene->setGraphAttribute("splines", "true");
-    m_scene->setGraphAttribute("rankdir", "TB");
-    m_scene->setGraphAttribute("nodesep", "0.4");
-    m_scene->setNodeAttribute("shape", "circle");
-    m_scene->setNodeAttribute("style", "filled");
-    m_scene->setNodeAttribute("fillcolor", "white");
-    m_scene->setNodeAttribute("height", "0.4");
-    m_scene->setEdgeAttribute("minlen", "0.4");
-
-
 
     QGVNode *n1 = m_scene -> addNode("n1"),
             *n2 = m_scene -> addNode("n2"),
