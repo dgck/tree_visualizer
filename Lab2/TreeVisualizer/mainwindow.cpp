@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QComboBox>
 #include <QPushButton>
-#include<QDebug>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -69,8 +69,7 @@ void MainWindow::InsertInTree()
     {
         if(!writer1->is_writing())
         {
-            Node*node = new Node(ui->insElem1->text().toInt());
-            tree1->insert(node);
+            tree1->insert(ui->insElem1->text().toInt());
             writer1->ShowSequenceOfImages();
         }
     }
@@ -78,8 +77,7 @@ void MainWindow::InsertInTree()
     {
         if(!writer2->is_writing())
         {
-            Node*node = new Node(ui->insElem2->text().toInt());
-            tree2->insert(node);
+            tree2->insert(ui->insElem2->text().toInt());
             writer2->ShowSequenceOfImages();
         }
     }
@@ -91,19 +89,17 @@ void MainWindow::RemoveFromTree()
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     if(buttonSender == ui->remove1BTN)
     {
-        if(tree1->search(ui->removeElem1->text().toInt(),tree1->getRoot()))
+        //if(tree1->find(ui->removeElem1->text().toInt(),tree1->getRoot()))
         {
-            Node* f = tree1->search(ui->removeElem1->text().toInt(),tree1->getRoot());
-            tree1->deleteNode(f);
+            tree1->deleteNode(ui->removeElem1->text().toInt());
             writer1->ShowSequenceOfImages();
         }
     }
     else
     {
-        if(tree2->search(ui->removeElem1->text().toInt(),tree2->getRoot()))
+        //if(tree2->search(ui->removeElem1->text().toInt(),tree2->getRoot()))
         {
-            Node* f = tree2->search(ui->removeElem1->text().toInt(),tree2->getRoot());
-            tree2->deleteNode(f);
+            tree2->deleteNode(ui->removeElem2->text().toInt());
             writer2->ShowSequenceOfImages();
         }
     }

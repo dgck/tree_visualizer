@@ -1,7 +1,11 @@
 #ifndef CREATOR_H
 #define CREATOR_H
 
-#include "RBTree.h"
+//#include "Trees/binarytree.h"
+#include "Trees/bplustree.h"
+#include "Trees/obst.h"
+#include "Trees/rbtree.h"
+#include "Trees/splaytree.h"
 
 class Creator
 {

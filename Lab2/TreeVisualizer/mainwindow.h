@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include <creator.h>
-#include "RBTree.h"
+#include "Trees/rbtree.h"
 #include "imagewriter.h"
+#include "Trees/binarytree.h"
 #include <QString>
 
 using namespace std;

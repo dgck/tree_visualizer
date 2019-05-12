@@ -27,28 +27,25 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    RBTree.cpp \
     imagewriter.cpp \
     creator.cpp \
-    TreeAlgorithms/treealgorithms.cpp \
-    TreeAlgorithms/simpletreealgorithms.cpp \
-    TreeAlgorithms/rbtreealgorithms.cpp \
-    TreeAlgorithms/splaytreealgorithms.cpp \
-    TreeAlgorithms/obsttreealgorithms.cpp \
-    TreeAlgorithms/btreealgorithms.cpp
+    Trees/binarytree.cpp \
+    Trees/bplustree.cpp \
+    Trees/obst.cpp \
+    Trees/rbtree.cpp \
+    Trees/splaytree.cpp \
+    Trees/tree.cpp
 
 HEADERS += \
         mainwindow.h \
-    RBTree.h \
-    tree.h \
     imagewriter.h \
     creator.h \
-    TreeAlgorithms/treealgorithms.h \
-    TreeAlgorithms/simpletreealgorithms.h \
-    TreeAlgorithms/rbtreealgorithms.h \
-    TreeAlgorithms/splaytreealgorithms.h \
-    TreeAlgorithms/obsttreealgorithms.h \
-    TreeAlgorithms/btreealgorithms.h
+    Trees/binarytree.h \
+    Trees/bplustree.h \
+    Trees/obst.h \
+    Trees/rbtree.h \
+    Trees/splaytree.h \
+    Trees/tree.h
 
 
 FORMS += \
