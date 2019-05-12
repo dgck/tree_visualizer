@@ -6,7 +6,7 @@
 #include "obst.h"
 #include "splaytree.h"
 
-int main()
+int main(int argc,char*argv[])
 {
     setlocale(LC_ALL, "ru");
    // QApplication a(argc, argv);

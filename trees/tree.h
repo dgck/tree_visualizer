@@ -2,8 +2,9 @@
 #define TREE_H
 
 #include <vector>
+#include <string>
+#include <algorithm>
 using namespace std;
-
 
 class Tree
 {

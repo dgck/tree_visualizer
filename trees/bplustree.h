@@ -92,7 +92,7 @@ public:
     }
 protected:
     BplusTree &tree;
-    typename BNode *_Ptr;
+    BNode *_Ptr;
     stack<BNode*> st;
 
 };
