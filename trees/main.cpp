@@ -13,34 +13,28 @@ int main()
    // MainWindow w;
    // w.show();
 
-   RBTree t;
-    t.insert(10);
-    t.insert(5);
-    t.insert(15);
-    t.insert(1);
-    t.insert(20);
-    t.insert(13);
-    t.insert(7);
-    t.insert(11);
+   Tree* t = new RBTree();
+   Tree* t2 = new RBTree();
 
-    t.show();
-    //t.display("Test.gv");
-   // t.split(13);
-//t.display("Test.gv");
-/*
-vector<vector<tuple<int,int>>> al = t.convertToGraph();
-    cout << endl;
-    for (int i = 0; i < al.size(); ++i)
-    {
-        for (int j = 0; j < al[i].size(); ++j)
-            cout << get<0>(al[i][j]) << " " << get<1>(al[i][j]) << "| ";
-        cout << endl;
-    }
+    t->insert(10);
+    t->insert(5);
+    t->insert(15);
+    t->insert(1);
+    t->insert(20);
+    t->insert(13);
+    t->insert(7);
+    t->insert(11);
 
-    TreeAlgorithms alg;
-    //alg.dsf(t);
+    t2->insert(10);
+    t2->insert(5);
+    t2->insert(15);
+    t2->insert(1);
+    t2->insert(24);
 
-*/
+
+   t->merge(t2);
+
+
  /*   Tree*  t= new BplusTree();
     Tree*  t2= new BplusTree();
     t->insert(10);
@@ -58,7 +52,10 @@ vector<vector<tuple<int,int>>> al = t.convertToGraph();
     t2->insert(1);
     t2->insert(24);
 
-
+    BplusTree* tr=dynamic_cast<BplusTree*>(t);
+    PreIterator i(*tr);
+    i.printTreeInterator();      */
+/*
     t->dfs();
     vector<int> v=t->intersection(t2);
     cout<<endl;
@@ -66,8 +63,8 @@ vector<vector<tuple<int,int>>> al = t.convertToGraph();
         cout<<v[i]<<endl;
     }
 
-    t->diameter();
-*/
+    t->diameter();*/
+
   //  OBST b;
    // b.Preparation();
 
@@ -87,7 +84,7 @@ vector<vector<tuple<int,int>>> al = t.convertToGraph();
 
     t.show();
 */
-        system("pause");
+       // system("pause");
         return 0;
 
 
