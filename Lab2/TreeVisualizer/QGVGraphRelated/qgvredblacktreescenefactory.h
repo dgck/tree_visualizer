@@ -17,19 +17,19 @@ public:
 
     }
 
-    shared_ptr <QGVScene> construct_scene() override
+    QGVScene* construct_scene() override
     {
-        shared_ptr <QGVScene> scene_ptr = make_shared<QGVScene>(QString("rbt"), m_parent.get());
-        serialize(scene_ptr);
-        return scene_ptr;
+        QGVScene* ret = new QGVScene(QString("rbt"), m_parent);
+        serialize(ret);
+        return ret;
     }
 
 private:
 
-    void serialize(shared_ptr <QGVScene> scene_ptr)
+    void serialize(QGVScene* scene_ptr)
     {
 
-        scene_ptr.get() -> applyLayout();
+        scene_ptr -> applyLayout();
     }
 
     void walk_and_write(shared_ptr <Node> cur)

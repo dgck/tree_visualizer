@@ -9,8 +9,6 @@
 #include <tuple>
 using namespace std;
 
-
-
 RBTree::RBTree(const RBTree &tree)
 {
 
@@ -35,32 +33,7 @@ RBTree::RBTree(Node * in)
 
 
 void RBTree::insert(int input) {
-   /* Node *p, *q;
-    Node *create = new Node(input);
-    p = root;
-    q = nullptr;
-    if (root == nullptr)
-    {
-        root = create;
-        create->father = nullptr;
-    }
-    else
-    {
-        while (p != nullptr)
-        {
-            q = p;
-            if (p->key > create->key) p = p->left;
-            else if (p->key < create->key) p = p->right;
-            else return;
-        }
-        create->father = q;
-        if (q->key < create->key) q->right = create;
-        else if (q->key > create->key)q->left = create;
-        else return;
-    }*/
     BinaryTree::insert(input);
-
-
 }
 
 
@@ -617,15 +590,6 @@ void RBTree::merge(RBTree* t) {
         return;
 
     join(*t);
-   // show();
-    //RBTree tL(t), *tR;
-    //tR = tL.splitR(root->key);
-    //tL.insert(root->key);
-    //tL.merge(RBTree(root->left));
-    //tR.merge(RBTree(root->right));
-    //tR->join(tL);
-    //root = tL.root;
-
 }
 
 
@@ -643,7 +607,6 @@ void RBTree::merge(Tree *t)
 
 Tree *RBTree::split(int k)
 {
-    //Tree* t=dynamic_cast<Tree*>(splitR(k));
     return nullptr;
 }
 
