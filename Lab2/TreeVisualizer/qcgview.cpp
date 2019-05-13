@@ -25,6 +25,7 @@ void QCGView::fitInView_fixed(const QRectF &rect, Qt::AspectRatioMode aspectRati
     auto unity = transform().mapRect(QRectF(0, 0, 1, 1));
     if (unity.isEmpty())
         return;
+
     scale(1/unity.width(), 1/unity.height());
     auto viewRect = viewport()->rect();
     if (viewRect.isEmpty())
@@ -46,6 +47,6 @@ void QCGView::fitInView_fixed(const QRectF &rect, Qt::AspectRatioMode aspectRati
     case Qt::IgnoreAspectRatio:
         break;
     }
-    scale(xratio, yratio);
+    scale(xratio + 2, yratio + 2);
     centerOn(rect.center());
 }

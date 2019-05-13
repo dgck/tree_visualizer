@@ -34,7 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->firstTree_img->setScene(m_scene);
     m_scene->applyLayout();
-    ui -> firstTree_img -> fitInView(m_scene -> sceneRect(), Qt::KeepAspectRatio);
+    //ui -> firstTree_img -> fitInView(m_scene -> sceneRect(), Qt::KeepAspectRatio);
+    ui -> firstTree_img -> fitInView_fixed(m_scene -> sceneRect(), Qt::KeepAspectRatio);
 
     MakeConnects();
 }
