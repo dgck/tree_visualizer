@@ -5,6 +5,7 @@
 #include "QGVScene.h"
 #include <QMainWindow>
 #include "commons.h"
+#include "Trees/binarytree.h"
 
 class QGVAbstractTreeSceneFactory
 {
@@ -15,6 +16,8 @@ public:
           m_parent{parent_ptr}
     {
     }
+
+    QGVAbstractTreeSceneFactory(){}
 
     virtual ~QGVAbstractTreeSceneFactory()
     {

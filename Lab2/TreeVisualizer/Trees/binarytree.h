@@ -67,6 +67,11 @@ public:
     vector<int> diameter() override;
     void center() override;
 
+    Node* get_root()
+    {
+        return root;
+    }
+
     void dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path);
     vector<vector<int > > convertToGraph();
     vector<tuple<int, Node *> > getVertices();

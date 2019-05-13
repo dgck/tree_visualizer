@@ -26,11 +26,16 @@ MainWindow::MainWindow(QWidget *parent) :
     tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
     tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
 
-    RBTree* tree = new RBTree;
-    QGVRedBlackTreeSceneFactory f(tree, this);
-    QGVScene* scene = f.construct_scene();
-    ui -> secondTree_img -> setScene(scene);
-    ui -> secondTree_img -> fitInView(scene -> sceneRect(), Qt::KeepAspectRatio);
+    RBTree* t = new RBTree;
+    t->insert(1);
+    t -> insert(2);
+    QGVRebBlackSceneFactory f(t, this);
+    m_scene = f.construct_scene();
+
+    ui->firstTree_img->setScene(m_scene);
+    m_scene->applyLayout();
+    ui -> firstTree_img -> fitInView(m_scene -> sceneRect(), Qt::KeepAspectRatio);
+
     MakeConnects();
 }
 

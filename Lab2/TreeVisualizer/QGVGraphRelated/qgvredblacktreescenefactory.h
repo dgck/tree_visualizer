@@ -7,47 +7,44 @@
 
 #include <QDebug>
 
-class QGVRedBlackTreeSceneFactory : public QGVAbstractTreeSceneFactory
+class QGVRebBlackSceneFactory : public QGVAbstractTreeSceneFactory
 {
 public:
-
-    QGVRedBlackTreeSceneFactory(Tree* obj, QMainWindow* parent_ptr)
-        : QGVAbstractTreeSceneFactory(obj, parent_ptr)
+    explicit QGVRebBlackSceneFactory(BinaryTree* tree, QObject* parent)
     {
-
+        m_scene = new QGVScene("name", parent);
+        m_tree = tree;
     }
 
     QGVScene* construct_scene() override
     {
-        QGVScene* ret = new QGVScene(QString("rbt"), m_parent);
-        serialize(ret);
-        return ret;
+        walk(m_tree -> get_root());
+        return m_scene;
     }
 
-private:
-
-    void serialize(QGVScene* scene_ptr)
+    void walk(Node *cur)
     {
-
-        scene_ptr -> applyLayout();
-    }
-
-    void walk_and_write(shared_ptr <Node> cur)
-    {
+        qDebug() << "--";
         if (!cur)
             return;
         if (cur -> get_left())
         {
-            qDebug() << cur -> get_key() << ' ' << cur -> get_left() -> get_key();
-            walk_and_write(shared_ptr<Node> (cur -> get_left()));
+            qDebug() << cur -> get_left() -> get_key();
+            auto child = m_scene -> addNode(QString::number(cur -> get_left() -> get_key())),
+                 parent = m_scene -> addNode(QString::number(cur -> get_key()));
+            m_scene -> addEdge(parent, child);
         }
         if (cur -> get_right())
         {
-            qDebug() << cur -> get_key() << ' ' << cur -> get_right() -> get_key();
-            walk_and_write(shared_ptr<Node> (cur -> get_left()));
+            qDebug() << cur -> get_right() -> get_key();
+            auto child =  m_scene -> addNode(QString::number(cur -> get_right() -> get_key())),
+                 parent = m_scene -> addNode(QString::number(cur -> get_key()));
+            m_scene -> addEdge(parent, child);
         }
     }
 
+private:
+    BinaryTree* m_tree;
 };
 
 #endif // QGVREDBLACKTREESCENEFACTORY_H
