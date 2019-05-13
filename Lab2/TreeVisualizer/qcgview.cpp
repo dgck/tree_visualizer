@@ -47,6 +47,8 @@ void QCGView::fitInView_fixed(const QRectF &rect, Qt::AspectRatioMode aspectRati
     case Qt::IgnoreAspectRatio:
         break;
     }
-    scale(xratio + 2, yratio + 2);
+
+    // seems impossible to find a good offset here
+    scale(xratio + 1, yratio + 1);
     centerOn(rect.center());
 }

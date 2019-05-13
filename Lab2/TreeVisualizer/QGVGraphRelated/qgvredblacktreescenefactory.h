@@ -22,24 +22,23 @@ public:
         return m_scene;
     }
 
-    void walk(Node *cur)
+    void walk(Node *cur, QGVNode* pa = nullptr)
     {
         qDebug() << "--";
         if (!cur)
             return;
+
+        QGVNode* cur_node = m_scene -> addNode(QString::number(cur -> get_key()));
+        if (pa)
+            m_scene -> addEdge(pa, cur_node);
+
         if (cur -> get_left())
         {
-            qDebug() << cur -> get_left() -> get_key();
-            auto child = m_scene -> addNode(QString::number(cur -> get_left() -> get_key())),
-                 parent = m_scene -> addNode(QString::number(cur -> get_key()));
-            m_scene -> addEdge(parent, child);
+            walk(cur -> get_left(), cur_node);
         }
         if (cur -> get_right())
         {
-            qDebug() << cur -> get_right() -> get_key();
-            auto child =  m_scene -> addNode(QString::number(cur -> get_right() -> get_key())),
-                 parent = m_scene -> addNode(QString::number(cur -> get_key()));
-            m_scene -> addEdge(parent, child);
+            walk(cur -> get_right(), cur_node);
         }
     }
 

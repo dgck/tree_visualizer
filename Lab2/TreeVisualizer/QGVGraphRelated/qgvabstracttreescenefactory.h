@@ -29,6 +29,7 @@ public:
     QGVScene* get_scene()
     {
         m_scene = construct_scene();
+        m_scene -> applyLayout();
 
         //maybe do some building here before returning the pointer
         return m_scene;
