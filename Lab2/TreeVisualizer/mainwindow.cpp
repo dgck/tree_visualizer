@@ -57,6 +57,12 @@ void sWrite(RBTree* src, QGVScene *sc) {
     }
 }
 */
+#include "QGVGraphRelated/qgvredblacktreescenefactory.h"
+#include "Trees/rbtree.h"
+#include <memory>
+using std::shared_ptr;
+
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -67,7 +73,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //will be a Singleton
     treeCreator = new Creator;
 
-    m_scene = new QGVScene("DEMO", this);
+    RBTree* tr = new RBTree;
+    QGVRedBlackTreeSceneFactory fac(tr, this);
+
+    /*
+     *     m_scene = new QGVScene("DEMO", this);
     ui->firstTree_img->setScene(m_scene);
 
 
@@ -81,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_scene->applyLayout();
     ui -> firstTree_img -> fitInView(m_scene -> sceneRect(), Qt::KeepAspectRatio);
+    */
     // trash example end
 
     //will be a Singleton

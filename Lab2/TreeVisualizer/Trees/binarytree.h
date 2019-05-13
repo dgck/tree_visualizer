@@ -16,6 +16,31 @@ struct Node{
     Node *right;
     int color;
     int frequency;
+
+    int get_key()
+    {
+        return key;
+    }
+
+    Node* get_parent()
+    {
+        return father;
+    }
+
+    Node* get_left()
+    {
+        return left;
+    }
+
+    Node* get_right ()
+    {
+        return right;
+    }
+
+    bool get_is_black()
+    {
+        return color == 0;
+    }
 };
 
 class BinaryTree:public Tree

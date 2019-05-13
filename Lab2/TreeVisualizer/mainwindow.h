@@ -16,7 +16,9 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+#include <memory>
+
+class MainWindow : public QMainWindow,  public std::enable_shared_from_this<QMainWindow>
 {
     Q_OBJECT
 

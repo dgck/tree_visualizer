@@ -11,7 +11,6 @@ using namespace std;
 class RBTree : public BinaryTree
 {
     RBTree(Node*);
-    void show(Node*, int);
     Node* successor(Node*);
     void rotateLeft(Node*);
     void rotateRight(Node*);
