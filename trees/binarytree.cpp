@@ -2,7 +2,6 @@
 #include <tuple>
 #include <queue>
 
-
 Node::Node(int input)
 {
     key = input;

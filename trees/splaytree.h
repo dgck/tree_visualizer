@@ -58,4 +58,125 @@ public:
 
 };
 
+class SplayIterator{
+
+protected:
+
+    SplayTree& tree;
+    Node* _Ptr;
+    stack<Node*> st;
+
+public:
+
+    SplayIterator(SplayTree &s):tree(s), _Ptr(nullptr) {}
+
+    bool IsDone() const
+    {
+        return st.empty();
+    }
+
+    virtual void next() = 0;
+
+    void printTreeInterator()
+    {
+        while(!IsDone())
+            next();
+    }
+
+};
+
+class PreSplayIterator : public SplayIterator{
+
+public:
+
+    PreSplayIterator(SplayTree &s):SplayIterator(s){
+
+        if (tree.root == nullptr)
+               return;
+        _Ptr = tree.root;
+        st.push(_Ptr);
+    }
+
+
+    void next(){
+
+        if(st.empty()) return;
+
+        Node* pcur = nullptr;
+        pcur = _Ptr = st.top();
+        st.pop();
+        cout << pcur->key << endl;
+        if (pcur->right) st.push(pcur->right);
+        if (pcur->left) st.push(pcur->left);
+    }
+};
+
+class PostSplayIterator : public SplayIterator{
+
+public:
+
+    PostSplayIterator(SplayTree &s):SplayIterator(s){
+
+        if (tree.root == nullptr)
+               return;
+        _Ptr = tree.root;
+        st.push(_Ptr);
+    }
+
+
+  //  void next(){
+//
+//        if(st.empty()) return;
+
+//        Node* pcur = nullptr;
+//        static Node* tag = nullptr;
+
+//        _Ptr = pcur = st.top(); st.pop();
+//        cout << pcur->key << endl;
+//        pcur = pcur->right;
+//        if(pcur == nullptr || pcur == tag)
+//        {
+//            tag = _Ptr;
+//        }
+//        else
+//        {
+//            st.push(_Ptr);
+//            while(pcur != nullptr)
+//            {
+//                st.push(pcur);
+//                if(pcur->left == nullptr)
+//                {
+//                    _Ptr = pcur;
+//                    pcur = tag;
+//                    next();
+//                    break;
+//                }
+
+//                pcur = pcur->left;
+//            }
+//         }
+//        if(st.empty()) return;
+
+//        while (!st.empty()) {
+//                    Node* x=st.top();
+//                    bool finishedSubtrees = false;
+
+//                        if(x->left==_Ptr || x->right == _Ptr) finishedSubtrees=true;
+
+//                    bool isLeaf = (!(x->left || x->right));
+//                    if(finishedSubtrees||isLeaf){
+//                        st.pop();
+//                        _Ptr=x;
+//                        cout<<"return"<<_Ptr->key<<endl;
+//                        return;
+//                    }
+//                    else {
+//                        if (x->left) st.push(x->left);
+//                        if (x->right) st.push(x->right);
+//                    }
+//        }
+//    }
+};
+
+
 #endif // SPLAYTREE_H

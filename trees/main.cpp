@@ -13,26 +13,28 @@ int main(int argc,char*argv[])
    // MainWindow w;
    // w.show();
 
-   Tree* t = new RBTree();
-   Tree* t2 = new RBTree();
+   //Tree* t = new RBTree();
+   //Tree* t2 = new RBTree();
 
-    t->insert(10);
-    t->insert(5);
-    t->insert(15);
-    t->insert(1);
-    t->insert(20);
-    t->insert(13);
-    t->insert(7);
-    t->insert(11);
+    RBTree t;
 
-    t2->insert(10);
-    t2->insert(5);
-    t2->insert(15);
-    t2->insert(1);
-    t2->insert(24);
+    t.insert(10);
+    t.insert(5);
+    t.insert(15);
+    t.insert(1);
+    t.insert(20);
+    t.insert(13);
+    t.insert(7);
+    t.insert(11);
+
+//    t2->insert(10);
+//    t2->insert(5);
+//    t2->insert(15);
+//    t2->insert(1);
+//    t2->insert(24);
 
 
-   t->merge(t2);
+//   t->merge(t2);
 
 
  /*   Tree*  t= new BplusTree();
@@ -65,10 +67,12 @@ int main(int argc,char*argv[])
 
     t->diameter();*/
 
-  //  OBST b;
+    OBST b;
+PreOBSTIterator r(b);
+r.printTreeInterator();
    // b.Preparation();
 
-   /* SplayTree t;
+  /*  SplayTree t;
     t.insert(4);
     t.insert(10);
     t.insert(41);
@@ -81,9 +85,23 @@ int main(int argc,char*argv[])
     t.insert(7);
     t.insert(8);
     t.insert(19);
-
-    t.show();
 */
+    //t.show_inorder();
+
+    cout << endl << endl << endl;
+
+   // PreSplayIterator psi(t);
+  //  PostSplayIterator posi(t);
+  //  InSplayIterator isi(t);
+   // t.show();
+//PreRBIterator e(t);
+//e.printTreeInterator();
+   // psi.printTreeInterator();
+    cout << endl << endl;
+  //  posi.printTreeInterator();
+
+
+
        // system("pause");
         return 0;
 
