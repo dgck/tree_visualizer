@@ -10,14 +10,12 @@
 class QGVAbstractTreeSceneFactory
 {
 public:
-    QGVAbstractTreeSceneFactory(Tree* obj, QMainWindow* parent_ptr)
+    QGVAbstractTreeSceneFactory(Tree* tree_ptr, QObject* parent_ptr)
         :
-          m_obj{obj},
+          m_tree_ptr{tree_ptr},
           m_parent{parent_ptr}
     {
     }
-
-    QGVAbstractTreeSceneFactory(){}
 
     virtual ~QGVAbstractTreeSceneFactory()
     {
@@ -36,9 +34,9 @@ public:
     }
 
 protected:
-    Tree* m_obj;
+    Tree* m_tree_ptr;
     QGVScene* m_scene;
-    QMainWindow* m_parent;
+    QObject* m_parent;
 };
 
 #endif // QGVABSTRACTTREESCENEFACTORY_H

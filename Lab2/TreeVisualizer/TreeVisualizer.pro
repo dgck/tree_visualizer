@@ -44,7 +44,9 @@ SOURCES += \
 	qcgview.cpp \
     QGVGraphRelated/qgvcontextfactory.cpp \
     QGVGraphRelated/qgvabstracttreescenefactory.cpp \
-    QGVGraphRelated/qgvredblacktreescenefactory.cpp
+    QGVGraphRelated/qgvredblacktreescenefactory.cpp \
+    QGVGraphRelated/qgvformatbuilder.cpp \
+    QGVGraphRelated/qgvbtreescenefactory.cpp
 
 
 HEADERS += \
@@ -61,7 +63,9 @@ HEADERS += \
     QGVGraphRelated/qgvcontextfactory.h \
     QGVGraphRelated/qgvabstracttreescenefactory.h \
     QGVGraphRelated/qgvredblacktreescenefactory.h \
-    QGVGraphRelated/commons.h
+    QGVGraphRelated/commons.h \
+    QGVGraphRelated/qgvformatbuilder.h \
+    QGVGraphRelated/qgvbtreescenefactory.h
 
 
 

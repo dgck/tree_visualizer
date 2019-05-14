@@ -9,6 +9,7 @@
 #include "QGVNode.h"
 #include <stack>
 using std::stack;
+
 #include "QGVEdge.h"
 #include "QGVNode.h"
 #include "QGVGraphRelated/qgvredblacktreescenefactory.h"
