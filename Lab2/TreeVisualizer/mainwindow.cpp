@@ -4,6 +4,8 @@
 #include <QPushButton>
 #include <QDebug>
 
+#include <QGVSubGraph.h>
+
 // trash includes for example purposes only
 #include "QGVEdge.h"
 #include "QGVNode.h"
@@ -15,6 +17,11 @@ using std::stack;
 #include "QGVGraphRelated/qgvredblacktreescenefactory.h"
 #include "Trees/rbtree.h"
 #include <memory>
+
+#include "graphviz/gvc.h"
+#include "graphviz/cgraph.h"
+#include "graphviz/cdt.h"
+
 using std::shared_ptr;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -27,21 +34,28 @@ MainWindow::MainWindow(QWidget *parent) :
     tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
     tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
 
-    // проверить работу rbt
+    // проверить работу rbt - unit tests
 
-    RBTree *tree = new RBTree;
-    tree -> insert(1);
-    tree -> insert(2);
-    tree -> insert(3);
-    tree -> insert(4);
-    tree -> insert(5);
+    //RBTree *tree = new RBTree;
+    //tree -> insert(1);
+    //tree -> insert(2);
+    //tree -> insert(3);
+    //tree -> insert(4);
+    //tree -> insert(5);
 
-    QGVRebBlackSceneFactory fac(tree, this);
-    m_scene = fac.get_scene();
+    m_scene = new QGVScene("name", this);
+    QGVNode* node = m_scene -> addNode("lab|l");
+    node -> setAttribute("shape", "record");
+
+    //QGVRebBlackSceneFactory fac(tree, this);
+    //m_scene = fac.get_scene();
+
+    m_scene -> applyLayout();
+
     ui->firstTree_img->setScene(m_scene);
     ui -> firstTree_img -> fitInView_fixed(m_scene -> sceneRect(), Qt::KeepAspectRatio);
 
-    MakeConnects();
+    //MakeConnects();
 }
 
 void MainWindow::DrawImage(const int&w,const int&h,const QPixmap&pix,QLabel*image)

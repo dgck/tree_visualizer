@@ -159,6 +159,11 @@ void QGVScene::setRootNode(QGVNode *node)
     Q_ASSERT(_nodes.contains(node));
     char root[] = "root";
     agset(_graph->graph(), root, node->label().toLocal8Bit().data());
+
+    // update layout
+    //applyLayout();
+
+
 }
 
 void QGVScene::loadLayout(const QString &text)
@@ -193,6 +198,7 @@ void QGVScene::loadLayout(const QString &text)
 
 void QGVScene::applyLayout()
 {
+
     if(gvLayout(_context->context(), _graph->graph(), "dot") != 0)
     {
         /*

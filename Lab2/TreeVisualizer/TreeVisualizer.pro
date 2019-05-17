@@ -24,11 +24,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+unix {
+    SRCDIRRR = $$PWD/lib
+    LIBS += -L$$SRCDIRRR/../lib -lQGVCore
+    INCLUDEPATH += $$PWD/QGVCore
+    DEPENDPATH += $$PWD/QGVCore
 
-SRCDIRRR = /home/artyom/qtprojects/qgv/lib
-LIBS += -L$$SRCDIRRR/../lib -lQGVCore
-INCLUDEPATH += /home/artyom/qtprojects/qgv/QGVCore
-DEPENDPATH += /home/artyom/qtprojects/qgv/QGVCore
+ CONFIG += link_pkgconfig
+ PKGCONFIG += libcdt libgvc libcgraph
+}
 
 SOURCES += \
         main.cpp \
@@ -70,9 +74,6 @@ HEADERS += \
     QGVGraphRelated/qgvbtreescenefactory.h \
     Benchmarking/sysinfo.h \
     Benchmarking/sysinfolinuximpl.h
-
-
-
 
 FORMS += \
         mainwindow.ui

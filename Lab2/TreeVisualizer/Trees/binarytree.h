@@ -5,7 +5,7 @@
 
 enum colors { red, black };
 
-struct Node{
+struct Node {
     Node(int input);
     Node(string data, int cost);
 

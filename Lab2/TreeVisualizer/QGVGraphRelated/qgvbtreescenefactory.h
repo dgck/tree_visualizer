@@ -5,6 +5,8 @@
 #include "qgvabstracttreescenefactory.h"
 #include "Trees/bplustree.h"
 
+#include <QDebug>
+
 class QGVBTreeSceneFactory : public QGVAbstractTreeSceneFactory
 {
 public:

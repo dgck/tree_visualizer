@@ -22,6 +22,7 @@ License along with this library.
 #include <QGraphicsItem>
 #include <QPen>
 
+
 class QGVEdge;
 class QGVScene;
 class QGVNodePrivate;

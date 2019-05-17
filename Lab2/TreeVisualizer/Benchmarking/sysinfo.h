@@ -6,11 +6,11 @@ class SysInfo
 
 public:
 
-    SysInfo::SysInfo()
+    SysInfo()
     {
 
     }
-    SysInfo::~SysInfo()
+    ~SysInfo()
     {
 
     }
@@ -18,7 +18,7 @@ public:
     virtual void init() = 0;
     virtual double cpuLoadAverage() = 0;
     virtual double memoryUsed() = 0;
-}
+};
 
 
 #endif // SYSINFO_H

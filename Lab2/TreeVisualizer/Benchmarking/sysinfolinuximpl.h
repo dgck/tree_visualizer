@@ -19,18 +19,18 @@
 class SysInfoLinuxImpl : public SysInfo
 {
 public:
-    SysInfoLinuxImpl::SysInfoLinuxImpl() :
+    SysInfoLinuxImpl() :
         SysInfo(),
         mCpuLoadLastValues()
     {
 
     }
-    void SysInfoLinuxImpl::init()
+    void init()
     {
         mCpuLoadLastValues = cpuRawData();
     }
 
-    double SysInfoLinuxImpl::memoryUsed()
+    double memoryUsed()
     {
         struct sysinfo memInfo;
         sysinfo(&memInfo);
@@ -45,7 +45,7 @@ public:
         return qBound(0.0, percent, 100.0);
     }
 
-    double SysInfoLinuxImpl::cpuLoadAverage()
+    double cpuLoadAverage()
     {
         QVector<qulonglong> firstSample = mCpuLoadLastValues;
         QVector<qulonglong> secondSample = cpuRawData();

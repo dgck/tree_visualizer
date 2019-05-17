@@ -77,7 +77,7 @@ QPainterPath QGVCore::toPath(const char *type, const polygon_t *poly, qreal widt
     } else if ((strcmp(type, "record") == 0))
     {
         QPolygonF polygon = toPolygon(poly, width, height);
-        path.addEllipse(QRectF(polygon[0], polygon[1]));
+        //path.addEllipse(QRectF(polygon[0], polygon[1]));
     }
     else
     {

@@ -25,6 +25,8 @@ class QGVGvcPrivate
 
 	private:
 		GVC_t* _context;
+
+        friend class QGVNode;
 };
 
 #endif // QGVGVCPRIVATE_H
