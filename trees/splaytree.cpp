@@ -203,7 +203,7 @@ void SplayTree::show()
     recursive_print(root);
 }
 
-void SplayTree::show_inorder()
+void SplayTree::show_preorder()
 {
     recursive_inorder(root);
 }

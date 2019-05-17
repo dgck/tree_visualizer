@@ -39,7 +39,7 @@ public:
 
         void show();
 
-        void show_inorder();
+        void show_preorder();
 
         // корень не изменился
         void merge(Tree *t);
@@ -123,60 +123,62 @@ public:
         st.push(_Ptr);
     }
 
+    void next() {
+           if(st.empty()) return;
 
-  //  void next(){
-//
-//        if(st.empty()) return;
+           while (!st.empty()) {
+               Node* x=st.top();
+               bool finishedSubtrees = false;
+               if (x->left == _Ptr || x->right == _Ptr)
+                   finishedSubtrees=true;
+               bool isLeaf = !(x->left || x->right);
+               if(finishedSubtrees||isLeaf){
+                   st.pop();
+                   _Ptr=x;
+                   cout<<_Ptr->key<<endl;
+                   return;
+               }
+               else {
+                   if (x->right) st.push(x->right);
+                   if (x->left) st.push(x->left);
+               }
 
-//        Node* pcur = nullptr;
-//        static Node* tag = nullptr;
-
-//        _Ptr = pcur = st.top(); st.pop();
-//        cout << pcur->key << endl;
-//        pcur = pcur->right;
-//        if(pcur == nullptr || pcur == tag)
-//        {
-//            tag = _Ptr;
-//        }
-//        else
-//        {
-//            st.push(_Ptr);
-//            while(pcur != nullptr)
-//            {
-//                st.push(pcur);
-//                if(pcur->left == nullptr)
-//                {
-//                    _Ptr = pcur;
-//                    pcur = tag;
-//                    next();
-//                    break;
-//                }
-
-//                pcur = pcur->left;
-//            }
-//         }
-//        if(st.empty()) return;
-
-//        while (!st.empty()) {
-//                    Node* x=st.top();
-//                    bool finishedSubtrees = false;
-
-//                        if(x->left==_Ptr || x->right == _Ptr) finishedSubtrees=true;
-
-//                    bool isLeaf = (!(x->left || x->right));
-//                    if(finishedSubtrees||isLeaf){
-//                        st.pop();
-//                        _Ptr=x;
-//                        cout<<"return"<<_Ptr->key<<endl;
-//                        return;
-//                    }
-//                    else {
-//                        if (x->left) st.push(x->left);
-//                        if (x->right) st.push(x->right);
-//                    }
-//        }
-//    }
+           }
+    }
 };
 
+class InSplayIterator : public SplayIterator {
+
+public:
+
+    InSplayIterator(SplayTree &s):SplayIterator(s){
+
+        if (tree.root == nullptr)
+               return;
+        _Ptr = tree.root;
+        st.push(_Ptr);
+    }
+
+    void next() {
+
+        Node* pcur = st.top();
+        st.pop();
+
+        while (pcur != nullptr || !st.empty())
+        {
+            while (pcur != nullptr)
+            {
+                st.push(pcur);
+                pcur = pcur->left;
+            }
+
+            pcur = st.top(); st.pop();
+            cout << pcur->key << endl;
+
+            pcur = pcur->right;
+        }
+
+    }
+};
 
 #endif // SPLAYTREE_H
