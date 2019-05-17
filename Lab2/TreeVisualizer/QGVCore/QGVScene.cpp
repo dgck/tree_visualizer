@@ -214,6 +214,8 @@ void QGVScene::applyLayout()
 		//gvRenderFilename(_context->context(), _graph->graph(), "canon", "debug.dot");
 		//gvRenderFilename(_context->context(), _graph->graph(), "png", "debug.png");
 
+    gvRenderFilename (_context -> context(), _graph ->graph(), "png", "outf.png");
+
     //Update items layout
     foreach(QGVNode* node, _nodes)
         node->updateLayout();

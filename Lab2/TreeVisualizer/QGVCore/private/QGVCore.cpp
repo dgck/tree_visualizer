@@ -24,6 +24,7 @@ qreal QGVCore::graphHeight(Agraph_t *graph)
     return GD_bb(graph).UR.y;
 }
 
+
 QPointF QGVCore::toPoint(pointf p, qreal gheight)
 {
     //Le repere Y commence du bas dans graphViz et du haut pour Qt !
@@ -38,7 +39,6 @@ QPointF QGVCore::toPoint(point p, qreal gheight)
 
 QPointF QGVCore::centerToOrigin(const QPointF &p, qreal width, qreal height)
 {
-    //L'origine d'un objet est le centre dans graphViz et du haut gauche pour Qt !
     return QPointF(p.x() - width/2, p.y() - height/2);
 }
 
@@ -77,7 +77,8 @@ QPainterPath QGVCore::toPath(const char *type, const polygon_t *poly, qreal widt
     } else if ((strcmp(type, "record") == 0))
     {
         QPolygonF polygon = toPolygon(poly, width, height);
-        //path.addEllipse(QRectF(polygon[0], polygon[1]));
+        polygon.append(polygon[0]);
+        path.addPolygon(polygon);
     }
     else
     {

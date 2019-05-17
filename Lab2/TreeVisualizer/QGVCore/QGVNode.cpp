@@ -95,7 +95,6 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
         }
     } else
     {
-        qDebug() << "fuck";
         // get the names of the nodes
         QString label_text = label(),
                 label_text_clean = QString();
@@ -123,10 +122,8 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
             qDebug() << label_list[i];
         }
 
-        //get the position data in strings of format "%f,%f,%f,%f"
-
         QStringList position_data_raw = getAttribute("rects").split(' ');
-        QList <QList <qreal>> position_data;
+        QVector <QList <qreal>> position_data;
 
         for (int i = 0; i < position_data_raw.size(); i++)
         {
@@ -139,13 +136,9 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
             {
                 temp_list_reals.append(temp_list.at(i).toDouble());
             }
-            position_data.append(temp_list_reals);
+            position_data.push_back(temp_list_reals);
             //position_data.append(str.split(','));
         }
-
-        QDataStream stream;
-        char* buf;
-        stream >> buf;
 
         qDebug() << "---position data";
         for (int i = 0; i < position_data.size(); i++)
@@ -156,9 +149,10 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
         for (int i = 0; i < label_list.size(); i++)
         {
             qreal width = ND_width(_node->node())*DotDefaultDPI;
-            qreal height = ND_height(_node->node())*DotDefaultDPI / position_data.size();
+            qreal height = ND_height(_node->node())*DotDefaultDPI;
 
             polygon_t poly;
+            poly.vertices = new pointf[4];
             poly.peripheries = 1;
             poly.sides = 4;
             poly.vertices[0] = pointf{(position_data[i][0]), (position_data[i][1])};
@@ -166,31 +160,17 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
             poly.vertices[2] = pointf{(position_data[i][0]), (position_data[i][1] + height)};
             poly.vertices[3] = pointf{(position_data[i][0] + width), (position_data[i][1] + height)};
 
-            // нужен свой polygon_t, высота та же, ширина /= list.size(), shape = "record"
-            _path = QGVCore::toPath("record", &poly, width, height);
+            for (int i = 0; i < 4; i++)
+            {
+                qDebug() << poly.vertices[i].x << ' ' << poly.vertices[i].y;
+            }
 
-            /*
-                вызовется создание polygon_t, что за width, hight? - это высота и ширина узла
-            */
-
-            /*
-                format : const char *type, const polygon_t *poly, qreal width, qreal height
-            */
-
-            /*
-                painter->drawPath(_path);
-                painter->setPen(QGVCore::toColor(getAttribute("labelfontcolor")));
-                const QRectF rect = boundingRect().adjusted(2,2,-2,-2); //Margin
-                painter->drawText(rect, Qt::AlignCenter , QGVNode::label());
-            */
-
-
-            painter -> drawPath(_path);
+            _path1 = QGVCore::toPath("record", &poly, width / position_data.size(), height);
+            painter -> drawPath(_path1);
             painter -> setPen(QGVCore::toColor(getAttribute("labelfontcolor")));
-
-            // заходим только один раз в эту функцию
             const QRectF rect = boundingRect().adjusted(2, 2, -2, -2);
-            painter -> drawText(rect, Qt::AlignCenter, QString(label_text_clean[i]));
+            const QRectF rect1 = QRectF(50, 50, 10, 10);
+            painter -> drawText(rect1, Qt::AlignCenter, QString(label_text_clean[i]));
         }
     }
     painter->restore();
@@ -206,9 +186,11 @@ void QGVNode::setAttribute(const QString &name, const QString &value)
     char empty[] = "";
     agsafeset(_node->node(), name.toLocal8Bit().data(), value.toLocal8Bit().data(), empty);
 
+    /*
     gvLayout (_scene -> _context -> _context, _node -> graph(), "dot");
     gvRender (_scene -> _context ->_context, _node ->graph(), "dot", NULL);
     gvFreeLayout(_scene -> _context -> _context, _node -> graph());
+    */
 }
 
 QString QGVNode::getAttribute(const QString &name) const
@@ -238,6 +220,7 @@ void QGVNode::updateLayout()
     setZValue(1);
 
     //Node path
+    // THIS WILL NOT WORK BECAUSE THE SHAPE FOR "RECROD"IS NOT POLYGON_T, WE NEED TO PARSE THIS RECURSIVELY (FIELD_T)
     _path = QGVCore::toPath(ND_shape(_node->node())->name, (polygon_t*)ND_shape_info(_node->node()), width, height);
     _pen.setWidth(1);
 

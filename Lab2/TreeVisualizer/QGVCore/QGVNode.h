@@ -65,6 +65,7 @@ private:
 //		QPolygonF makeShapeHelper(Agnode_t* node) const;
 
     QPainterPath _path;
+    QPainterPath _path1;
     QPen _pen;
     QBrush _brush;
     QImage _icon;
