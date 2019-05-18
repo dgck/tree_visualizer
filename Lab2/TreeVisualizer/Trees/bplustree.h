@@ -40,6 +40,7 @@ private:
     void getVerticesRecursion(BNode *, vector<tuple<int, BNode *>> &);
     vector<tuple<int, BNode *>> getVertices();
     void dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path);
+    bool search(BNode*, int);
 
 
 public:
@@ -51,6 +52,7 @@ public:
     BNode* getRoot() { return root; }
     vector<vector<int>> convertToGraph();
     void graphviz();
+    bool search(int);
 
 
     // Tree interface

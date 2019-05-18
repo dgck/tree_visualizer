@@ -41,6 +41,8 @@ public:
     vector<int> getElements() override;
     void merge(Tree *) override;
     Tree* split(int) override;
+    Node* search(int);
+    Node* search(string);
     vector<int> intersection(Tree *) override;
     vector<int> intersection(vector<int> v1, vector<int> v2) override;
     tuple<bool, int> inclusion(Tree*) override;

@@ -86,6 +86,41 @@ Tree *BinaryTree::split(int)
     return nullptr;
 }
 
+Node *BinaryTree::search(int in)
+{
+       Node *t;
+        t = root;
+        while (t != nullptr)
+        {
+            if (t->key == in)   break;
+            if (in > t->key)    t = t->right;
+            else if (in < t->key)    t = t->left;
+        }
+        if (t == nullptr)
+            return nullptr;
+        else if (t->key == in)
+            return t;
+        return nullptr;
+
+}
+
+Node *BinaryTree::search(string in)
+{
+    Node *t;
+     t = root;
+     while (t != nullptr)
+     {
+         if (t->data == in)   break;
+         if (in > t->data)    t = t->right;
+         else if (in < t->data)    t = t->left;
+     }
+     if (t == nullptr)
+         return nullptr;
+     else if (t->data == in)
+         return t;
+     return nullptr;
+}
+
 vector<int> BinaryTree::intersection(Tree *t2)
 {
     vector<int> v1=getElements(), v2=t2->getElements(), inters;
