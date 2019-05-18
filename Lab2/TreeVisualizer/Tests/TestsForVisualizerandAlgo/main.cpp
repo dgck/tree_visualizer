@@ -102,18 +102,70 @@ TEST(Splay,insert_delete_search)
         Node *n = new_tree->search(i);
         EXPECT_EQ(n->key,i)<<"key " << i << " not found\n";
     }
-    for (int i = 0; i < 50; i+=2)
+    for (int i = 1; i < 50; i+=10)
     {
-        new_tree->deleteNode(i);
+        t->deleteNode(i);
     }
-    for (int i = 0; i < 50; i+=2)
+    for (int i = 1; i < 50; i+=10)
     {
         Node *n = new_tree->search(i);
         EXPECT_EQ(n,nullptr)<<"key " << i << " was deleted\n";
     }
+}
+TEST(OBST,insert_delete_search)
+{
+    Tree*t = new OBST;
+    for (int i = -20; i < 50; i++)
+    {
+        t->insert(i);
+    }
+    OBST*new_tree = dynamic_cast<OBST*>(t);
+    for (int i = -20; i < 50; i++)
+    {
+        Node *n = new_tree->search(i);
+        EXPECT_EQ(n->key,i)<<"key " << i << " not found\n";
+    }
+    for (int i = -10; i < 50; i+=5)
+    {
+        t->deleteNode(i);
+    }
+    for (int i = -10; i < 50; i+=5)
+    {
+        Node *n = new_tree->search(i);
+        EXPECT_EQ(n,nullptr)<<"key " << i << " was deleted\n";
+    }
+    vector<string> s{"one","two","three"};
+    vector<int> i{1,2,3};
 
+    OBST tree(s,i);
+    vector<int> v = tree.getElements();
+    EXPECT_EQ(3,v.size());
 }
 
+TEST(BPlus,insert_delete_search)
+{
+    Tree*t = new BplusTree;
+    for (int i = -20; i < 50; i++)
+    {
+        t->insert(i);
+    }
+    BplusTree*new_tree = dynamic_cast<BplusTree*>(t);
+    for (int i = -20; i < 50; i++)
+    {
+        bool isInTree = new_tree->search(i);
+        EXPECT_TRUE(isInTree)<<"key " << i << " not found\n";
+    }
+    for (int i = 0; i < 2; i++)
+    {
+        new_tree->deleteNode(i);
+    }
+    for (int i = 0; i < 2; i++)
+    {
+        bool isInTree = new_tree->search(i);
+        EXPECT_FALSE(isInTree)<<"key " << i << " was deleted\n";
+    }
+
+}
 
 
 int main(int argc,char*argv[])
