@@ -36,6 +36,7 @@ public:
 
     // Tree interface
 public:
+    Node* successor(Node *p);
     void insert(int) override;
     void deleteNode(int) override;
     vector<int> getElements() override;
@@ -53,7 +54,7 @@ public:
     vector<vector<int>> bfs(int) override;
 
     vector<int> diameter() override;
-    void center() override;
+    vector<int> center() override;
 
     vector<vector<int > > convertToGraph();
     vector<tuple<int, Node *> > getVertices();

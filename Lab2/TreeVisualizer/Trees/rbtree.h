@@ -58,9 +58,9 @@ public:
 
     // Tree interface
 public:
-    void insert(int);
-    void deleteNode(int);
-    void merge(Tree *);
-    Tree *split(int);
+    void insert(int)override;
+    void deleteNode(int)override;
+    void merge(Tree *)override;
+    Tree *split(int)override;
 };
 #endif // RBTREE_H

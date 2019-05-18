@@ -775,7 +775,7 @@ vector<int> BplusTree::diameter()
 
 }
 
-void BplusTree::center()
+vector<int> BplusTree::center()
 {
     // return root;
 }
