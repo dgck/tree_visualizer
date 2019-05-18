@@ -89,8 +89,28 @@ TEST(RbTree,Intersection)
     }
 }
 
-TEST(RbTree,Split)
+TEST(Splay,insert_delete_search)
 {
+    Tree*t = new SplayTree;
+    for (int i = 0; i < 50; i++)
+    {
+        t->insert(i);
+    }
+    SplayTree*new_tree = dynamic_cast<SplayTree*>(t);
+    for (int i = 0; i < 50; i++)
+    {
+        Node *n = new_tree->search(i);
+        EXPECT_EQ(n->key,i)<<"key " << i << " not found\n";
+    }
+    for (int i = 0; i < 50; i+=2)
+    {
+        new_tree->deleteNode(i);
+    }
+    for (int i = 0; i < 50; i+=2)
+    {
+        Node *n = new_tree->search(i);
+        EXPECT_EQ(n,nullptr)<<"key " << i << " was deleted\n";
+    }
 
 }
 
