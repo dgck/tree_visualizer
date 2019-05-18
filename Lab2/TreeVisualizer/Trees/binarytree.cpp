@@ -63,10 +63,81 @@ void BinaryTree::insert(int data)
         insertFix(n);
 }
 
-
-void BinaryTree::deleteNode(int)
+Node* BinaryTree::successor(Node *p)
 {
+    Node *y = nullptr;
+    if (p->left != nullptr)
+    {
+        y = p->left;
+        while (y->right != nullptr)
+            y = y->right;
+    }
+    else
+    {
+        y = p->right;
+        while (y->left != nullptr)
+            y = y->left;
+    }
+    return y;
+}
 
+void BinaryTree::deleteNode(int x)
+{
+    if (root == nullptr)
+    {
+        return;
+    }
+    Node *p;
+    p = root;
+    Node *y = nullptr;
+    Node *q = nullptr;
+    int found = 0;
+    while (p != nullptr && found == 0)
+    {
+        if (p->key == x)
+            found = 1;
+        if (found == 0)
+        {
+            if (p->key < x)
+                p = p->right;
+            else
+                p = p->left;
+        }
+    }
+
+    if (found == 0)return;
+    else
+    {
+        if (p->left == nullptr || p->right == nullptr)
+            y = p;
+        else
+            y = successor(p);
+        if (y->left != nullptr)
+            q = y->left;
+        else
+        {
+            if (y->right != nullptr)
+                q = y->right;
+            else
+                q = nullptr;
+        }
+        if (q != nullptr)
+            q->father = y->father;
+        if (y->father == nullptr)
+            root = q;
+        else
+        {
+            if (y == y->father->left)
+                y->father->left = q;
+            else
+                y->father->right = q;
+        }
+        if (y != p)
+        {
+            p->color = y->color;
+            p->key = y->key;
+        }
+    }
 }
 
 vector<int> BinaryTree::getElements()
@@ -269,7 +340,7 @@ vector<int> BinaryTree::diameter()
         return routesU[maxIndex];
 }
 
-void BinaryTree::center()
+vector<int> BinaryTree::center()
 {
     vector<int> c;
             vector<int> d = diameter();
@@ -280,7 +351,7 @@ void BinaryTree::center()
                     c.push_back(d[d.size() / 2]);
                     c.push_back(d[d.size() / 2 - 1]);
             }
-            //return c;
+    return c;
 }
 
 vector<vector<int > > BinaryTree::convertToGraph()

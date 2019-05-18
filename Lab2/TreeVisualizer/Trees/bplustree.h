@@ -68,7 +68,7 @@ public:
     void dfs() override;
     vector<vector<int> > bfs(int) override;
     vector<int> diameter() override;
-    void center() override;
+    vector<int> center() override;
 };
 
 

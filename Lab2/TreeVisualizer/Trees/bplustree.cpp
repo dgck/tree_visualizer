@@ -776,7 +776,12 @@ vector<int> BplusTree::diameter()
 
 }
 
-void BplusTree::center()
+vector<int> BplusTree::center()
 {
-    // return root;
+    vector<int> v;
+    vector<tuple<int,BNode*>> c = getVertices();
+    for (int i = 0; i < c.size(); ++i)
+        if (get<1>(c[i]) == root)
+            v.push_back(get<0>(c[i]));
+    return v;
 }

@@ -170,7 +170,6 @@ void SplayTree::splay(Node *x)
             zig_zag(x, p, g);
     }
     root = x;
-    cout << "In splay()\n";
 }
 
 void SplayTree::recursive_print(Node *start)

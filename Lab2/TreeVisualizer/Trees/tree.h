@@ -24,7 +24,7 @@ public:
        virtual void dfs() = 0;
        virtual vector<vector<int>> bfs(int)=0;
        virtual vector<int> diameter()=0;
-       virtual void center()=0;
+       virtual vector<int> center()=0;
 
        virtual ~Tree(){}
 };
