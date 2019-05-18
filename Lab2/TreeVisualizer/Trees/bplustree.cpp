@@ -244,6 +244,7 @@ bool dataFound;
 
 //видалення елемента
 void BplusTree::deleteNode(int val) {
+    dataFound=false;
     deleteNode(root, val, 0);
 }
 
