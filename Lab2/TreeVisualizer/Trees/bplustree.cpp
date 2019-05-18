@@ -392,6 +392,26 @@ void BplusTree::graphviz()
     fclose(f);
 }
 
+bool BplusTree::search(int in)
+{
+    return search(root, in);
+}
+
+bool BplusTree::search(BNode * curr, int val){
+
+    if(curr->child[0]==nullptr)
+        for (int i = 0; i <= curr->nElems; i++) {
+        if (val == curr->value[i])
+            return true;
+    }
+    for (int i = 0; i <= curr->nElems; i++) {
+        if (val < curr->value[i] && curr->child[i] != nullptr)
+            return search(curr->child[i], val);
+    }
+    return false;
+
+    }
+
 void BplusTree::graphvizRec(vector <BNode*> Nodes)
 {
     vector <BNode*> newCells;
