@@ -31,7 +31,7 @@ protected:
 public:
     BinaryTree();
 
-    Node* root;
+    Node* root = NULL;
 
 
     // Tree interface
