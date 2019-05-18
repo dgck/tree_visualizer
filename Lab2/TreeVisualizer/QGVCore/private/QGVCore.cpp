@@ -74,11 +74,6 @@ QPainterPath QGVCore::toPath(const char *type, const polygon_t *poly, qreal widt
     {
         QPolygonF polygon = toPolygon(poly, width, height);
         path.addEllipse(QRectF(polygon[0], polygon[1]));
-    } else if ((strcmp(type, "record") == 0))
-    {
-        QPolygonF polygon = toPolygon(poly, width, height);
-        polygon.append(polygon[0]);
-        path.addPolygon(polygon);
     }
     else
     {
@@ -86,6 +81,8 @@ QPainterPath QGVCore::toPath(const char *type, const polygon_t *poly, qreal widt
     }
     return path;
 }
+
+
 
 QPainterPath QGVCore::toPath(const splines *spl, qreal gheight)
 {

@@ -27,6 +27,8 @@ class QGVEdge;
 class QGVScene;
 class QGVNodePrivate;
 
+#include <QVector>
+
 /**
  * @brief Node item
  *
@@ -65,11 +67,11 @@ private:
 //		QPolygonF makeShapeHelper(Agnode_t* node) const;
 
     QPainterPath _path;
-    QPainterPath _path1;
+
     QPen _pen;
     QBrush _brush;
     QImage _icon;
-
+    QVector <QPainterPath> _path_records;
     QGVScene *_scene;
     QGVNodePrivate* _node;
 
