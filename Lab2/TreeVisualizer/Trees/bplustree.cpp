@@ -603,9 +603,13 @@ vector<vector<int>> BplusTree::convertToGraph()
 }
 
 
-void BplusTree::merge(Tree *)
+void BplusTree::merge(Tree *other)
 {
-
+    vector<int>other_tree_elements = other->getElements();
+    for(auto el:other_tree_elements)
+    {
+        this->insert(el);
+    }
 }
 
 Tree *BplusTree::split(int)
