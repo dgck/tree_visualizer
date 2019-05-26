@@ -98,7 +98,7 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
     } else
     {
         const QRectF rect = boundingRect().adjusted(2,2,-2,-2);
-        painter->drawText(rect.adjusted(0,0,0, -rect.height()*2/3), Qt::AlignCenter , QGVNode::label());
+        //painter->drawText(rect.adjusted(0,0,0, -rect.height()*2/3), Qt::AlignCenter , QGVNode::label());
 
         QString label_text = label(),
                 label_text_clean = QString();
@@ -106,21 +106,29 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
         for (int i = 0; i < label_text.size(); i++)
         {
             if (label_text[i] == '<')
+            {
                 while (label_text[i] != '>')
                     i++;
+                i++;
+                if (i >= label_text.size())
+                    break;
+            }
             label_text_clean += label_text[i];
         }
 
-        QStringList label_list = label_text.split('|');
+        QStringList label_list = label_text_clean.split('|');
         vector <const QRectF*> vec;
 
         for (int i = 0; i < label_list.size(); i++)
         {
+            painter -> drawPath(_path_records[i]);
             QRectF rect_t_n = _path_records[i].boundingRect();
             QRectF *rect_t_p = &rect_t_n;
             vec.push_back(const_cast <QRectF*> (rect_t_p));
-            painter -> drawText(vec.back()->adjusted(0,0,0, -vec.back()->height()*2/3), Qt::AlignCenter , label_list[i]);
+            //painter -> drawText(vec.back()->adjusted(0,0,0, -vec.back()->height()*2/3), Qt::AlignCenter , label_list[i]);
+            painter->drawText(rect_t_n, Qt::AlignCenter, label_list[i]);
         }
+
     }
     painter->restore();
 }
@@ -162,9 +170,6 @@ void QGVNode::updateLayout()
     //Node on top
     setZValue(1);
 
-    //Node path
-    // THIS WILL NOT WORK BECAUSE THE SHAPE FOR "RECROD"IS NOT POLYGON_T, WE NEED TO PARSE THIS RECURSIVELY (FIELD_T)
-
     if (!record_mode)
         _path = QGVCore::toPath(ND_shape(_node->node())->name, (polygon_t*)ND_shape_info(_node->node()), width, height);
     else
@@ -183,14 +188,24 @@ void QGVNode::updateLayout()
         info_poly.vertices = new pointf[4];
         info_poly.vertices[0] = pointf{info_general->b.LL.x, info_general->b.LL.y};
         info_poly.vertices[1] = pointf{info_general->b.LL.x + width, info_general->b.LL.y};
-        info_poly.vertices[2] = pointf{info_general->b.LL.x, info_general->b.LL.y + height};
-        info_poly.vertices[3] = pointf{info_general->b.UR.x, info_general->b.UR.y};
+        info_poly.vertices[2] = pointf{info_general->b.UR.x, info_general->b.UR.y};
+        info_poly.vertices[3] = pointf{info_general->b.LL.x, info_general->b.LL.y + height};
 
         _path = QGVCore::toPath("rectangle", &info_poly, width, height);
 
+        vector <pointf> vecc;
+        for (int j = 0; j < 4; j++)
+        {
+            vecc.push_back(info_poly.vertices[j]);
+        }
+
         int sz = info_general->n_flds;
+        _path_records.resize(sz);
+
+
         for (int i = 0; i < sz; i++)
         {
+
             field_t* info_special = info_general->fld[i];
             width = info_special->size.x;
             height = info_special -> size.y;
@@ -202,12 +217,37 @@ void QGVNode::updateLayout()
             info_poly.skew = 0;
             info_poly.regular = 0;
             info_poly.vertices = new pointf[4];
-            info_poly.vertices[0] = pointf{info_special->b.LL.x, info_special->b.LL.y};
-            info_poly.vertices[1] = pointf{info_special->b.LL.x + width, info_special->b.LL.y};
-            info_poly.vertices[2] = pointf{info_special->b.LL.x, info_special->b.LL.y + height};
-            info_poly.vertices[3] = pointf{info_special->b.UR.x, info_special->b.UR.y};
+
+            qreal w = ND_width(_node->node())*DotDefaultDPI;
+            qreal h = ND_height(_node->node())*DotDefaultDPI;
+
+
+
+            QPointF p1 = QPointF(info_special->b.LL.x, info_special->b.LL.y),
+                    p2 = QPointF{info_special->b.LL.x + width, info_special->b.LL.y},
+                    p3 = QPointF{info_special->b.UR.x, info_special->b.UR.y},
+                    p4 = QPointF{info_special->b.LL.x, info_special->b.LL.y + height};
+
+
+            int factor = 0.5 * (sz - 1) * width;
+            //int factor = 0;
+            //int factor = abs();
+
+
+            auto p11 = QGVCore::shiftRight(p1, w, h, factor);
+            auto p22 = QGVCore::shiftRight(p2, w, h, factor);
+            auto p33 = QGVCore::shiftRight(p3, w, h, factor);
+            auto p44 = QGVCore::shiftRight(p4, w, h, factor);
+
+
+            info_poly.vertices[0] = pointf{p11.x(), p11.y()};
+            info_poly.vertices[1] = pointf{p22.x(), p22.y()};
+            info_poly.vertices[2] = pointf{p33.x(), p33.y()};
+            info_poly.vertices[3] = pointf{p44.x(), p44.y()};
+
             const polygon_t poly_const = info_poly;
             _path_records[i] = QGVCore::toPath("rectangle", &poly_const, width, height);
+            int f = 5;
         }
     }
 

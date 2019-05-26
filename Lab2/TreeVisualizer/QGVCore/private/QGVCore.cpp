@@ -42,6 +42,18 @@ QPointF QGVCore::centerToOrigin(const QPointF &p, qreal width, qreal height)
     return QPointF(p.x() - width/2, p.y() - height/2);
 }
 
+QPointF QGVCore::originToCenter(const QPointF &p, qreal width, qreal height)
+{
+    auto ret = QPointF(p.x() + width/2, p.y() + height/2);
+    return ret;
+}
+
+QPointF QGVCore::shiftRight(const QPointF &p, qreal width, qreal height, int offset)
+{
+    auto ret = QPointF(p.x() + offset, p.y());
+    return ret;
+}
+
 QPolygonF QGVCore::toPolygon(const polygon_t *poly, qreal width, qreal height)
 {
     if (poly->peripheries != 1)

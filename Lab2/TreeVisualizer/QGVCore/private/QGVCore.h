@@ -41,6 +41,9 @@ public:
     static QPointF toPoint(pointf p, qreal gheight);
     static QPointF toPoint(point p, qreal gheight);
     static QPointF centerToOrigin(const QPointF &p, qreal width, qreal height);
+    static QPointF originToCenter(const QPointF &p, qreal width, qreal height);
+    static QPointF shiftRight(const QPointF &p, qreal width, qreal height, int offset);
+
     static QPolygonF toPolygon(const polygon_t* poly, qreal width, qreal height);
 
     static QPainterPath toPath(const char *type, const polygon_t *poly, qreal width, qreal height);

@@ -1,28 +1,33 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QComboBox>
-#include <QPushButton>
-#include <QDebug>
-
-#include <QGVSubGraph.h>
 
 // trash includes for example purposes only
 #include "QGVEdge.h"
 #include "QGVNode.h"
-#include <stack>
-using std::stack;
 
-#include "QGVEdge.h"
-#include "QGVNode.h"
 #include "QGVGraphRelated/qgvredblacktreescenefactory.h"
 #include "Trees/rbtree.h"
-#include <memory>
-
 #include "graphviz/gvc.h"
 #include "graphviz/cgraph.h"
 #include "graphviz/cdt.h"
 
+#include <QComboBox>
+#include <QPushButton>
+#include <QDebug>
+#include <QGVSubGraph.h>
+
+#include <memory>
+#include <stack>
+using std::stack;
+
 using std::shared_ptr;
+
+/*
+Тесты:
+создать дерево красно-черное через фабрику
+создать бинарное
+создать б
+*/
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,23 +39,29 @@ MainWindow::MainWindow(QWidget *parent) :
     tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
     tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
 
-    // проверить работу rbt - unit tests
+    /*
+     * Как создавать через фабрику
+        QGVRebBlackSceneFactory fac(tree, this);
+        m_scene = fac.get_scene();
+    */
 
-    //RBTree *tree = new RBTree;
-    //tree -> insert(1);
-    //tree -> insert(2);
-    //tree -> insert(3);
-    //tree -> insert(4);
-    //tree -> insert(5);
+    /* как создавать б дерево
+        m_scene = new QGVScene("name", this);
 
-    m_scene = new QGVScene("name", this);
-    QGVNode* node = m_scene -> addNode("lab|l");
-    node -> setAttribute("shape", "record");
+        // узлы
+        QGVNode* node = m_scene -> addNode("name | name | name | name |name | name | <f3> name "),
+                *node2 = m_scene -> addNode("<f0> one|<f1> two");
+        node -> setAttribute("shape", "record");
+        node2 -> setAttribute("shape", "record");
 
-    //QGVRebBlackSceneFactory fac(tree, this);
-    //m_scene = fac.get_scene();
-
-    m_scene -> applyLayout();
+        // ребра
+        QGVEdge* e1 = m_scene -> addEdge(node, node2),
+                * e2 = m_scene -> addEdge(node, node2);
+        e1 -> setAttribute("headport", "f0");
+        e2 -> setAttribute("headport", "f1");
+        e1 -> setAttribute("tailport", "f3");
+        m_scene -> applyLayout();
+    */
 
     ui->firstTree_img->setScene(m_scene);
     ui -> firstTree_img -> fitInView_fixed(m_scene -> sceneRect(), Qt::KeepAspectRatio);
