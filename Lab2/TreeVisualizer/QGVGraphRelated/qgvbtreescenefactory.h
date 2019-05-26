@@ -52,15 +52,16 @@ public:
         }
     }
 
-    // impl this
     QGVNode* write(std::vector <int> &cur_keys, std::pair <QGVNode*, int> coords)
     {
+
         QString label;
 
-        for (int i = 0; i < cur_keys.size(); i++)
+
+        /*
+         * for (int i = 0; i < cur_keys.size(); i++)
         {
             label += "<";
-
             QString num_qstr;
             int num = cur_keys[i];
             int digits = digit_cnt(num);
@@ -77,6 +78,36 @@ public:
             label += num_qstr;
             if (i != cur_keys.size() - 1)
                 label += "|";
+        }
+        */
+
+        for (int i = 0; i < cur_keys.size(); i++)
+        {
+            QString num_qstr;
+            int num = cur_keys[i];
+            int digits = digit_cnt(num);
+            for (int i = 0; i < m_bucket_size - digits; i++)
+            {
+                num_qstr += QString::number(0);
+            }
+            num_qstr += QString::number(num);
+
+            label += "<";
+            label += "f";
+            label += QString::number(i);
+            label += ">";
+
+            label += num_qstr;
+            if (i != cur_keys.size() - 1)
+                label += "|";
+        }
+
+        label += "|<f";
+        label += QString::number(cur_keys.size());
+        label += ">";
+        for (int i = 0; i < m_bucket_size; i++)
+        {
+            label += "+";
         }
 
         QGVNode* node = m_scene -> addNode(label);
