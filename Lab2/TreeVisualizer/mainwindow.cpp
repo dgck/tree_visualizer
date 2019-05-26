@@ -6,6 +6,8 @@
 #include "QGVNode.h"
 
 #include "QGVGraphRelated/qgvredblacktreescenefactory.h"
+#include "QGVGraphRelated/qgvbinarytreescenefactory.h"
+#include "QGVGraphRelated/qgvbtreescenefactory.h"
 #include "Trees/rbtree.h"
 #include "graphviz/gvc.h"
 #include "graphviz/cgraph.h"
@@ -29,6 +31,64 @@ using std::shared_ptr;
 создать б
 */
 
+/*
+    известные баги
+    - при попытке создать record-shaped node рантайм если у нее одно поле
+*/
+
+
+/*
+ * как рисовать record-shaped nodes
+ *
+m_scene = new QGVScene("scene", this);
+QGVNode *node1 = m_scene -> addNode(" <f0> name1|name2"),
+        *node2 = m_scene -> addNode("name2| <f1> name2");
+node1 -> setAttribute("shape", "record");
+node2 -> setAttribute("shape", "record");
+QGVEdge *e1 = m_scene -> addEdge(node1, node2);
+e1 -> setAttribute("headport", "f1");
+e1 -> setAttribute("tailport", "f1");
+m_scene -> applyLayout();
+*/
+
+
+/*
+
+Как создавать дерево через фабрику
+
+(дерево типа Т)
+
+auto tree = treeCreator->createTree(Creator::TreeType::RbTree);
+... операции с деревом
+
+создать фабрику - в данном случае вместо T пишем redblacktree
+QGVRebBlackSceneFactory factory(dynamic_cast<T*>(tree1), this);
+
+получить сцену и вставить ее на место
+m_scene = factory.get_scene();
+ui->firstTree_img->setScene(m_scene);
+ui -> firstTree_img -> fitInView_fixed(m_scene -> sceneRect(), Qt::KeepAspectRatio);
+
+*/
+
+/* как создавать б дерево
+    m_scene = new QGVScene("name", this);
+
+    // узлы
+    QGVNode* node = m_scene -> addNode("name | name | name | name |name | name | <f3> name "),
+            *node2 = m_scene -> addNode("<f0> one|<f1> two");
+    node -> setAttribute("shape", "record");
+    node2 -> setAttribute("shape", "record");
+
+    // ребра
+    QGVEdge* e1 = m_scene -> addEdge(node, node2),
+            * e2 = m_scene -> addEdge(node, node2);
+    e1 -> setAttribute("headport", "f0");
+    e2 -> setAttribute("headport", "f1");
+    e1 -> setAttribute("tailport", "f3");
+    m_scene -> applyLayout();
+*/
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -36,31 +96,35 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     treeCreator = new Creator;
 
-    tree1 = treeCreator->createTree(Creator::TreeType::RbTree);
-    tree2 = treeCreator->createTree(Creator::TreeType::RbTree);
+    tree1 = treeCreator->createTree(Creator::TreeType::BPlusTree);
+    tree2 = treeCreator->createTree(Creator::TreeType::BPlusTree);
+
+    tree1 -> insert(1);
+    tree1 -> insert(2);
+    tree1 -> insert(3);
+    tree1 -> insert(4);
+    tree1 -> insert(5);
+    tree1 -> insert(6);
+    tree1 -> insert(7);
+    tree1 -> insert(8);
+    tree1 -> insert(9);
+    tree1 -> insert(10);
+    tree1 -> insert(11);
+    tree1 -> insert(12);
+
+    QGVBTreeSceneFactory factory(dynamic_cast<BplusTree*>(tree1), this);
+    m_scene = factory.get_scene();
 
     /*
-     * Как создавать через фабрику
-        QGVRebBlackSceneFactory fac(tree, this);
-        m_scene = fac.get_scene();
-    */
-
-    /* как создавать б дерево
-        m_scene = new QGVScene("name", this);
-
-        // узлы
-        QGVNode* node = m_scene -> addNode("name | name | name | name |name | name | <f3> name "),
-                *node2 = m_scene -> addNode("<f0> one|<f1> two");
-        node -> setAttribute("shape", "record");
-        node2 -> setAttribute("shape", "record");
-
-        // ребра
-        QGVEdge* e1 = m_scene -> addEdge(node, node2),
-                * e2 = m_scene -> addEdge(node, node2);
-        e1 -> setAttribute("headport", "f0");
-        e2 -> setAttribute("headport", "f1");
-        e1 -> setAttribute("tailport", "f3");
-        m_scene -> applyLayout();
+    m_scene = new QGVScene("scene", this);
+    QGVNode *node1 = m_scene -> addNode(" <f0> name1|name2"),
+            *node2 = m_scene -> addNode("name2| <f1> name2");
+    node1 -> setAttribute("shape", "record");
+    node2 -> setAttribute("shape", "record");
+    QGVEdge *e1 = m_scene -> addEdge(node1, node2);
+    e1 -> setAttribute("headport", "f1");
+    e1 -> setAttribute("tailport", "f0");
+    m_scene -> applyLayout();
     */
 
     ui->firstTree_img->setScene(m_scene);

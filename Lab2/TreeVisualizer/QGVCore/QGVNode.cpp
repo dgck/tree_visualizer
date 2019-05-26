@@ -98,7 +98,6 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
     } else
     {
         const QRectF rect = boundingRect().adjusted(2,2,-2,-2);
-        //painter->drawText(rect.adjusted(0,0,0, -rect.height()*2/3), Qt::AlignCenter , QGVNode::label());
 
         QString label_text = label(),
                 label_text_clean = QString();
@@ -128,7 +127,6 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
             //painter -> drawText(vec.back()->adjusted(0,0,0, -vec.back()->height()*2/3), Qt::AlignCenter , label_list[i]);
             painter->drawText(rect_t_n, Qt::AlignCenter, label_list[i]);
         }
-
     }
     painter->restore();
 }
@@ -202,10 +200,8 @@ void QGVNode::updateLayout()
         int sz = info_general->n_flds;
         _path_records.resize(sz);
 
-
         for (int i = 0; i < sz; i++)
         {
-
             field_t* info_special = info_general->fld[i];
             width = info_special->size.x;
             height = info_special -> size.y;
@@ -221,24 +217,17 @@ void QGVNode::updateLayout()
             qreal w = ND_width(_node->node())*DotDefaultDPI;
             qreal h = ND_height(_node->node())*DotDefaultDPI;
 
-
-
             QPointF p1 = QPointF(info_special->b.LL.x, info_special->b.LL.y),
                     p2 = QPointF{info_special->b.LL.x + width, info_special->b.LL.y},
                     p3 = QPointF{info_special->b.UR.x, info_special->b.UR.y},
                     p4 = QPointF{info_special->b.LL.x, info_special->b.LL.y + height};
 
-
             int factor = 0.5 * (sz - 1) * width;
-            //int factor = 0;
-            //int factor = abs();
-
 
             auto p11 = QGVCore::shiftRight(p1, w, h, factor);
             auto p22 = QGVCore::shiftRight(p2, w, h, factor);
             auto p33 = QGVCore::shiftRight(p3, w, h, factor);
             auto p44 = QGVCore::shiftRight(p4, w, h, factor);
-
 
             info_poly.vertices[0] = pointf{p11.x(), p11.y()};
             info_poly.vertices[1] = pointf{p22.x(), p22.y()};
@@ -247,12 +236,10 @@ void QGVNode::updateLayout()
 
             const polygon_t poly_const = info_poly;
             _path_records[i] = QGVCore::toPath("rectangle", &poly_const, width, height);
-            int f = 5;
         }
     }
 
     _pen.setWidth(1);
-
     _brush.setStyle(QGVCore::toBrushStyle(getAttribute("style")));
     _brush.setColor(QGVCore::toColor(getAttribute("fillcolor")));
     _pen.setColor(QGVCore::toColor(getAttribute("color")));

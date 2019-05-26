@@ -46,13 +46,13 @@ SOURCES += \
     Trees/splaytree.cpp \
     Trees/tree.cpp \
 	qcgview.cpp \
-    QGVGraphRelated/qgvcontextfactory.cpp \
     QGVGraphRelated/qgvabstracttreescenefactory.cpp \
     QGVGraphRelated/qgvredblacktreescenefactory.cpp \
     QGVGraphRelated/qgvformatbuilder.cpp \
     QGVGraphRelated/qgvbtreescenefactory.cpp \
     Benchmarking/sysinfo.cpp \
-    Benchmarking/sysinfolinuximpl.cpp
+    Benchmarking/sysinfolinuximpl.cpp \
+    QGVGraphRelated/qgvbinarytreescenefactory.cpp
 
 
 HEADERS += \
@@ -66,14 +66,14 @@ HEADERS += \
     Trees/splaytree.h \
     Trees/tree.h \
         qcgview.h \
-    QGVGraphRelated/qgvcontextfactory.h \
     QGVGraphRelated/qgvabstracttreescenefactory.h \
     QGVGraphRelated/qgvredblacktreescenefactory.h \
     QGVGraphRelated/commons.h \
     QGVGraphRelated/qgvformatbuilder.h \
     QGVGraphRelated/qgvbtreescenefactory.h \
     Benchmarking/sysinfo.h \
-    Benchmarking/sysinfolinuximpl.h
+    Benchmarking/sysinfolinuximpl.h \
+    QGVGraphRelated/qgvbinarytreescenefactory.h
 
 FORMS += \
         mainwindow.ui

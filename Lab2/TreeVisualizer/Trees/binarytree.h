@@ -51,7 +51,7 @@ protected:
 
 public:
     BinaryTree();
-    Node* root;
+    Node* root = nullptr;
 
     // Tree interface
     void insert(int) override;
