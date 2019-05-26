@@ -28,7 +28,7 @@ class ImageWriter:public QObject
 {
     Q_OBJECT
 public:
-    ImageWriter(QGraphicsView*view,Tree*tree);
+    ImageWriter(QGraphicsView*view,Tree*tree = nullptr);
 
     void ShowSequenceOfImages();
     void CreateImage(QGraphicsScene*scene);

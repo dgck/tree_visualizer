@@ -3,6 +3,7 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QDebug>
+#include <algorithm>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //will be a Singleton
     treeCreator = new Creator;
 
-    //writer1 = new ImageWriter(ui->firstTree_img);
-    //writer2 = new ImageWriter(ui->secondTree_img);
-    //writer3 = new ImageWriter(ui->resultImg);
+    writer1 = new ImageWriter(ui->firstTree_img,tree1);
+    writer2 = new ImageWriter(ui->secondTree_img,tree2);
+    writer3 = new ImageWriter(ui->resultImg);
    // connect(writer1,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
     //connect(writer2,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
     //(writer3,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
@@ -246,15 +247,82 @@ void MainWindow::HideButtonsforBTree(bool shouldHide)
 
 void MainWindow::MergeTrees()
 {
-
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
+    tree1->merge(tree2);
+    writer3->SetNewTree(tree1);
+    writer3->ShowSequenceOfImages();
 }
 
 void MainWindow::FindIntersetion()
 {
-
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
+    vector<int>intersection = tree1->intersection(tree2);
+    //show intersection
 }
 
 void MainWindow::CheckInclusion()
 {
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
+    auto inclusion = tree1->inclusion(tree2);
+    //show inclusion
+}
 
+void MainWindow::FindDiametr()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    vector<int> diametr;
+    vector<tuple<int,int>> tree_vertices;
+    if(buttonSender == ui->diametr1BTN)
+    {
+        diametr = tree1->diameter();
+        tree_vertices = tree1->GetVertices();
+
+    }
+    else
+    {
+        diametr = tree2->diameter();
+        tree_vertices = tree2->GetVertices();
+    }
+    vector<int>diametr_vertices;
+    for(auto el:diametr)
+    {
+        auto it = find_if(tree_vertices.begin(),tree_vertices.end(),[=](tuple<int,int>vertex){
+            return (get<0>(vertex) == el);
+        });
+        diametr_vertices.push_back(get<1>(*it));
+    }
+    //show diametr
+}
+
+void MainWindow::FindCenter()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    vector<int> center;
+    vector<tuple<int,int>> tree_vertices;
+    if(buttonSender == ui->Center1BTN)
+    {
+        center = tree1->center();
+        tree_vertices = tree1->GetVertices();
+
+    }
+    else
+    {
+        center = tree2->center();
+        tree_vertices = tree2->GetVertices();
+    }
+    vector<int>center_vertices;
+    for(auto el:center)
+    {
+        auto it = find_if(tree_vertices.begin(),tree_vertices.end(),[=](tuple<int,int>vertex){
+            return (get<0>(vertex) == el);
+        });
+        center_vertices.push_back(get<1>(*it));
+    }
+    //show center
 }

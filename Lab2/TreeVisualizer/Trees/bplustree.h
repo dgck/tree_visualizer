@@ -39,7 +39,9 @@ private:
     void getElem(vector <BNode*> Nodes, vector<int>& v);
     void graphvizRec(vector <BNode*> Nodes);
     void getVerticesRecursion(BNode *, vector<tuple<int, BNode *>> &);
+
     vector<tuple<int, BNode *>> getVertices();
+    vector<tuple<int, int> > GetVertices()override;
     void dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path);
     bool search(BNode*, int);
 

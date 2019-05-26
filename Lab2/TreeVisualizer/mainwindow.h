@@ -47,6 +47,10 @@ private slots:
 
     void CheckInclusion();
 
+    void FindDiametr();
+
+    void FindCenter();
+
 private:
     Ui::MainWindow *ui;
 
@@ -56,6 +60,8 @@ private:
     //Bridge between UI and Tree realizations
     Tree*tree1;
     Tree*tree2;
+    Tree*result_tree;
+
 
     ImageWriter *writer1;
     ImageWriter *writer2;

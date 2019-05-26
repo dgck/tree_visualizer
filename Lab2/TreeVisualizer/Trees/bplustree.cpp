@@ -556,6 +556,12 @@ vector<tuple<int, BNode *>> BplusTree::getVertices()
     return v;
 }
 
+vector<tuple<int, int> > BplusTree::GetVertices()
+{
+    vector<tuple<int, int>> v;
+    return v;
+}
+
 vector<vector<int>> BplusTree::convertToGraph()
 {
     vector<vector<int>> adjacencyLists;

@@ -6,22 +6,6 @@
 
 enum colors { red, black };
 
-class Node{
-public:
-    int key;
-    string data;
-    Node *father;
-    Node *left;
-    Node *right;
-    int color;
-    int frequency;
-
-
-    Node(int input);
-    Node(string data, int cost);
-
-};
-
 class BinaryTree:public Tree
 {
 protected:
@@ -57,8 +41,10 @@ public:
     vector<int> center() override;
 
     vector<vector<int > > convertToGraph();
-    vector<tuple<int, Node *> > getVertices();
+    vector<tuple<int, Node *> > getVertices()/*override*/;
+    vector<tuple<int, int> > GetVertices()override;
     void getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices);
+    void getVerticesRecursion(Node *x, vector<tuple<int, int> > &vertices);
     void getElementsRecursion(Node *x, vector<int > &vertices);
 
 };

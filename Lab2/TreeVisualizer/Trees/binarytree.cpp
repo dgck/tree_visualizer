@@ -421,12 +421,31 @@ vector<tuple<int, Node*>> BinaryTree::getVertices()
     return v;
 }
 
+vector<tuple<int, int> > BinaryTree::GetVertices()
+{
+    vector<tuple<int, int>> v;
+    getVerticesRecursion(root, v);
+    for (int i = 0; i < v.size(); ++i)
+        get<0>(v[i]) = i;
+    return v;
+}
+
 void BinaryTree::getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices)
 {
     if (x)
     {
         getVerticesRecursion(x->left, vertices);
         vertices.push_back(make_tuple(0, x));
+        getVerticesRecursion(x->right, vertices);
+    }
+}
+
+void BinaryTree::getVerticesRecursion(Node *x, vector<tuple<int, int> > &vertices)
+{
+    if (x)
+    {
+        getVerticesRecursion(x->left, vertices);
+        vertices.push_back(make_tuple(0, x->key));
         getVerticesRecursion(x->right, vertices);
     }
 }

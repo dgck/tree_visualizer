@@ -6,6 +6,22 @@
 #include <algorithm>
 using namespace std;
 
+class Node{
+public:
+    int key;
+    string data;
+    Node *father;
+    Node *left;
+    Node *right;
+    int color;
+    int frequency;
+
+
+    Node(int input);
+    Node(string data, int cost);
+
+};
+
 class Tree
 {
 public:
@@ -25,6 +41,9 @@ public:
        virtual vector<vector<int>> bfs(int)=0;
        virtual vector<int> diameter()=0;
        virtual vector<int> center()=0;
+
+       //virtual vector<tuple<int, Node *> > getVertices() = 0;
+        virtual vector<tuple<int,  int> > GetVertices() = 0;
 
        virtual ~Tree(){}
 };
