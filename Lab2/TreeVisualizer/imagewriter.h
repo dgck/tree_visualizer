@@ -5,8 +5,12 @@
 #include <string>
 #include <QPixmap>
 #include <QLabel>
+#include <QGraphicsScene>
+#include <vector>
 
+class Tree;
 using std::string;
+using std::vector;
 /*
  *
  создать интерфес Визуализатор
@@ -24,26 +28,28 @@ class ImageWriter:public QObject
 {
     Q_OBJECT
 public:
-    ImageWriter(QLabel*image);
+    ImageWriter(QGraphicsView*view,Tree*tree);
 
     void ShowSequenceOfImages();
-    void CreateImage(const string&);
+    void CreateImage(QGraphicsScene*scene);
     void ShowStep(int new_index,int &current_index);
     bool is_writing();
     void WritePrevStep();
     void WriteNextStep();
     void ResetSteps();
     void DeleteImageFiles();
+    void SetNewTree(Tree*tree);
 
 signals:
-    void SendPictureInfo(const int&w,const int&h,const QPixmap&pix,QLabel*image);
+    void SendPictureInfo(QGraphicsView*view,QGraphicsScene*scene);
 
 private:
     int overal_number_of_steps;
     int index_of_current_step;
     const int TimePerStep;
     QTimer timer;
-    QLabel*image;
+    QGraphicsView*view;
+    Tree*tree;
 };
 
 #endif // IMAGEWRITER_H

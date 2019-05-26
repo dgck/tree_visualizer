@@ -30,10 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
     MakeConnects();
 }
 
-void MainWindow::DrawImage(const int&w,const int&h,const QPixmap&pix,QLabel*image)
+void MainWindow::DrawImage(QGraphicsView*view,QGraphicsScene*new_scene)
 {
-    image->resize(w,h);
-    image->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+    view->setScene(new_scene);
+    //image->resize(w,h);
+    //image->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 }
 
 void MainWindow::MakeConnects()

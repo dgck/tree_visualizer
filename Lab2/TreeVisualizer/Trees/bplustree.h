@@ -9,7 +9,8 @@
 using namespace std;
 const int MAX = 50;
 
-struct BNode {
+struct BNode
+{
     int nElems;
     BNode *parent;
     int value[MAX];

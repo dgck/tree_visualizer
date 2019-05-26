@@ -23,7 +23,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void DrawImage(const int&w,const int&h,const QPixmap&pix,QLabel*image);
+    void DrawImage(QGraphicsView*view,QGraphicsScene*scene);
 
     void MakeConnects();
 
