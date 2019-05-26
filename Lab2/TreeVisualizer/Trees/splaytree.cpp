@@ -1,5 +1,5 @@
 #include "splaytree.h"
-
+#include "QGVGraphRelated/qgvbinarytreescenefactory.h"
 void SplayTree::zig(Node *x)
 {
     Node* p = x->father;
@@ -170,7 +170,9 @@ void SplayTree::splay(Node *x)
             zig_zag(x, p, g);
     }
     root = x;
-    cout << "In splay()\n";
+
+    scenes.push_back(factory->get_scene());
+    factory = new QGVBinaryTreeSceneFactory(this);
 }
 
 void SplayTree::recursive_print(Node *start)
@@ -226,6 +228,8 @@ void SplayTree::merge(SplayTree *t)
     }
     root->right = t->root;
     t->root->father = root;
+    scenes.push_back(factory->get_scene());
+    factory = new QGVBinaryTreeSceneFactory(this);
 }
 
 void SplayTree::insert(int data)
@@ -275,15 +279,23 @@ void SplayTree::deleteNode(int data)
     if (!deleted) return;
 
     splay(deleted);
+
+    scenes.push_back(factory->get_scene());
+    factory = new QGVBinaryTreeSceneFactory(this);
+
     SplayTree t;
     t.root = deleted->right;
     root = deleted->left;
     merge(&t);
+
+    scenes.push_back(factory->get_scene());
+    factory = new QGVBinaryTreeSceneFactory(this);
 }
 
 SplayTree::SplayTree()
 {
     root = nullptr;
+    factory = new QGVBinaryTreeSceneFactory(this);
 }
 
 

@@ -10,7 +10,7 @@
 class QGVRebBlackSceneFactory : public QGVAbstractTreeSceneFactory
 {
 public:
-    explicit QGVRebBlackSceneFactory(BinaryTree* tree, QObject* parent)
+     QGVRebBlackSceneFactory(BinaryTree* tree, QObject* parent = 0)
         : QGVAbstractTreeSceneFactory(tree, parent)
     {
         m_scene = new QGVScene("name", parent);

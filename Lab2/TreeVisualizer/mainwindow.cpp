@@ -89,6 +89,8 @@ ui -> firstTree_img -> fitInView_fixed(m_scene -> sceneRect(), Qt::KeepAspectRat
     m_scene -> applyLayout();
 */
 
+#include <algorithm>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -96,44 +98,26 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     treeCreator = new Creator;
 
-    tree1 = treeCreator->createTree(Creator::TreeType::BPlusTree);
-    tree2 = treeCreator->createTree(Creator::TreeType::BPlusTree);
-
-    tree1 -> insert(1);
-    tree1 -> insert(2);
-    tree1 -> insert(3);
-    tree1 -> insert(4);
-    tree1 -> insert(5);
-    tree1 -> insert(6);
-    tree1 -> insert(7);
-    tree1 -> insert(8);
-
-
-    QGVBTreeSceneFactory factory(dynamic_cast<BplusTree*>(tree1), this);
-    m_scene = factory.get_scene();
-
-    /*
-    m_scene = new QGVScene("scene", this);
-    QGVNode *node1 = m_scene -> addNode(" <f0> name1|name2"),
-            *node2 = m_scene -> addNode("name2| <f1> name2");
-    node1 -> setAttribute("shape", "record");
-    node2 -> setAttribute("shape", "record");
-    QGVEdge *e1 = m_scene -> addEdge(node1, node2);
-    e1 -> setAttribute("headport", "f1");
-    e1 -> setAttribute("tailport", "f0");
-    m_scene -> applyLayout();
-    */
-
-    ui->firstTree_img->setScene(m_scene);
-    ui -> firstTree_img -> fitInView_fixed(m_scene -> sceneRect(), Qt::KeepAspectRatio);
+    tree1 = treeCreator->createTree(Creator::TreeType::SimpleTree);
+    tree2 = treeCreator->createTree(Creator::TreeType::SimpleTree);
 
     //MakeConnects();
+
+    writer1 = new ImageWriter(ui->firstTree_img,tree1);
+    writer2 = new ImageWriter(ui->secondTree_img,tree2);
+    writer3 = new ImageWriter(ui->resultImg);
+
+    /*QPalette pal = this->palette();
+    pal.setColor(QPalette::Window, Qt::white);
+    this->setPalette(pal);*/
+
+    MakeConnects();
 }
 
-void MainWindow::DrawImage(const int&w,const int&h,const QPixmap&pix,QLabel*image)
+void MainWindow::DrawImage(QCGView*view,QGraphicsScene*new_scene)
 {
-    image->resize(w,h);
-    image->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+    view->setScene(new_scene);
+    view -> fitInView_fixed(new_scene -> sceneRect(), Qt::KeepAspectRatio);
 }
 
 void MainWindow::MakeConnects()
@@ -152,6 +136,10 @@ void MainWindow::MakeConnects()
 
     connect(ui->next1,&QPushButton::clicked,this,&MainWindow::NextStep);
     connect(ui->next2,&QPushButton::clicked,this,&MainWindow::NextStep);
+
+    connect(writer1,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
+    connect(writer2,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
+    connect(writer3,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
 
     connect(ui->mergeBTN,&QPushButton::clicked,this,&MainWindow::MergeTrees);
     connect(ui->intersectionBTN,&QPushButton::clicked,this,&MainWindow::FindIntersetion);
@@ -319,6 +307,8 @@ void MainWindow::on_treeType_cb_currentIndexChanged(int index)
             HideButtonsforBTree(true);
             break;
     }
+    writer1->SetNewTree(tree1);
+    writer2->SetNewTree(tree2);
 }
 
 void MainWindow::HideButtonsforBTree(bool shouldHide)
@@ -345,15 +335,83 @@ void MainWindow::HideButtonsforBTree(bool shouldHide)
 
 void MainWindow::MergeTrees()
 {
-
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
+    tree1->merge(tree2);
+    writer3->SetNewTree(tree1);
+    writer3->ShowSequenceOfImages();
 }
 
 void MainWindow::FindIntersetion()
 {
-
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
+    Tree*intersection = tree1->intersection(tree2);
+    writer3->SetNewTree(intersection);
+    writer3->ShowSequenceOfImages();
 }
 
 void MainWindow::CheckInclusion()
 {
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
+    auto inclusion = tree1->inclusion(tree2);
+    //show inclusion
+}
 
+void MainWindow::FindDiametr()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    vector<int> diametr;
+    vector<tuple<int,int>> tree_vertices;
+    if(buttonSender == ui->diametr1BTN)
+    {
+        diametr = tree1->diameter();
+        tree_vertices = tree1->GetVertices();
+
+    }
+    else
+    {
+        diametr = tree2->diameter();
+        tree_vertices = tree2->GetVertices();
+    }
+    vector<int>diametr_vertices;
+    for(auto el:diametr)
+    {
+        auto it = find_if(tree_vertices.begin(),tree_vertices.end(),[=](tuple<int,int>vertex){
+            return (get<0>(vertex) == el);
+        });
+        diametr_vertices.push_back(get<1>(*it));
+    }
+    //show diametr
+}
+
+void MainWindow::FindCenter()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    vector<int> center;
+    vector<tuple<int,int>> tree_vertices;
+    if(buttonSender == ui->Center1BTN)
+    {
+        center = tree1->center();
+        tree_vertices = tree1->GetVertices();
+
+    }
+    else
+    {
+        center = tree2->center();
+        tree_vertices = tree2->GetVertices();
+    }
+    vector<int>center_vertices;
+    for(auto el:center)
+    {
+        auto it = find_if(tree_vertices.begin(),tree_vertices.end(),[=](tuple<int,int>vertex){
+            return (get<0>(vertex) == el);
+        });
+        center_vertices.push_back(get<1>(*it));
+    }
+    //show center
 }

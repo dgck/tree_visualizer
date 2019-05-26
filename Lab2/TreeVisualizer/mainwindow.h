@@ -10,6 +10,7 @@
 
 #include "QGVScene.h"
 
+
 using namespace std;
 
 namespace Ui {
@@ -27,7 +28,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void DrawImage(const int&w,const int&h,const QPixmap&pix,QLabel*image);
+    void DrawImage(QCGView*view,QGraphicsScene*scene);
 
     void MakeConnects();
 
@@ -51,6 +52,10 @@ private slots:
 
     void CheckInclusion();
 
+    void FindDiametr();
+
+    void FindCenter();
+
 private:
     Ui::MainWindow *ui;
 
@@ -60,6 +65,8 @@ private:
     //Bridge between UI and Tree realizations
     Tree*tree1;
     Tree*tree2;
+    Tree*result_tree;
+
 
     ImageWriter *writer1;
     ImageWriter *writer2;

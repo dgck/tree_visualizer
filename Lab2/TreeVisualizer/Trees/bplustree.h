@@ -12,7 +12,8 @@
 using namespace std;
 const int MAX = 50;
 
-struct BNode {
+struct BNode
+{
     int nElems;
     BNode *parent;
     int value[MAX];
@@ -37,10 +38,12 @@ class BplusTree:public Tree
     void mergeCell(BNode *left, BNode *right, bool isLeaf, int posOfRightBlock);
     void deleteNode(BNode *curr, int value, int currPos);
     void getElem(vector <BNode*> Nodes, vector<int>& v);
-    void graphvizRec(vector <BNode*> Nodes);
     void getVerticesRecursion(BNode *, vector<tuple<int, BNode *>> &);
+
     vector<tuple<int, BNode *>> getVertices();
+    vector<tuple<int, int> > GetVertices()override;
     void dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path);
+    bool search(BNode*, int);
 
 public:
     BNode* root;
@@ -49,19 +52,21 @@ public:
     BNode* getRoot() { return root; }
     vector<vector<int>> convertToGraph();
 
+    bool search(int);
+
     // Tree interface
     void insert(int val)override;
     void deleteNode(int val)override;
     vector<int> getElements()override;
     void merge(Tree *) override;
     Tree *split(int) override;
-    vector<int> intersection(Tree *) override;
+    Tree* intersection(Tree *) override;
     vector<int> intersection(vector<int> v1, vector<int> v2) override;
     tuple<bool, int> inclusion(Tree*) override;
     void dfs() override;
     vector<vector<int> > bfs(int) override;
     vector<int> diameter() override;
-    void center() override;
+    vector<int> center() override;
 };
 
 

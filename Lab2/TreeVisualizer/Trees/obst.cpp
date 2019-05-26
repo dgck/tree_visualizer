@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <vector>
 #include <string>
-
+#include "QGVGraphRelated/qgvbinarytreescenefactory.h"
 using namespace std;
 
 void Sort(vector<string> &a)
@@ -145,6 +145,7 @@ OBST::OBST()
     vector<int> frequencies;
     Preparation(uwords, frequencies);
     this->root=OBST(uwords,frequencies).root;
+    factory = new QGVBinaryTreeSceneFactory(this);
 }
 
 OBST::OBST(vector<string> input, vector<int> p)

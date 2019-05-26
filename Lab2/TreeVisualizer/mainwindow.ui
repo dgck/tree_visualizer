@@ -245,7 +245,7 @@
        <widget class="QCGView" name="firstTree_img"/>
       </item>
       <item row="0" column="2">
-       <widget class="QGraphicsView" name="secondTree_img"/>
+       <widget class="QCGView" name="secondTree_img"/>
       </item>
      </layout>
     </item>
@@ -323,7 +323,7 @@
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="QGraphicsView" name="resultImg"/>
+     <widget class="QCGView" name="resultImg"/>
     </item>
     <item row="4" column="2">
      <widget class="QPushButton" name="next3">

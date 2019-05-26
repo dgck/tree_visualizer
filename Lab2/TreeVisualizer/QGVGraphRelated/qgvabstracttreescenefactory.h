@@ -10,7 +10,7 @@
 class QGVAbstractTreeSceneFactory
 {
 public:
-    QGVAbstractTreeSceneFactory(Tree* tree_ptr, QObject* parent_ptr)
+    QGVAbstractTreeSceneFactory(Tree* tree_ptr, QObject* parent_ptr = 0)
         :
           m_tree_ptr{tree_ptr},
           m_parent{parent_ptr}

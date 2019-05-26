@@ -10,7 +10,7 @@
 class QGVBTreeSceneFactory : public QGVAbstractTreeSceneFactory
 {
 public:
-    explicit QGVBTreeSceneFactory(BplusTree* tree, QObject* parent)
+     QGVBTreeSceneFactory(BplusTree* tree, QObject* parent = 0)
         :
           QGVAbstractTreeSceneFactory(tree, parent)
     {

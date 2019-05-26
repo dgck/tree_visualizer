@@ -5,43 +5,7 @@
 
 enum colors { red, black };
 
-struct Node {
-    Node(int input);
-    Node(string data, int cost);
 
-    int key;
-    string data;
-    Node *father;
-    Node *left;
-    Node *right;
-    int color;
-    int frequency;
-
-    int get_key()
-    {
-        return key;
-    }
-
-    Node* get_parent()
-    {
-        return father;
-    }
-
-    Node* get_left()
-    {
-        return left;
-    }
-
-    Node* get_right ()
-    {
-        return right;
-    }
-
-    bool get_is_black()
-    {
-        return color == 0;
-    }
-};
 
 class BinaryTree:public Tree
 {
@@ -54,18 +18,22 @@ public:
     Node* root = nullptr;
 
     // Tree interface
+public:
+    Node* successor(Node *p);
     void insert(int) override;
     void deleteNode(int) override;
     vector<int> getElements() override;
     void merge(Tree *) override;
     Tree* split(int) override;
-    vector<int> intersection(Tree *) override;
+    Node* search(int);
+    Node* search(string);
+    Tree* intersection(Tree *) override;
     vector<int> intersection(vector<int> v1, vector<int> v2) override;
     tuple<bool, int> inclusion(Tree*) override;
     void dfs() override;
     vector<vector<int>> bfs(int) override;
     vector<int> diameter() override;
-    void center() override;
+    vector<int> center() override;
 
     Node* get_root()
     {
@@ -74,8 +42,10 @@ public:
 
     void dfs(int v, vector<vector<int>> g, vector<bool> &used, vector<int> &path);
     vector<vector<int > > convertToGraph();
-    vector<tuple<int, Node *> > getVertices();
+    vector<tuple<int, Node *> > getVertices()/*override*/;
+    vector<tuple<int, int> > GetVertices()override;
     void getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices);
+    void getVerticesRecursion(Node *x, vector<tuple<int, int> > &vertices);
     void getElementsRecursion(Node *x, vector<int > &vertices);
 };
 

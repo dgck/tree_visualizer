@@ -7,6 +7,7 @@
 #include <fstream>
 #include <vector>
 #include <tuple>
+#include "QGVGraphRelated/qgvredblacktreescenefactory.h"
 using namespace std;
 
 RBTree::RBTree(const RBTree &tree)
@@ -88,6 +89,8 @@ void RBTree::insertFix(Node *create)
         }
     }
     root->color = black;
+    scenes.push_back(factory->get_scene());
+    factory = new QGVRebBlackSceneFactory(this);
 }
 
 
@@ -300,6 +303,8 @@ void RBTree::deleteNode(int x)
 
 
     }
+    scenes.push_back(factory->get_scene());
+    factory = new QGVRebBlackSceneFactory(this);
 }
 
 void RBTree::deleteFix(Node *p)
@@ -377,6 +382,8 @@ void RBTree::deleteFix(Node *p)
         root->color = black;
     }
     root->color = black;
+    scenes.push_back(factory->get_scene());
+    factory = new QGVRebBlackSceneFactory(this);
 }
 
 void RBTree::inorderBST(Node *ptr) {
@@ -528,6 +535,8 @@ void RBTree::join(RBTree rbTree2) {
         c->key = temp;
         root = root1;
     }
+    scenes.push_back(factory->get_scene());
+    factory = new QGVRebBlackSceneFactory(this);
     return;
 }
 
@@ -596,6 +605,7 @@ void RBTree::merge(RBTree* t) {
 
 RBTree::RBTree()  {
     root=nullptr;
+    factory = new QGVRebBlackSceneFactory (this);
 }
 
 void RBTree::merge(Tree *t)

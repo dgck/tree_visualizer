@@ -11,12 +11,14 @@
 #include <cstring>
 #include <cerrno>
 #include <cmath>
+#include "QGVGraphRelated/qgvbtreescenefactory.h"
 
 using namespace std;
 
 BplusTree::BplusTree()
 {
     root = new BNode();
+    factory = new QGVBTreeSceneFactory(this);
 }
 BplusTree::~BplusTree()
 {
@@ -173,6 +175,8 @@ void BplusTree::insertNode(BNode *curr, int val) {
     if (curr->nElems == T) {
         splitLeaf(curr);
     }
+    scenes.push_back(factory->get_scene());
+    factory = new QGVBTreeSceneFactory(this);
 }
 
 //операція перерозроділу вузлів
@@ -251,6 +255,7 @@ bool dataFound;
 
 //видалення елемента
 void BplusTree::deleteNode(int val) {
+    dataFound=false;
     deleteNode(root, val, 0);
 }
 
@@ -386,6 +391,27 @@ void BplusTree::deleteNode(BNode *curr, int value, int currPos) {
 
 }
 
+bool BplusTree::search(int in)
+{
+    return search(root, in);
+}
+
+bool BplusTree::search(BNode * curr, int val){
+
+    if(curr->child[0]==nullptr)
+        for (int i = 0; i <= curr->nElems; i++) {
+        if (val == curr->value[i])
+            return true;
+    }
+    for (int i = 0; i <= curr->nElems; i++) {
+        if (val < curr->value[i] && curr->child[i] != nullptr)
+            return search(curr->child[i], val);
+    }
+    return false;
+
+    }
+
+
 vector<int> BplusTree::getElements() {
     vector<int> v;
     vector<BNode*> t = { root };
@@ -448,6 +474,12 @@ vector<tuple<int, BNode *>> BplusTree::getVertices()
     return v;
 }
 
+vector<tuple<int, int> > BplusTree::GetVertices()
+{
+    vector<tuple<int, int>> v;
+    return v;
+}
+
 vector<vector<int>> BplusTree::convertToGraph()
 {
     vector<vector<int>> adjacencyLists;
@@ -495,9 +527,15 @@ vector<vector<int>> BplusTree::convertToGraph()
 }
 
 
-void BplusTree::merge(Tree *)
+void BplusTree::merge(Tree *other)
 {
-
+    vector<int>other_tree_elements = other->getElements();
+    for(auto el:other_tree_elements)
+    {
+        this->insert(el);
+        scenes.push_back(factory->get_scene());
+        factory = new QGVBTreeSceneFactory(this);
+    }
 }
 
 Tree *BplusTree::split(int)
@@ -505,11 +543,16 @@ Tree *BplusTree::split(int)
     return nullptr;
 }
 
-vector<int> BplusTree::intersection(Tree *t2)
+Tree* BplusTree::intersection(Tree *t2)
 {
     vector<int> v1=getElements(), v2=t2->getElements(), inters;
     inters = intersection(v1,v2);
-    return inters;
+    Tree*t = new BplusTree;
+    for(auto el:inters)
+    {
+        t->insert(el);
+    }
+    return t;
 }
 
 
@@ -668,7 +711,12 @@ vector<int> BplusTree::diameter()
 
 }
 
-void BplusTree::center()
+vector<int> BplusTree::center()
 {
-    // return root;
+    vector<int> v;
+    vector<tuple<int,BNode*>> c = getVertices();
+    for (int i = 0; i < c.size(); ++i)
+        if (get<1>(c[i]) == root)
+            v.push_back(get<0>(c[i]));
+    return v;
 }

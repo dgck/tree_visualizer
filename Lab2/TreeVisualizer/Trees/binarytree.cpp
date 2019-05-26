@@ -1,7 +1,9 @@
 #include "binarytree.h"
 #include <tuple>
 #include <queue>
-
+#include "QGVGraphRelated/qgvbinarytreescenefactory.h"
+#include "QGVGraphRelated/qgvredblacktreescenefactory.h"
+#include "Trees/rbtree.h"
 
 Node::Node(int input)
 {
@@ -27,12 +29,11 @@ Node::Node(string data, int cost){
 
 void BinaryTree::insertFix(Node *)
 {
-
 }
 
 BinaryTree::BinaryTree()
 {
-
+    factory = new QGVBinaryTreeSceneFactory(this);
 }
 
 void BinaryTree::insert(int data)
@@ -60,13 +61,94 @@ void BinaryTree::insert(int data)
         else
             temp->right = n;
 
+        scenes.push_back(factory->get_scene());
+        if (dynamic_cast <RBTree*>(this))
+        {
+            factory = new QGVRebBlackSceneFactory (this);
+        }
+        else factory = new QGVBinaryTreeSceneFactory(this);
         insertFix(n);
+
 }
 
-
-void BinaryTree::deleteNode(int)
+Node* BinaryTree::successor(Node *p)
 {
+    Node *y = nullptr;
+    if (p->left != nullptr)
+    {
+        y = p->left;
+        while (y->right != nullptr)
+            y = y->right;
+    }
+    else
+    {
+        y = p->right;
+        while (y->left != nullptr)
+            y = y->left;
+    }
+    return y;
+}
 
+void BinaryTree::deleteNode(int x)
+{
+    if (root == nullptr)
+    {
+        return;
+    }
+    Node *p;
+    p = root;
+    Node *y = nullptr;
+    Node *q = nullptr;
+    int found = 0;
+    while (p != nullptr && found == 0)
+    {
+        if (p->key == x)
+            found = 1;
+        if (found == 0)
+        {
+            if (p->key < x)
+                p = p->right;
+            else
+                p = p->left;
+        }
+    }
+
+    if (found == 0)return;
+    else
+    {
+        if (p->left == nullptr || p->right == nullptr)
+            y = p;
+        else
+            y = successor(p);
+        if (y->left != nullptr)
+            q = y->left;
+        else
+        {
+            if (y->right != nullptr)
+                q = y->right;
+            else
+                q = nullptr;
+        }
+        if (q != nullptr)
+            q->father = y->father;
+        if (y->father == nullptr)
+            root = q;
+        else
+        {
+            if (y == y->father->left)
+                y->father->left = q;
+            else
+                y->father->right = q;
+        }
+        if (y != p)
+        {
+            p->color = y->color;
+            p->key = y->key;
+        }
+    }
+
+    scenes.push_back(factory->get_scene());
+    factory = new QGVBinaryTreeSceneFactory(this);
 }
 
 vector<int> BinaryTree::getElements()
@@ -86,11 +168,51 @@ Tree *BinaryTree::split(int)
     return nullptr;
 }
 
-vector<int> BinaryTree::intersection(Tree *t2)
+Node *BinaryTree::search(int in)
+{
+       Node *t;
+        t = root;
+        while (t != nullptr)
+        {
+            if (t->key == in)   break;
+            if (in > t->key)    t = t->right;
+            else if (in < t->key)    t = t->left;
+        }
+        if (t == nullptr)
+            return nullptr;
+        else if (t->key == in)
+            return t;
+        return nullptr;
+
+}
+
+Node *BinaryTree::search(string in)
+{
+    Node *t;
+     t = root;
+     while (t != nullptr)
+     {
+         if (t->data == in)   break;
+         if (in > t->data)    t = t->right;
+         else if (in < t->data)    t = t->left;
+     }
+     if (t == nullptr)
+         return nullptr;
+     else if (t->data == in)
+         return t;
+     return nullptr;
+}
+
+Tree* BinaryTree::intersection(Tree *t2)
 {
     vector<int> v1=getElements(), v2=t2->getElements(), inters;
     inters = intersection(v1,v2);
-    return inters;
+    Tree*t = new BinaryTree;
+    for(auto el:inters)
+    {
+        t->insert(el);
+    }
+    return t;
 }
 
 
@@ -234,7 +356,7 @@ vector<int> BinaryTree::diameter()
         return routesU[maxIndex];
 }
 
-void BinaryTree::center()
+vector<int> BinaryTree::center()
 {
     vector<int> c;
             vector<int> d = diameter();
@@ -245,7 +367,7 @@ void BinaryTree::center()
                     c.push_back(d[d.size() / 2]);
                     c.push_back(d[d.size() / 2 - 1]);
             }
-            //return c;
+    return c;
 }
 
 vector<vector<int > > BinaryTree::convertToGraph()
@@ -315,12 +437,31 @@ vector<tuple<int, Node*>> BinaryTree::getVertices()
     return v;
 }
 
+vector<tuple<int, int> > BinaryTree::GetVertices()
+{
+    vector<tuple<int, int>> v;
+    getVerticesRecursion(root, v);
+    for (int i = 0; i < v.size(); ++i)
+        get<0>(v[i]) = i;
+    return v;
+}
+
 void BinaryTree::getVerticesRecursion(Node *x, vector<tuple<int, Node *> > &vertices)
 {
     if (x)
     {
         getVerticesRecursion(x->left, vertices);
         vertices.push_back(make_tuple(0, x));
+        getVerticesRecursion(x->right, vertices);
+    }
+}
+
+void BinaryTree::getVerticesRecursion(Node *x, vector<tuple<int, int> > &vertices)
+{
+    if (x)
+    {
+        getVerticesRecursion(x->left, vertices);
+        vertices.push_back(make_tuple(0, x->key));
         getVerticesRecursion(x->right, vertices);
     }
 }
