@@ -30,6 +30,7 @@ public:
             return;
 
         QGVNode* cur_node = m_scene -> addNode(QString::number(cur -> get_key()));
+        cur_node -> setAttribute("shape", "circle");
         if (!cur -> get_is_black())
         {
             cur_node -> setAttribute(QString("fillcolor"), QString("red"));

@@ -8,7 +8,7 @@
 #include "Trees/binarytree.h"
 #include <QString>
 
-#include "QGVScene.h"
+#include "QGVCore/QGVScene.h"
 
 
 using namespace std;

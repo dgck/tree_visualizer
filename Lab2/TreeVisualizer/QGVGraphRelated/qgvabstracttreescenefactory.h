@@ -2,7 +2,7 @@
 #define QGVABSTRACTTREESCENEFACTORY_H
 
 #include "Trees/tree.h"
-#include "QGVScene.h"
+#include "QGVCore/QGVScene.h"
 #include <QMainWindow>
 #include "commons.h"
 #include "Trees/binarytree.h"
