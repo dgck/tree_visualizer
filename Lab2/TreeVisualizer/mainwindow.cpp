@@ -107,10 +107,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tree1 -> insert(6);
     tree1 -> insert(7);
     tree1 -> insert(8);
-    tree1 -> insert(9);
-    tree1 -> insert(10);
-    tree1 -> insert(11);
-    tree1 -> insert(12);
+
 
     QGVBTreeSceneFactory factory(dynamic_cast<BplusTree*>(tree1), this);
     m_scene = factory.get_scene();

@@ -70,8 +70,8 @@ public:
             }
             num_qstr += QString::number(num);
 
-
-            label += QString::number(cur_keys[i]);
+            label += "f";
+            label += QString::number(i);
             label += ">";
 
             label += num_qstr;
@@ -85,7 +85,9 @@ public:
         if (coords.first)
         {
             QGVEdge* edge = m_scene -> addEdge(coords.first, node);
-            edge -> setAttribute("tailport", QString::number(coords.second));
+            QString port = "f";
+            port += QString::number(coords.second);
+            edge -> setAttribute("tailport", port);
         }
 
         return node;
