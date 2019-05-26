@@ -67,6 +67,10 @@ public:
     vector<vector<int> > bfs(int) override;
     vector<int> diameter() override;
     vector<int> center() override;
+
+    void inorder()override;
+    void preorder()override;
+    void postorder()override;
 };
 
 

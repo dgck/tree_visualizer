@@ -71,6 +71,9 @@ public:
        //virtual vector<tuple<int, Node *> > getVertices() = 0;
        virtual vector<tuple<int,  int> > GetVertices() = 0;
        vector<QGraphicsScene*> getScenes(){return scenes;}
+       virtual void inorder() = 0;
+       virtual void preorder() = 0;
+       virtual void postorder() = 0;
        virtual ~Tree(){}
 
 protected:

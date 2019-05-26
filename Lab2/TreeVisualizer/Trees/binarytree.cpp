@@ -476,4 +476,44 @@ void BinaryTree::getElementsRecursion(Node *x, vector<int> &elements)
     }
 }
 
+void BinaryTree::inorderBST(Node *ptr) {
+    if (ptr == nullptr)
+        return;
+
+    inorderBST(ptr->left);
+    cout << ptr->key << " " << ptr->color << endl;
+    inorderBST(ptr->right);
+}
+
+void BinaryTree::inorder() {
+    inorderBST(root);
+}
+
+void BinaryTree::preorderBST(Node *ptr) {
+    if (ptr == nullptr)
+        return;
+
+    cout << ptr->key << " " << ptr->color << endl;
+    preorderBST(ptr->left);
+    preorderBST(ptr->right);
+}
+
+void BinaryTree::preorder() {
+    preorderBST(root);
+    cout << "-------" << endl;
+}
+
+void BinaryTree::postorderBST(Node *ptr) {
+    if (ptr == nullptr)
+        return;
+    postorderBST(ptr->left);
+    postorderBST(ptr->right);
+    cout << ptr->key << " " << ptr->color << endl;
+}
+
+void BinaryTree::postorder() {
+    postorderBST(root);
+    cout << "-------" << endl;
+}
+
 

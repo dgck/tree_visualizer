@@ -20,6 +20,7 @@
 
 #include <memory>
 #include <stack>
+#include <QMessageBox>
 using std::stack;
 
 using std::shared_ptr;
@@ -144,6 +145,9 @@ void MainWindow::MakeConnects()
     connect(ui->mergeBTN,&QPushButton::clicked,this,&MainWindow::MergeTrees);
     connect(ui->intersectionBTN,&QPushButton::clicked,this,&MainWindow::FindIntersetion);
     connect(ui->inclusionBTN,&QPushButton::clicked,this,&MainWindow::CheckInclusion);
+
+    connect(ui->order1BTN,&QPushButton::clicked,this,&MainWindow::Traversal);
+    connect(ui->order1BTN,&QPushButton::clicked,this,&MainWindow::Traversal);
 
     ui->resultImg->setVisible(false);
     ui->prev3->setVisible(false);
@@ -327,10 +331,6 @@ void MainWindow::HideButtonsforBTree(bool shouldHide)
     ui->to1->setEnabled(!shouldHide);
     ui->from2->setEnabled(!shouldHide);
     ui->to2->setEnabled(!shouldHide);
-    ui->mergeBTN->setEnabled(!shouldHide);
-    ui->intersectionBTN->setEnabled(!shouldHide);
-    ui->inclusionBTN->setEnabled(!shouldHide);
-
 }
 
 void MainWindow::MergeTrees()
@@ -359,7 +359,19 @@ void MainWindow::CheckInclusion()
     ui->prev3->setVisible(true);
     ui->next3->setVisible(true);
     auto inclusion = tree1->inclusion(tree2);
-    //show inclusion
+    if(get<0>(inclusion))
+    {
+        if(get<1>(inclusion) == 0)
+            QMessageBox::information(this,"Inclusion","Trees are equal");
+        else if(get<1>(inclusion) == 1)
+            QMessageBox::information(this,"Inclusion","Second tree includes first");
+        else if(get<1>(inclusion) == 2)
+            QMessageBox::information(this,"Inclusion","First tree includes second");
+    }
+    else
+    {
+        QMessageBox::information(this,"Inclusion","There is no inclusion between trees");
+    }
 }
 
 void MainWindow::FindDiametr()
@@ -414,4 +426,39 @@ void MainWindow::FindCenter()
         center_vertices.push_back(get<1>(*it));
     }
     //show center
+}
+
+void MainWindow::Traversal()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    if(buttonSender == ui->order1BTN)
+    {
+        if(ui->order_cb1->currentIndex() == 0)
+        {
+            tree1->preorder();
+        }
+        else if(ui->order_cb1->currentIndex() == 1)
+        {
+            tree1->postorder();
+        }
+        else
+        {
+            tree1->inorder();
+        }
+    }
+    else
+    {
+        if(ui->order_cb1->currentIndex() == 0)
+        {
+            tree2->preorder();
+        }
+        else if(ui->order_cb1->currentIndex() == 1)
+        {
+            tree2->postorder();
+        }
+        else
+        {
+            tree2->inorder();
+        }
+    }
 }

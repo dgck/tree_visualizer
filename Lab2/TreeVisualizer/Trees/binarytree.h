@@ -13,12 +13,16 @@ protected:
 
     virtual void insertFix(Node*);
 
+private:
+
+    void inorderBST(Node*);
+    void preorderBST(Node*);
+    void postorderBST(Node*);
+
 public:
     BinaryTree();
     Node* root = nullptr;
 
-    // Tree interface
-public:
     Node* successor(Node *p);
     void insert(int) override;
     void deleteNode(int) override;
@@ -34,6 +38,10 @@ public:
     vector<vector<int>> bfs(int) override;
     vector<int> diameter() override;
     vector<int> center() override;
+    void inorder()override;
+    void preorder()override;
+    void postorder()override;
+
 
     Node* get_root()
     {

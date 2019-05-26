@@ -56,6 +56,8 @@ private slots:
 
     void FindCenter();
 
+    void Traversal();
+
 private:
     Ui::MainWindow *ui;
 

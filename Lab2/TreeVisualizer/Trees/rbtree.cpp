@@ -386,33 +386,6 @@ void RBTree::deleteFix(Node *p)
     factory = new QGVRebBlackSceneFactory(this);
 }
 
-void RBTree::inorderBST(Node *ptr) {
-    if (ptr == nullptr)
-        return;
-
-    inorderBST(ptr->left);
-    cout << ptr->key << " " << ptr->color << endl;
-    inorderBST(ptr->right);
-}
-
-void RBTree::inorder() {
-    inorderBST(root);
-}
-
-void RBTree::preorderBST(Node *ptr) {
-    if (ptr == nullptr)
-        return;
-
-    cout << ptr->key << " " << ptr->color << endl;
-    preorderBST(ptr->left);
-    preorderBST(ptr->right);
-}
-
-void RBTree::preorder() {
-    preorderBST(root);
-    cout << "-------" << endl;
-}
-
 Node *RBTree::minValueNode(Node *&node) {
 
     Node *ptr = node;
@@ -619,6 +592,5 @@ Tree *RBTree::split(int k)
 {
     return nullptr;
 }
-
 
 

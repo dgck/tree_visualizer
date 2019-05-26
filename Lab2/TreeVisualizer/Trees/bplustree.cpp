@@ -720,3 +720,18 @@ vector<int> BplusTree::center()
             v.push_back(get<0>(c[i]));
     return v;
 }
+
+void BplusTree::inorder()
+{
+
+}
+
+void BplusTree::preorder()
+{
+
+}
+
+void BplusTree::postorder()
+{
+
+}

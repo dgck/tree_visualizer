@@ -17,8 +17,6 @@ class RBTree : public BinaryTree
     void rotateRight(Node*);
     void insertFix(Node*)override;
     void deleteFix(Node*);
-    void inorderBST(Node*);
-    void preorderBST(Node*);
     void join(RBTree rbTree2);
 
 public:
@@ -27,8 +25,6 @@ public:
     void display(string);
     void show();
     Node *search(int);
-    void inorder();
-    void preorder();
     int blackHeight();
     int blackHeight(Node*);
     Node* minValueNode(Node*&);
