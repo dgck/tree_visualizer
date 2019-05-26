@@ -221,6 +221,8 @@ void MainWindow::on_treeType_cb_currentIndexChanged(int index)
             HideButtonsforBTree(true);
             break;
     }
+    writer1->SetNewTree(tree1);
+    writer2->SetNewTree(tree2);
 }
 
 void MainWindow::HideButtonsforBTree(bool shouldHide)

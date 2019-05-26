@@ -97,6 +97,7 @@ void ImageWriter::DeleteImageFiles()
 
 void ImageWriter::SetNewTree(Tree *tree)
 {
+    ResetSteps();
     this->tree = tree;
 }
 
