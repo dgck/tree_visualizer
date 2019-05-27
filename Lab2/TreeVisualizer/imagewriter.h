@@ -26,6 +26,9 @@ using std::vector;
 */
 /*!
     \brief Class which creates sequence of graphic scenes and sends it to the mainwindow
+    \author Stas Dzunza
+    \version 1.0
+    \date May 2019
 
     At the beginning he receives tree with array of scenes and every time sends one of the scenes
     to the mainwindow
@@ -36,35 +39,45 @@ class ImageWriter:public QObject
 public:
     ImageWriter(QCGView*view,Tree*tree = nullptr);
 
+    /*!
+        *\brief Main method which starts timer and updates number of scenes every time
+    */
     void ShowSequenceOfImages(bool isTraversal = false);
 
     void ShowStep(int new_index,int &current_index,bool isTraversal = false);
+
     /*!
-        \brief Method which sends previously scene to the mainwindow
+        *\brief Method which sends previously scene to the mainwindow
     */
     void WritePrevStep(bool isTraversal = false);
+
     /*!
-        \brief Method which resets all information about current tree and their states
+        *\brief Method which resets all information about current tree and their states
     */
     void WriteNextStep(bool isTraversal = false);
+
     /*!
-        \brief Method which sends on of the scenes to the mainwindow
+        *\brief Method which sends on of the scenes to the mainwindow
     */
     void CreateImage(QGraphicsScene*scene);
+
     /*!
-        \brief Method which checks if writer is writing at the moment
+        *\brief Method which checks if writer is writing at the moment
     */
     bool is_writing();
+
     /*!
-        \brief Method which sends next scene to the mainwindow
+        *\brief Method which sends next scene to the mainwindow
     */
     void ResetSteps();
+
     /*!
-        \brief Method which sets new tree to this writer
+        *\brief Method which sets new tree to this writer
     */
     void SetNewTree(Tree*tree);
+
     /*!
-        \brief Method which sends last step to the mainwindow
+        *\brief Method which sends last step to the mainwindow
     */
     void ShowLastStep();
 

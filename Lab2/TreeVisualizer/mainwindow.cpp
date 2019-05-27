@@ -107,10 +107,6 @@ MainWindow::MainWindow(QWidget *parent) :
     writer2 = new ImageWriter(ui->secondTree_img,tree2);
     writer3 = new ImageWriter(ui->resultImg);
 
-    /*QPalette pal = this->palette();
-    pal.setColor(QPalette::Window, Qt::white);
-    this->setPalette(pal);*/
-
     MakeConnects();
 }
 
@@ -334,7 +330,7 @@ void MainWindow::on_treeType_cb_currentIndexChanged(int index)
             tree2 = treeCreator->createTree(Creator::TreeType::SplayTree);
             HideButtonsforBTree(false);
             break;
-        case 3:
+        /*case 3:
             tree1 = treeCreator->createTree(Creator::TreeType::OBSTTree);
             tree2 = treeCreator->createTree(Creator::TreeType::OBSTTree);
             HideButtonsforBTree(false);
@@ -343,8 +339,8 @@ void MainWindow::on_treeType_cb_currentIndexChanged(int index)
             tree1 = treeCreator->createTree(Creator::TreeType::BTree);
             tree2 = treeCreator->createTree(Creator::TreeType::BTree);
             HideButtonsforBTree(true);
-            break;
-        case 5:
+            break;*/
+        case 3:
             tree1 = treeCreator->createTree(Creator::TreeType::BPlusTree);
             tree2 = treeCreator->createTree(Creator::TreeType::BPlusTree);
             HideButtonsforBTree(true);
