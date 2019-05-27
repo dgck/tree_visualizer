@@ -7,6 +7,12 @@
 
 #include <QDebug>
 
+/*!
+ * \brief The QGVBinaryTreeSceneFactory class
+ *
+ * An override of QGVAbstractTreeSceneFactory.
+ */
+
 class QGVBinaryTreeSceneFactory : public QGVAbstractTreeSceneFactory
 {
 public:

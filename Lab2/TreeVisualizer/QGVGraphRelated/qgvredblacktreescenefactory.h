@@ -7,6 +7,11 @@
 
 #include <QDebug>
 
+/*!
+ * \brief The QGVRebBlackSceneFactory class
+ * Colors nodes in red depending on their color value.
+ */
+
 class QGVRebBlackSceneFactory : public QGVAbstractTreeSceneFactory
 {
 public:
@@ -23,6 +28,14 @@ public:
         return m_scene;
     }
 
+    /*!
+     * \brief walk
+     * \param cur
+     * \param pa
+     *
+     * This is called when we need to walk through the tree and record its nodes and
+     * edges to a QGVScene
+     */
     void walk(Node *cur, QGVNode* pa = nullptr)
     {
         qDebug() << "--";
@@ -56,11 +69,25 @@ public:
        return m_scene;
     }
 
+    /*!
+     * \brief color_traversal
+     * \param ptr_to_compare
+     *
+     * This is a driver function which calls color_walk method
+     */
     void color_traversal(Node* ptr_to_compare)
     {
         color_walk(m_bin_tree_ptr -> get_root(),nullptr, ptr_to_compare);
     }
 
+    /*!
+     * \brief color_walk
+     * \param cur
+     * \param pa
+     * \param ptr_to_compare
+     *
+     * This is a modified version of walk() to walk and color nodes
+     */
     void color_walk(Node * cur, QGVNode* pa, Node* ptr_to_compare)
     {
         qDebug() << "--";
