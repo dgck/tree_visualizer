@@ -52,15 +52,19 @@ public:
     vector<vector<int>> bfs(int) override;
     vector<int> diameter() override;
     vector<int> center() override;
-
     void inorder()override;
     void preorder()override;
     void postorder()override;
+    void inorderBST(Node *ptr);
+    void postorderBST(Node* ptr);
+    void preorderBST(Node* ptr);
+
 
     // НОВОЕ
     void bfs_ptr_move();
     std::vector <Node*> get_cur_bfs_vis();
     std::vector <Node*> m_cur_bfs_vis;
+
 
     Node* get_root()
     {
