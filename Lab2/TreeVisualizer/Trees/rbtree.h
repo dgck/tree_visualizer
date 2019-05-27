@@ -9,12 +9,34 @@
 
 using namespace std;
 
+/*!
+ * \brief The RBTree class
+ * Self-balancing binary search tree
+ * Each node is either red or black.
+ * The root is black. This rule is sometimes omitted. Since the root can always be changed from red to black, but not necessarily vice versa, this rule has little effect on analysis.
+ * All leaves are black.
+ * If a node is red, then both its children are black.
+ * Every path from a given node to any of its descendant NIL nodes contains the same number of black nodes.
+ */
 class RBTree : public BinaryTree
 {
     RBTree(Node*);
     Node* successor(Node*);
+
+    /*!
+     * \brief rotateLeft
+     * \brief rotateRight
+     * Changes the structure without interfering with the order of the elements
+     * Moves one node up in the tree and one node down
+     */
     void rotateLeft(Node*);
     void rotateRight(Node*);
+
+    /*!
+     * \brief insertFix
+     * \brief deleteFix
+     * Restores all tree properties using right and left otation
+     */
     void insertFix(Node*)override;
     void deleteFix(Node*);
     void join(RBTree rbTree2);
@@ -25,9 +47,24 @@ public:
     void display(string);
     void show();
     Node *search(int);
+
+    /*!
+     * \brief blackHeight
+     * \return number of black nodes from current node to leaves
+     */
     int blackHeight();
     int blackHeight(Node*);
+
+    /*!
+     * \brief minValueNode
+     * \return node winh minimum key after current
+     */
     Node* minValueNode(Node*&);
+
+    /*!
+     * \brief maxValueNode
+     * \return node winh maximum key after current
+     */
     Node* maxValueNode(Node*&);
     void merge(RBTree* rbTree2);
     RBTree* splitR(int);
@@ -42,6 +79,11 @@ public:
     Tree *split(int)override;
 };
 
+/*!
+ * \brief The RBIterator class
+ * Iterator for tree traversal(preorder, postorder, inorder)
+ * Using iterator pattern
+ */
 class RBIterator{
 
 protected:
