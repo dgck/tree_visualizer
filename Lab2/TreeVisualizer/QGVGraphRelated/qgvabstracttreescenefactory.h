@@ -7,6 +7,9 @@
 #include "commons.h"
 #include "Trees/binarytree.h"
 
+#include <vector>
+using std::vector;
+
 class QGVAbstractTreeSceneFactory
 {
 public:
@@ -23,6 +26,7 @@ public:
     }
 
     virtual QGVScene* construct_scene() = 0;
+    virtual QGVScene* generate_traversal_scene(Node* ) = 0;
 
     QGVScene* get_scene()
     {

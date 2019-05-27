@@ -100,35 +100,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     treeCreator = new Creator;
 
-    RBTree* t = new RBTree;
-    t -> insert(1);
-    t -> insert(2);
-    QGVRebBlackSceneFactory* fac = new QGVRebBlackSceneFactory(t, this);
-    QGVScene* sc = fac->get_scene();
-    ui -> firstTree_img->setScene(sc);
-    ui -> firstTree_img -> fitInView_fixed(sc -> sceneRect(), Qt::KeepAspectRatio);
+    tree1 = treeCreator->createTree(Creator::TreeType::SimpleTree);
+    tree2 = treeCreator->createTree(Creator::TreeType::SimpleTree);
 
-
-    //tree1 = treeCreator->createTree(Creator::TreeType::SimpleTree);
-    //tree2 = treeCreator->createTree(Creator::TreeType::SimpleTree);
-
-    //MakeConnects();
-
-    //writer1 = new ImageWriter(ui->firstTree_img,tree1);
-    //writer2 = new ImageWriter(ui->secondTree_img,tree2);
-    //writer3 = new ImageWriter(ui->resultImg);
+    writer1 = new ImageWriter(ui->firstTree_img,tree1);
+    writer2 = new ImageWriter(ui->secondTree_img,tree2);
+    writer3 = new ImageWriter(ui->resultImg);
 
     /*QPalette pal = this->palette();
     pal.setColor(QPalette::Window, Qt::white);
     this->setPalette(pal);*/
 
-    //MakeConnects();
+    MakeConnects();
 }
 
 void MainWindow::DrawImage(QCGView*view,QGraphicsScene*new_scene)
 {
+    qDebug()<<"hello";
     view->setScene(new_scene);
-    view -> fitInView_fixed(new_scene -> sceneRect(), Qt::KeepAspectRatio);
+    view -> fitInView(new_scene -> sceneRect(), Qt::KeepAspectRatio);
 }
 
 void MainWindow::MakeConnects()
@@ -144,9 +134,11 @@ void MainWindow::MakeConnects()
 
     connect(ui->prev1,&QPushButton::clicked,this,&MainWindow::PrevStep);
     connect(ui->prev2,&QPushButton::clicked,this,&MainWindow::PrevStep);
+    connect(ui->prev3,&QPushButton::clicked,this,&MainWindow::PrevStep);
 
     connect(ui->next1,&QPushButton::clicked,this,&MainWindow::NextStep);
     connect(ui->next2,&QPushButton::clicked,this,&MainWindow::NextStep);
+    connect(ui->next3,&QPushButton::clicked,this,&MainWindow::NextStep);
 
     connect(writer1,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
     connect(writer2,&ImageWriter::SendPictureInfo,this,&MainWindow::DrawImage);
@@ -240,14 +232,21 @@ void MainWindow::PrevStep()
     {
         if(!writer1->is_writing())
         {
-            writer1->WritePrevStep();
+            writer1->WritePrevStep(isTraversal);
+        }
+    }
+    else if(buttonSender == ui->prev2)
+    {
+        if(!writer2->is_writing())
+        {
+            writer2->WritePrevStep(isTraversal);
         }
     }
     else
     {
-        if(!writer2->is_writing())
+        if(!writer3->is_writing())
         {
-            writer2->WritePrevStep();
+            writer3->WritePrevStep(isTraversal);
         }
     }
 }
@@ -259,14 +258,21 @@ void MainWindow::NextStep()
     {
         if(!writer1->is_writing())
         {
-            writer1->WriteNextStep();
+            writer1->WriteNextStep(isTraversal);
+        }
+    }
+    else if(buttonSender == ui->next2)
+    {
+        if(!writer2->is_writing())
+        {
+            writer2->WriteNextStep(isTraversal);
         }
     }
     else
     {
-        if(!writer2->is_writing())
+        if(!writer3->is_writing())
         {
-            writer2->WriteNextStep();
+            writer3->WriteNextStep(isTraversal);
         }
     }
 }
@@ -345,6 +351,7 @@ void MainWindow::HideButtonsforBTree(bool shouldHide)
 
 void MainWindow::MergeTrees()
 {
+    isTraversal = false;
     ui->resultImg->setVisible(true);
     ui->prev3->setVisible(true);
     ui->next3->setVisible(true);
@@ -355,6 +362,10 @@ void MainWindow::MergeTrees()
 
 void MainWindow::FindIntersetion()
 {
+    isTraversal = false;
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
     ui->resultImg->setVisible(true);
     ui->prev3->setVisible(true);
     ui->next3->setVisible(true);
@@ -386,6 +397,10 @@ void MainWindow::CheckInclusion()
 
 void MainWindow::FindDiametr()
 {
+    isTraversal = false;
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     vector<int> diametr;
     vector<tuple<int,int>> tree_vertices;
@@ -413,6 +428,10 @@ void MainWindow::FindDiametr()
 
 void MainWindow::FindCenter()
 {
+    isTraversal = false;
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     vector<int> center;
     vector<tuple<int,int>> tree_vertices;
@@ -440,9 +459,14 @@ void MainWindow::FindCenter()
 
 void MainWindow::Traversal()
 {
+    isTraversal = true;
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     if(buttonSender == ui->order1BTN)
     {
+        writer3->SetNewTree(tree1);
         if(ui->order_cb1->currentIndex() == 0)
         {
             tree1->preorder();
@@ -458,6 +482,7 @@ void MainWindow::Traversal()
     }
     else
     {
+        writer3->SetNewTree(tree2);
         if(ui->order_cb1->currentIndex() == 0)
         {
             tree2->preorder();
@@ -471,4 +496,5 @@ void MainWindow::Traversal()
             tree2->inorder();
         }
     }
+    writer3->ShowSequenceOfImages(isTraversal);
 }

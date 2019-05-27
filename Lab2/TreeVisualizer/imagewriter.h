@@ -30,12 +30,12 @@ class ImageWriter:public QObject
 public:
     ImageWriter(QCGView*view,Tree*tree = nullptr);
 
-    void ShowSequenceOfImages();
+    void ShowSequenceOfImages(bool isTraversal = false);
     void CreateImage(QGraphicsScene*scene);
-    void ShowStep(int new_index,int &current_index);
+    void ShowStep(int new_index,int &current_index,bool isTraversal = false);
     bool is_writing();
-    void WritePrevStep();
-    void WriteNextStep();
+    void WritePrevStep(bool isTraversal = false);
+    void WriteNextStep(bool isTraversal = false);
     void ResetSteps();
     void DeleteImageFiles();
     void SetNewTree(Tree*tree);

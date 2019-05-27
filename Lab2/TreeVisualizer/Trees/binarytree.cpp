@@ -481,7 +481,9 @@ void BinaryTree::inorderBST(Node *ptr) {
         return;
 
     inorderBST(ptr->left);
-    cout << ptr->key << " " << ptr->color << endl;
+    //cout << ptr->key << " " << ptr->color << endl;
+    traversal_scenes.push_back(factory->generate_traversal_scene(ptr));
+    factory = new QGVBinaryTreeSceneFactory(this);
     inorderBST(ptr->right);
 }
 
@@ -493,7 +495,8 @@ void BinaryTree::preorderBST(Node *ptr) {
     if (ptr == nullptr)
         return;
 
-    cout << ptr->key << " " << ptr->color << endl;
+    traversal_scenes.push_back( factory->generate_traversal_scene(ptr));
+    factory = new QGVBinaryTreeSceneFactory(this);
     preorderBST(ptr->left);
     preorderBST(ptr->right);
 }
@@ -508,7 +511,8 @@ void BinaryTree::postorderBST(Node *ptr) {
         return;
     postorderBST(ptr->left);
     postorderBST(ptr->right);
-    cout << ptr->key << " " << ptr->color << endl;
+    traversal_scenes.push_back( factory->generate_traversal_scene(ptr));
+    factory = new QGVBinaryTreeSceneFactory(this);
 }
 
 void BinaryTree::postorder() {

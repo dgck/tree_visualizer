@@ -76,6 +76,8 @@ private:
 
     QGVScene *m_scene;
 
+    bool isTraversal = false;
+
 };
 
 #endif // MAINWINDOW_H

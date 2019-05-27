@@ -173,6 +173,12 @@ public:
         }
     }
 
+    // this is temporary
+    QGVScene* generate_traversal_scene(Node*)
+    {
+        return new QGVScene("temp");
+    }
+
 private:
     BplusTree* m_b_tree_node;
 
