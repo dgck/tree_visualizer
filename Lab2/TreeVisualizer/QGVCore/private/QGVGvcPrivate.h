@@ -1,7 +1,7 @@
 #ifndef QGVGVCPRIVATE_H
 #define QGVGVCPRIVATE_H
 
-#include <gvc.h>
+#include <graphviz/gvc.h>
 
 class QGVGvcPrivate
 {

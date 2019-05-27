@@ -25,8 +25,8 @@ License along with this library.
 #include <QColor>
 
 //GraphViz headers
-#include <gvc.h>
-#include <cgraph.h>
+#include <graphviz/gvc.h>
+#include <graphviz/cgraph.h>
 
 const qreal DotDefaultDPI = 72.0;
 

@@ -76,7 +76,10 @@ void QGVNode::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidge
         painter->setBrush(_brush);
 
     // this is for
-    //painter->drawPath(_path);
+    if (!record_mode)
+    {
+        painter->drawPath(_path);
+    }
 
     painter->setPen(QGVCore::toColor(getAttribute("labelfontcolor")));
 

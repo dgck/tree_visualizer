@@ -2,8 +2,9 @@
 #include "ui_mainwindow.h"
 
 // trash includes for example purposes only
-#include "QGVEdge.h"
-#include "QGVNode.h"
+
+#include "QGVCore/QGVEdge.h"
+#include "QGVCore/QGVNode.h"
 
 #include "QGVGraphRelated/qgvredblacktreescenefactory.h"
 #include "QGVGraphRelated/qgvbinarytreescenefactory.h"
@@ -16,7 +17,7 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QDebug>
-#include <QGVSubGraph.h>
+#include <QGVCore/QGVSubGraph.h>
 
 #include <memory>
 #include <stack>
@@ -99,20 +100,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     treeCreator = new Creator;
 
-    tree1 = treeCreator->createTree(Creator::TreeType::SimpleTree);
-    tree2 = treeCreator->createTree(Creator::TreeType::SimpleTree);
+    RBTree* t = new RBTree;
+    t -> insert(1);
+    t -> insert(2);
+    QGVRebBlackSceneFactory* fac = new QGVRebBlackSceneFactory(t, this);
+    QGVScene* sc = fac->get_scene();
+    ui -> firstTree_img->setScene(sc);
+    ui -> firstTree_img -> fitInView_fixed(sc -> sceneRect(), Qt::KeepAspectRatio);
+
+
+    //tree1 = treeCreator->createTree(Creator::TreeType::SimpleTree);
+    //tree2 = treeCreator->createTree(Creator::TreeType::SimpleTree);
 
     //MakeConnects();
 
-    writer1 = new ImageWriter(ui->firstTree_img,tree1);
-    writer2 = new ImageWriter(ui->secondTree_img,tree2);
-    writer3 = new ImageWriter(ui->resultImg);
+    //writer1 = new ImageWriter(ui->firstTree_img,tree1);
+    //writer2 = new ImageWriter(ui->secondTree_img,tree2);
+    //writer3 = new ImageWriter(ui->resultImg);
 
     /*QPalette pal = this->palette();
     pal.setColor(QPalette::Window, Qt::white);
     this->setPalette(pal);*/
 
-    MakeConnects();
+    //MakeConnects();
 }
 
 void MainWindow::DrawImage(QCGView*view,QGraphicsScene*new_scene)
