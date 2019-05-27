@@ -27,6 +27,16 @@ Node::Node(string data, int cost){
 
 
 
+void BinaryTree::inorderInsert(BinaryTree *bt, Node *ptr)
+{
+    if (ptr == nullptr)
+        return;
+
+    inorderBST(ptr->left);
+    bt->insert(ptr->key);
+    inorderBST(ptr->right);
+}
+
 void BinaryTree::insertFix(Node *)
 {
 }
@@ -159,9 +169,10 @@ vector<int> BinaryTree::getElements()
     return elements;
 }
 
-void BinaryTree::merge(Tree *)
+void BinaryTree::merge(Tree *tree2)
 {
-
+    BinaryTree*bt = dynamic_cast<BinaryTree*>(tree2);
+    inorderInsert(this,bt->get_root());
 }
 
 Tree *BinaryTree::split(int)
