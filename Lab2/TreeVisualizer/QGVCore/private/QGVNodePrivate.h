@@ -1,7 +1,7 @@
 #ifndef QGVNODEPRIVATE_H
 #define QGVNODEPRIVATE_H
 
-#include <cgraph.h>
+#include <graphviz/cgraph.h>
 
 class QGVNodePrivate
 {

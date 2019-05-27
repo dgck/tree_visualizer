@@ -24,32 +24,76 @@ using std::vector;
  // У дерева будет визуализатор - т е его спецификация
  Визуализатор живет вместе со своим деревом
 */
+/*!
+    \brief Class which creates sequence of graphic scenes and sends it to the mainwindow
+    \author Stas Dzunza
+    \version 1.0
+    \date May 2019
+
+    At the beginning he receives tree with array of scenes and every time sends one of the scenes
+    to the mainwindow
+*/
 class ImageWriter:public QObject
 {
     Q_OBJECT
 public:
     ImageWriter(QCGView*view,Tree*tree = nullptr);
 
-    void ShowSequenceOfImages();
+    /*!
+        *\brief Main method which starts timer and updates number of scenes every time
+    */
+    void ShowSequenceOfImages(bool isTraversal = false);
+
+    void ShowStep(int new_index,int &current_index,bool isTraversal = false);
+
+    /*!
+        *\brief Method which sends previously scene to the mainwindow
+    */
+    void WritePrevStep(bool isTraversal = false);
+
+    /*!
+        *\brief Method which resets all information about current tree and their states
+    */
+    void WriteNextStep(bool isTraversal = false);
+
+    /*!
+        *\brief Method which sends on of the scenes to the mainwindow
+    */
     void CreateImage(QGraphicsScene*scene);
-    void ShowStep(int new_index,int &current_index);
+
+    /*!
+        *\brief Method which checks if writer is writing at the moment
+    */
     bool is_writing();
-    void WritePrevStep();
-    void WriteNextStep();
+
+    /*!
+        *\brief Method which sends next scene to the mainwindow
+    */
     void ResetSteps();
-    void DeleteImageFiles();
+
+    /*!
+        *\brief Method which sets new tree to this writer
+    */
     void SetNewTree(Tree*tree);
 
+    /*!
+        *\brief Method which sends last step to the mainwindow
+    */
+    void ShowLastStep();
+
 signals:
+    /*!
+        \brief Signal which sends a scene
+    */
     void SendPictureInfo(QCGView*view,QGraphicsScene*scene);
 
 private:
-    int overal_number_of_steps;
-    int index_of_current_step;
-    const int TimePerStep;
-    QTimer timer;
-    QCGView*view;
-    Tree*tree;
+    int overal_number_of_steps;///< number of scenes
+    int index_of_current_step;///< index of scene which we see at the moment
+    const int TimePerStep;///< constant time after what we send a scene
+    QTimer timer;///< after every timeout of this timer we send a scene
+    QCGView*view;///< view from the mainwindow(receive in constructor)
+    Tree*tree;///< tree which have a scenes(receive in constructor)
 };
 
 #endif // IMAGEWRITER_H

@@ -1,7 +1,7 @@
 #ifndef QGVEDGEPRIVATE_H
 #define QGVEDGEPRIVATE_H
 
-#include <cgraph.h>
+#include <graphviz/cgraph.h>
 
 class QGVEdgePrivate
 {

@@ -3,7 +3,7 @@
 
 #include "QGVNodePrivate.h"
 
-#include <cgraph.h>
+#include <graphviz/cgraph.h>
 
 class QGVRecordPrivate : public QGVNodePrivate
 {

@@ -1,9 +1,9 @@
 #ifndef COMMONS_H
 #define COMMONS_H
 
-#include <QGVEdge.h>
-#include <QGVNode.h>
-#include <QGVScene.h>
+#include <QGVCore/QGVEdge.h>
+#include <QGVCore/QGVNode.h>
+#include <QGVCore/QGVScene.h>
 
 #include <QString>
 

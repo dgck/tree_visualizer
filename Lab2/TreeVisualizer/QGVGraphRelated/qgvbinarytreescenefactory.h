@@ -7,6 +7,12 @@
 
 #include <QDebug>
 
+/*!
+ * \brief The QGVBinaryTreeSceneFactory class
+ *
+ * An override of QGVAbstractTreeSceneFactory.
+ */
+
 class QGVBinaryTreeSceneFactory : public QGVAbstractTreeSceneFactory
 {
 public:
@@ -47,6 +53,48 @@ public:
             walk(cur -> get_right(), cur_node);
         }
     }
+
+
+    QGVScene* generate_traversal_scene(Node* node)
+    {
+       color_traversal(node);
+       m_scene->applyLayout();
+       return m_scene;
+    }
+
+    void color_traversal(Node* ptr_to_compare)
+    {
+        color_walk(m_bin_tree_ptr -> get_root(),nullptr, ptr_to_compare);
+    }
+
+    void color_walk(Node * cur, QGVNode* pa, Node* ptr_to_compare)
+    {
+        qDebug() << "--";
+        if (!cur)
+            return;
+
+        QGVNode* cur_node = m_scene -> addNode(QString::number(cur -> get_key()));
+
+        if (cur == ptr_to_compare)
+        {
+            cur_node -> setAttribute(QString("fillcolor"), QString("blue"));
+            cur_node -> setAttribute(QString("style"), QString("filled"));
+        }
+
+        if (pa)
+            m_scene -> addEdge(pa, cur_node);
+
+        if (cur -> get_left())
+        {
+            color_walk(cur -> get_left(), cur_node, ptr_to_compare);
+        }
+        if (cur -> get_right())
+        {
+            color_walk(cur -> get_right(), cur_node, ptr_to_compare);
+        }
+    }
+
+
 
 private:
     BinaryTree* m_bin_tree_ptr;

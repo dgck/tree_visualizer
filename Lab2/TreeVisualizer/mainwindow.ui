@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>997</width>
-    <height>505</height>
+    <height>558</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,31 +19,17 @@
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="1">
        <layout class="QGridLayout" name="gridLayout_2">
+        <item row="4" column="0" colspan="2">
+         <widget class="QPushButton" name="findPath1BTN">
+          <property name="text">
+           <string>Find path</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="remove1BTN">
           <property name="text">
            <string>Remove</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0" colspan="2">
-         <widget class="QPushButton" name="delete1TreeBTN">
-          <property name="text">
-           <string>Delete tree</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="lbl2">
-          <property name="text">
-           <string>From:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QPushButton" name="next1">
-          <property name="text">
-           <string>&gt;</string>
           </property>
          </widget>
         </item>
@@ -54,10 +40,27 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QPushButton" name="findPath1BTN">
+        <item row="6" column="0">
+         <widget class="QSpinBox" name="from1"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="order1BTN">
           <property name="text">
-           <string>Find path</string>
+           <string>Do</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="2">
+         <widget class="QPushButton" name="delete1TreeBTN">
+          <property name="text">
+           <string>Delete tree</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="lbl2">
+          <property name="text">
+           <string>From:</string>
           </property>
          </widget>
         </item>
@@ -80,12 +83,36 @@
           </item>
          </widget>
         </item>
+        <item row="9" column="0">
+         <widget class="QPushButton" name="prev1">
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="insert1BTN">
+          <property name="text">
+           <string>Insert</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QPushButton" name="next1">
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </widget>
+        </item>
         <item row="5" column="1">
          <widget class="QLabel" name="lbl3">
           <property name="text">
            <string>To:</string>
           </property>
          </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="to1"/>
         </item>
         <item row="1" column="1">
          <widget class="QSpinBox" name="removeElem1"/>
@@ -100,30 +127,17 @@
         <item row="0" column="1">
          <widget class="QSpinBox" name="insElem1"/>
         </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="order1BTN">
+        <item row="7" column="0">
+         <widget class="QPushButton" name="bfs1BTN">
           <property name="text">
-           <string>Do</string>
+           <string>BFS</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="QSpinBox" name="to1"/>
-        </item>
-        <item row="8" column="0">
-         <widget class="QPushButton" name="prev1">
+        <item row="7" column="1">
+         <widget class="QPushButton" name="dfs1BTN">
           <property name="text">
-           <string>&lt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0">
-         <widget class="QSpinBox" name="from1"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="insert1BTN">
-          <property name="text">
-           <string>Insert</string>
+           <string>DFS</string>
           </property>
          </widget>
         </item>
@@ -131,20 +145,10 @@
       </item>
       <item row="0" column="3">
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="2" column="0">
-         <widget class="QPushButton" name="order2BTN">
+        <item row="9" column="1">
+         <widget class="QPushButton" name="next2">
           <property name="text">
-           <string>Do</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QSpinBox" name="removeElem2"/>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLabel" name="lbl5">
-          <property name="text">
-           <string>To:</string>
+           <string>&gt;</string>
           </property>
          </widget>
         </item>
@@ -155,24 +159,31 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="0" colspan="2">
+        <item row="9" column="0">
+         <widget class="QPushButton" name="prev2">
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="Center2BTN">
+          <property name="text">
+           <string>Center</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="2">
          <widget class="QPushButton" name="delete2TreeBTN">
           <property name="text">
            <string>Delete tree</string>
           </property>
          </widget>
         </item>
-        <item row="8" column="1">
-         <widget class="QPushButton" name="next2">
+        <item row="5" column="1">
+         <widget class="QLabel" name="lbl5">
           <property name="text">
-           <string>&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="insert2BTN">
-          <property name="text">
-           <string>Insert</string>
+           <string>To:</string>
           </property>
          </widget>
         </item>
@@ -180,23 +191,6 @@
          <widget class="QPushButton" name="findPath2BTN">
           <property name="text">
            <string>Find path</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="remove2BTN">
-          <property name="text">
-           <string>Remove</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QSpinBox" name="insElem2"/>
-        </item>
-        <item row="8" column="0">
-         <widget class="QPushButton" name="prev2">
-          <property name="text">
-           <string>&lt;</string>
           </property>
          </widget>
         </item>
@@ -219,11 +213,8 @@
           </item>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QSpinBox" name="from2"/>
-        </item>
-        <item row="6" column="1">
-         <widget class="QSpinBox" name="to2"/>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="removeElem2"/>
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="lbl4">
@@ -232,10 +223,47 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="Center2BTN">
+        <item row="2" column="0">
+         <widget class="QPushButton" name="order2BTN">
           <property name="text">
-           <string>Center</string>
+           <string>Do</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QSpinBox" name="from2"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="insElem2"/>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="to2"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="insert2BTN">
+          <property name="text">
+           <string>Insert</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="remove2BTN">
+          <property name="text">
+           <string>Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QPushButton" name="bfs2BTN">
+          <property name="text">
+           <string>BFS</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QPushButton" name="dfs2BTN">
+          <property name="text">
+           <string>DFS</string>
           </property>
          </widget>
         </item>
@@ -273,16 +301,6 @@
         <item>
          <property name="text">
           <string>Splay</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OBST</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>B</string>
          </property>
         </item>
         <item>
@@ -340,7 +358,7 @@
      <x>0</x>
      <y>0</y>
      <width>997</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

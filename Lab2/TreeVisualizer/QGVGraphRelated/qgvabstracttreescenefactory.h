@@ -2,10 +2,19 @@
 #define QGVABSTRACTTREESCENEFACTORY_H
 
 #include "Trees/tree.h"
-#include "QGVScene.h"
+#include "QGVCore/QGVScene.h"
 #include <QMainWindow>
 #include "commons.h"
 #include "Trees/binarytree.h"
+
+#include <vector>
+using std::vector;
+
+/*!
+ * \brief The QGVAbstractTreeSceneFactory class
+ * Interface for all factories that return QGraphicsScene objects
+ * This is needed for trees to render onto the screen
+ */
 
 class QGVAbstractTreeSceneFactory
 {
@@ -22,8 +31,28 @@ public:
 
     }
 
+    /*!
+     * \brief construct_scene
+     * \return
+     * abstract method to manage construction of QGVScene
+     */
     virtual QGVScene* construct_scene() = 0;
 
+    /*!
+     * \brief generate_traversal_scene
+     * \return
+     *
+     * abstract method to manage construction of QGVScene objects when tree traversal is done
+     */
+    virtual QGVScene* generate_traversal_scene(Node* ) = 0;
+
+    /*!
+     * \brief get_scene
+     * \return
+     *
+     * This is the interface that is supposed to be used by trees when they want to
+     * record themselves
+     */
     QGVScene* get_scene()
     {
         m_scene = construct_scene();
