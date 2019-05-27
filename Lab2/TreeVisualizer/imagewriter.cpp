@@ -66,10 +66,14 @@ void ImageWriter::WritePrevStep(bool isTraversal)
 {
     if(index_of_current_step - 1 >= 0)
     {
+<<<<<<< HEAD
         if(isTraversal)
             CreateImage(tree->getTraversalScenes()[--index_of_current_step]);
         else
             CreateImage(tree->getScenes()[--index_of_current_step]);
+=======
+        CreateImage(tree->getScenes()[--index_of_current_step]);
+>>>>>>> 1752b595cf58ed30bd44acbaab9b135f5bf79428
     }
 }
 
@@ -77,33 +81,23 @@ void ImageWriter::WriteNextStep(bool isTraversal)
 {
     if(index_of_current_step + 1 < overal_number_of_steps)
     {
+<<<<<<< HEAD
         if(isTraversal)
             CreateImage(tree->getTraversalScenes()[++index_of_current_step]);
         else
             CreateImage(tree->getScenes()[++index_of_current_step]);
+=======
+        CreateImage(tree->getScenes()[++index_of_current_step]);
+>>>>>>> 1752b595cf58ed30bd44acbaab9b135f5bf79428
     }
 }
 
 void ImageWriter::ResetSteps()
 {
-    //DeleteImageFiles();
-
     overal_number_of_steps = index_of_current_step = 0;
     tree = nullptr;
     if(timer.isActive())
         timer.stop();
-    //QFile("meta.txt").remove();
-}
-
-void ImageWriter::DeleteImageFiles()
-{
-    for (int i = 0; i < overal_number_of_steps; i++)
-    {
-        string filenamePng = "step_" + QString::number(i).toStdString() + ".png";
-        string filenameGv = "gr" + QString::number(i).toStdString() + ".dot";
-        QFile(filenamePng.c_str()).remove();
-        QFile(filenameGv.c_str()).remove();
-    }
 }
 
 void ImageWriter::SetNewTree(Tree *tree)

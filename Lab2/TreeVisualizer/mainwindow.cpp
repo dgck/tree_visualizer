@@ -151,9 +151,25 @@ void MainWindow::MakeConnects()
     connect(ui->order1BTN,&QPushButton::clicked,this,&MainWindow::Traversal);
     connect(ui->order1BTN,&QPushButton::clicked,this,&MainWindow::Traversal);
 
+    ui->insElem1->setMaximum(10000);
+    ui->insElem1->setMinimum(-10000);
+    ui->insElem2->setMaximum(10000);
+    ui->insElem2->setMinimum(-10000);
+
     ui->resultImg->setVisible(false);
     ui->prev3->setVisible(false);
     ui->next3->setVisible(false);
+
+    ui->findPath1BTN->setVisible(false);
+    ui->lbl2->setVisible(false);
+    ui->lbl3->setVisible(false);
+    ui->findPath2BTN->setVisible(false);
+    ui->lbl4->setVisible(false);
+    ui->lbl5->setVisible(false);
+    ui->from1->setVisible(false);
+    ui->to1->setVisible(false);
+    ui->from2->setVisible(false);
+    ui->to2->setVisible(false);
 }
 
 void MainWindow::InsertInTree()
@@ -183,7 +199,7 @@ void MainWindow::RemoveFromTree()
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     if(buttonSender == ui->remove1BTN)
     {
-        //if(tree1->find(ui->removeElem1->text().toInt(),tree1->getRoot()))
+        if(!writer1->is_writing())
         {
             tree1->deleteNode(ui->removeElem1->text().toInt());
             writer1->ShowSequenceOfImages();
@@ -191,7 +207,7 @@ void MainWindow::RemoveFromTree()
     }
     else
     {
-        //if(tree2->search(ui->removeElem1->text().toInt(),tree2->getRoot()))
+        if(!writer2->is_writing())
         {
             tree2->deleteNode(ui->removeElem2->text().toInt());
             writer2->ShowSequenceOfImages();
@@ -209,8 +225,7 @@ void MainWindow::DeleteTree()
         {
             delete tree1;
             tree1 = treeCreator->createTree(Creator::RbTree);
-            writer1->ResetSteps();
-           // ui->firstTree_img->setText("First tree");
+            writer1->SetNewTree(tree1);
         }
     }
     else
@@ -219,8 +234,7 @@ void MainWindow::DeleteTree()
         {
             delete tree2;
             tree2 = treeCreator->createTree(Creator::RbTree);
-            writer2->ResetSteps();
-            //ui->secondTree_img->setText("Second tree");
+            writer2->SetNewTree(tree2);
         }
     }
 }
@@ -279,8 +293,6 @@ void MainWindow::NextStep()
 
 MainWindow::~MainWindow()
 {
-    //writer1->ResetSteps();
-    //writer2->ResetSteps();
     delete ui;
 }
 
@@ -289,10 +301,6 @@ void MainWindow::on_treeType_cb_currentIndexChanged(int index)
 {
     delete tree1;
     delete tree2;
-    //writer1->ResetSteps();
-    //writer2->ResetSteps();
-    //ui->firstTree_img->setText("First tree");
-    //ui->secondTree_img->setText("Second tree");
 
     switch (index)
     {
