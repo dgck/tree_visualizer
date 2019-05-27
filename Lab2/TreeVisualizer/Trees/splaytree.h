@@ -12,12 +12,42 @@
 
 using namespace std;
 
+/*!
+ * \brief The SplayTree class
+ */
 class SplayTree : public BinaryTree
 {
+         /*!
+         * \brief zig
+         * used just once (if the height is odd)
+         * \param x
+         */
         void zig(Node* x);
+        /*!
+         * \brief zig_zig
+         * double left or double right rotation
+         * \param x node
+         * \param p parent
+         * \param g grand-parent
+         */
         void zig_zig(Node* x, Node* p, Node* g);
+        /*!
+         * \brief zig_zag
+         * left-right or right-left rotation
+         * \param x node
+         * \param p parent
+         * \param g grand-parent
+         */
         void zig_zag(Node* x, Node* p, Node* g);
         Node* findMax(Node* x);
+        /*!
+         * \brief splay
+         * main operation
+         * using zig, zig-zig and zig-zag, moves current node to the top
+         * until it becomes the root
+         * is called in every public operation with a node
+         * \param x
+         */
         void splay(Node* x);
         void recursive_print(Node* start);
         void recursive_inorder(Node* start);
