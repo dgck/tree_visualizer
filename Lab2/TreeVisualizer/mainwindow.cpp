@@ -107,10 +107,6 @@ MainWindow::MainWindow(QWidget *parent) :
     writer2 = new ImageWriter(ui->secondTree_img,tree2);
     writer3 = new ImageWriter(ui->resultImg);
 
-    /*QPalette pal = this->palette();
-    pal.setColor(QPalette::Window, Qt::white);
-    this->setPalette(pal);*/
-
     MakeConnects();
 }
 
