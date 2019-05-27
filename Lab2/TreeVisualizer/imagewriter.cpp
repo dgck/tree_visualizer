@@ -59,7 +59,6 @@ void ImageWriter::WritePrevStep()
 {
     if(index_of_current_step - 1 >= 0)
     {
-        //string filename = "step_" + QString::number(--index_of_current_step).toStdString() + ".png";
         CreateImage(tree->getScenes()[--index_of_current_step]);
     }
 }
@@ -68,31 +67,16 @@ void ImageWriter::WriteNextStep()
 {
     if(index_of_current_step + 1 < overal_number_of_steps)
     {
-        //string filename = "step_" + QString::number(++index_of_current_step).toStdString() + ".png";
         CreateImage(tree->getScenes()[++index_of_current_step]);
     }
 }
 
 void ImageWriter::ResetSteps()
 {
-    //DeleteImageFiles();
-
     overal_number_of_steps = index_of_current_step = 0;
     tree = nullptr;
     if(timer.isActive())
         timer.stop();
-    //QFile("meta.txt").remove();
-}
-
-void ImageWriter::DeleteImageFiles()
-{
-    for (int i = 0; i < overal_number_of_steps; i++)
-    {
-        string filenamePng = "step_" + QString::number(i).toStdString() + ".png";
-        string filenameGv = "gr" + QString::number(i).toStdString() + ".dot";
-        QFile(filenamePng.c_str()).remove();
-        QFile(filenameGv.c_str()).remove();
-    }
 }
 
 void ImageWriter::SetNewTree(Tree *tree)
