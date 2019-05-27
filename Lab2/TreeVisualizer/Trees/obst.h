@@ -13,6 +13,10 @@
 
 using namespace std;
 
+/*!
+ * \brief The OBST class
+ * Static optimal binary search tree
+ */
 class OBST : public BinaryTree
 {
     void subTreeShowIn(Node* start);
@@ -23,9 +27,20 @@ class OBST : public BinaryTree
 
 public:
 
+    /*!
+     * \brief OBST
+     * builds an optimal binary search tree using sorted input vectors,
+     * helper matrixes of mathematical expectations of search costs
+     * and roots for all the subtrees
+     */
     OBST();
 
     // input must be sorted
+    /*!
+     * \brief OBST
+     * \param input - vector of words in text
+     * \param p - vector of probabilities for appropriate words
+     */
     OBST(vector<string> input, vector<int> p);
     void FWrite(string fileName);
     void Inorder();
@@ -156,4 +171,3 @@ public:
     }
 };
 #endif // OBST_H
-
