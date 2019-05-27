@@ -153,10 +153,19 @@ void MainWindow::MakeConnects()
     connect(ui->Center1BTN,&QPushButton::clicked,this,&MainWindow::FindCenter);
     connect(ui->Center2BTN,&QPushButton::clicked,this,&MainWindow::FindCenter);
 
+    connect(ui->bfs1BTN,&QPushButton::clicked,this,&MainWindow::BFS);
+    connect(ui->bfs2BTN,&QPushButton::clicked,this,&MainWindow::BFS);
+    connect(ui->dfs1BTN,&QPushButton::clicked,this,&MainWindow::DFS);
+    connect(ui->dfs2BTN,&QPushButton::clicked,this,&MainWindow::DFS);
+
     ui->insElem1->setMaximum(10000);
     ui->insElem1->setMinimum(-10000);
     ui->insElem2->setMaximum(10000);
     ui->insElem2->setMinimum(-10000);
+
+    ui->time->setMinimum(1);
+    ui->time->setMinimum(5);
+
 
     ui->resultImg->setVisible(false);
     ui->prev3->setVisible(false);
@@ -268,7 +277,12 @@ void MainWindow::PrevStep()
     {
         if(!writer3->is_writing())
         {
-            writer3->WritePrevStep(isTraversal);
+            if(isBfsDfs)
+            {
+                writer3->WritePrevStepBfsDfs();
+            }
+            else
+                writer3->WritePrevStep(isTraversal);
         }
     }
 }
@@ -294,7 +308,12 @@ void MainWindow::NextStep()
     {
         if(!writer3->is_writing())
         {
-            writer3->WriteNextStep(isTraversal);
+            if(isBfsDfs)
+            {
+                writer3->WriteNextStepBfsDfs();
+            }
+            else
+                writer3->WriteNextStep(isTraversal);
         }
     }
 }
@@ -370,6 +389,7 @@ void MainWindow::HideButtonsforBTree(bool shouldHide)
 
 void MainWindow::MergeTrees()
 {
+    isBfsDfs = false;
     isTraversal = false;
     ui->resultImg->setVisible(true);
     ui->prev3->setVisible(true);
@@ -381,6 +401,7 @@ void MainWindow::MergeTrees()
 
 void MainWindow::FindIntersetion()
 {
+    isBfsDfs = false;
     isTraversal = false;
     ui->resultImg->setVisible(true);
     ui->prev3->setVisible(true);
@@ -413,6 +434,7 @@ void MainWindow::CheckInclusion()
 
 void MainWindow::FindDiametr()
 {
+    isBfsDfs = false;
     isTraversal = false;
     ui->resultImg->setVisible(true);
     ui->prev3->setVisible(true);
@@ -449,6 +471,7 @@ void MainWindow::FindDiametr()
 
 void MainWindow::FindCenter()
 {
+    isBfsDfs = false;
     isTraversal = false;
     ui->resultImg->setVisible(true);
     ui->prev3->setVisible(true);
@@ -486,6 +509,7 @@ void MainWindow::FindCenter()
 
 void MainWindow::Traversal()
 {
+    isBfsDfs = false;
     isTraversal = true;
     ui->resultImg->setVisible(true);
     ui->prev3->setVisible(true);
@@ -524,4 +548,53 @@ void MainWindow::Traversal()
         }
     }
     writer3->ShowSequenceOfImages(isTraversal);
+}
+
+void MainWindow::BFS()
+{
+    isBfsDfs = true;
+    isTraversal = false;
+    ui->resultImg->setVisible(true);
+    ui->prev3->setVisible(true);
+    ui->next3->setVisible(true);
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    if(buttonSender == ui->bfs1BTN)
+    {
+        BinaryTree*tree = dynamic_cast<BinaryTree*>(tree1);
+        tree->bfs(tree->get_root()->key);
+        writer3->SetNewTree(tree);
+        writer3->ShowSequenceOfImagesBfsDfs();
+    }
+    else
+    {
+        BinaryTree*tree = dynamic_cast<BinaryTree*>(tree2);
+        tree->bfs(tree->get_root()->key);
+        writer3->SetNewTree(tree);
+        writer3->ShowSequenceOfImagesBfsDfs();
+    }
+}
+
+void MainWindow::DFS()
+{
+    isTraversal = false;
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    if(buttonSender == ui->dfs1BTN)
+    {
+        tree1->dfs();
+        writer3->SetNewTree(tree1);
+        writer3->ShowSequenceOfImagesBfsDfs();
+    }
+    else
+    {
+        tree2->dfs();
+        writer3->SetNewTree(tree2);
+        writer3->ShowSequenceOfImagesBfsDfs();
+    }
+}
+
+void MainWindow::on_SetTime_clicked()
+{
+    writer1->setTimeInterval(ui->time->value()*1000);
+    writer2->setTimeInterval(ui->time->value()*1000);
+    writer3->setTimeInterval(ui->time->value()*1000);
 }

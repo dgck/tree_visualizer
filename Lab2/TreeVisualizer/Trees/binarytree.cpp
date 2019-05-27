@@ -34,6 +34,7 @@ void BinaryTree::insertFix(Node *)
 BinaryTree::BinaryTree()
 {
     factory = new QGVBinaryTreeSceneFactory(this);
+    m_cur_bfs_vis.resize(0);
 }
 
 void BinaryTree::insert(int data)
@@ -271,6 +272,8 @@ vector<vector<int>> BinaryTree::bfs(int vertex)
         while (!q.empty())
         {
                 int v = q.front();
+                //bfs_dfs_scenes.push_back(factory->generate_traversal_scene());
+                //factory = new QGVBinaryTreeSceneFactory(this);
                 q.pop();
 
                 for (int i = 0; i < graph[v].size(); ++i)
@@ -312,7 +315,12 @@ vector<vector<int>> BinaryTree::bfs(int vertex)
                         }
         }
 
-
+        m_cur_bfs_vis.push_back(root);
+        do{
+            bfs_dfs_scenes.push_back(factory->generate_traversal_scene(get_cur_bfs_vis()));
+            factory = new QGVBinaryTreeSceneFactory(this);
+            bfs_ptr_move();
+        }while(get_cur_bfs_vis().size());
         return routes;
 }
 
@@ -520,4 +528,28 @@ void BinaryTree::postorder() {
     cout << "-------" << endl;
 }
 
+
+///// пользоваться так: while (get_cur_bfs_vis().size()) do next_step
+void BinaryTree::bfs_ptr_move()
+{
+    vector <Node*> next_gen;
+    for (Node* i : m_cur_bfs_vis)
+    {
+        if (i -> left)
+        {
+            next_gen.push_back(i -> left);
+        }
+        if (i -> right)
+        {
+            next_gen.push_back(i -> right);
+        }
+    }
+
+    m_cur_bfs_vis = next_gen;
+}
+
+std::vector <Node*> BinaryTree::get_cur_bfs_vis()
+{
+    return m_cur_bfs_vis;
+}
 

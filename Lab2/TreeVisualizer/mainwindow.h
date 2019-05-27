@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -124,6 +124,12 @@ private slots:
      */
     void Traversal();
 
+    void BFS();
+
+    void DFS();
+
+    void on_SetTime_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -141,6 +147,7 @@ private:
     QGVScene *m_scene;
 
     bool isTraversal = false;///< A variable which tell us about type of process in tree
+    bool isBfsDfs = false;
 
 };
 

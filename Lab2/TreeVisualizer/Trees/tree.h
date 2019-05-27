@@ -132,6 +132,7 @@ public:
        virtual vector<tuple<int,  int> > GetVertices() = 0;
        vector<QGraphicsScene*> getScenes(){return scenes;}
        vector<QGraphicsScene*> getTraversalScenes(){return traversal_scenes;}
+       vector<QGraphicsScene*> getBfsDfsScenes(){return bfs_dfs_scenes;}
        virtual void inorder() = 0;
        virtual void preorder() = 0;
        virtual void postorder() = 0;
@@ -140,6 +141,7 @@ public:
 protected:
     vector<QGraphicsScene*>scenes;
     vector<QGraphicsScene*>traversal_scenes;
+    vector<QGraphicsScene*>bfs_dfs_scenes;
     QGVAbstractTreeSceneFactory*factory;
 };
 

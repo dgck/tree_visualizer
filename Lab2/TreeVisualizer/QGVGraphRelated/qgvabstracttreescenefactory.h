@@ -53,6 +53,9 @@ public:
      * This is the interface that is supposed to be used by trees when they want to
      * record themselves
      */
+
+    virtual QGVScene* generate_traversal_scene(vector <Node*> ) = 0;
+
     QGVScene* get_scene()
     {
         m_scene = construct_scene();

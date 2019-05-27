@@ -81,6 +81,35 @@ public:
     */
     void ShowLastStep();
 
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    /*!
+        *\brief Main method which starts timer and updates number of scenes every time
+    */
+    void ShowSequenceOfImagesBfsDfs();
+
+    void ShowStepBfsDfs(int new_index,int &current_index);
+
+    /*!
+        *\brief Method which sends previously scene to the mainwindow
+    */
+    void WritePrevStepBfsDfs();
+
+    /*!
+        *\brief Method which resets all information about current tree and their states
+    */
+    void WriteNextStepBfsDfs();
+
+    /*!
+        *\brief Method which checks if writer is writing at the moment
+    */
+
+    void setTimeInterval(int timePerStep);
+
 signals:
     /*!
         \brief Signal which sends a scene
@@ -90,7 +119,7 @@ signals:
 private:
     int overal_number_of_steps;///< number of scenes
     int index_of_current_step;///< index of scene which we see at the moment
-    const int TimePerStep;///< constant time after what we send a scene
+    int TimePerStep;///< constant time after what we send a scene
     QTimer timer;///< after every timeout of this timer we send a scene
     QCGView*view;///< view from the mainwindow(receive in constructor)
     Tree*tree;///< tree which have a scenes(receive in constructor)

@@ -103,6 +103,62 @@ void ImageWriter::ShowLastStep()
     CreateImage(tree->getScenes()[tree->getScenes().size()-1]);
 }
 
+void ImageWriter::ShowSequenceOfImagesBfsDfs()
+{
+    index_of_current_step = overal_number_of_steps;
+
+    int new_number_of_steps = tree->getBfsDfsScenes().size();
+
+    overal_number_of_steps = new_number_of_steps;
+
+    connect(&timer,&QTimer::timeout,this,[=](){ShowStepBfsDfs(new_number_of_steps,this->index_of_current_step);});
+    timer.start(TimePerStep);
+}
+
+void ImageWriter::ShowStepBfsDfs(int new_index, int &current_index)
+{
+    if(current_index!=new_index)
+    {
+        CreateImage(tree->getBfsDfsScenes()[current_index]);
+        current_index++;
+    }
+    else
+    {
+        timer.stop();
+        disconnect(&timer,&QTimer::timeout,this,nullptr);
+    }
+    if(current_index == new_index)
+    {
+        current_index--;
+        if(timer.isActive())
+        {
+            timer.stop();
+            disconnect(&timer,&QTimer::timeout,this,nullptr);
+        }
+    }
+}
+
+void ImageWriter::WritePrevStepBfsDfs()
+{
+    if(index_of_current_step - 1 >= 0)
+    {
+        CreateImage(tree->getBfsDfsScenes()[--index_of_current_step]);
+    }
+}
+
+void ImageWriter::WriteNextStepBfsDfs()
+{
+    if(index_of_current_step + 1 < overal_number_of_steps)
+    {
+        CreateImage(tree->getBfsDfsScenes()[++index_of_current_step]);
+    }
+}
+
+void ImageWriter::setTimeInterval(int timePerStep)
+{
+    this->TimePerStep = timePerStep;
+}
+
 void ImageWriter::CreateImage(QGraphicsScene*scene)
 {
     emit SendPictureInfo(view,scene);

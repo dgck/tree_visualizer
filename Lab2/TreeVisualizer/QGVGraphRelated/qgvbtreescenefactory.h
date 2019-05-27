@@ -209,6 +209,11 @@ public:
         return new QGVScene("temp");
     }
 
+    QGVScene* generate_traversal_scene(vector <Node*>)
+    {
+        return new QGVScene("temp");
+    }
+
 private:
     BplusTree* m_b_tree_node;
 

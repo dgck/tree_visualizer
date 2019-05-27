@@ -95,6 +95,61 @@ public:
     }
 
 
+    // the next lines of code are to color a set of nodes in a graph and render them to a qgvscene object
+
+    bool is_member_of_set(Node* to_be_tested, vector <Node*> set)
+    {
+        bool ans = false;
+        for (auto i : set)
+        {
+            if (i == to_be_tested)
+            {
+                ans = true;
+                break;
+            }
+        }
+        return ans;
+    }
+
+    void color_walk_set(Node * cur, QGVNode* pa, vector <Node*> set)
+    {
+        qDebug() << "--";
+        if (!cur)
+            return;
+
+        QGVNode* cur_node = m_scene -> addNode(QString::number(cur -> get_key()));
+
+        if (is_member_of_set(cur, set))
+        {
+            cur_node -> setAttribute(QString("fillcolor"), QString("blue"));
+            cur_node -> setAttribute(QString("style"), QString("filled"));
+        }
+
+        if (pa)
+            m_scene -> addEdge(pa, cur_node);
+
+        if (cur -> get_left())
+        {
+            color_walk_set(cur -> get_left(), cur_node, set);
+        }
+        if (cur -> get_right())
+        {
+            color_walk_set(cur -> get_right(), cur_node, set);
+        }
+    }
+
+    void color_traversal_set(vector <Node*> set)
+    {
+        color_walk_set(m_bin_tree_ptr -> get_root(),nullptr, set);
+    }
+
+    QGVScene* generate_traversal_scene(vector <Node*> to_be_highlited)
+    {
+        color_traversal_set(to_be_highlited);
+        m_scene -> applyLayout();
+        return m_scene;
+    }
+
 
 private:
     BinaryTree* m_bin_tree_ptr;

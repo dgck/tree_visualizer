@@ -277,15 +277,46 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="inclusionBTN">
+    <item row="3" column="1">
+     <widget class="QCGView" name="resultImg"/>
+    </item>
+    <item row="4" column="2">
+     <widget class="QPushButton" name="next3">
       <property name="text">
-       <string>Inclusion</string>
+       <string>&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="mergeBTN">
+      <property name="text">
+       <string>Merge</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="intersectionBTN">
+      <property name="text">
+       <string>Intersection</string>
       </property>
      </widget>
     </item>
     <item row="0" column="0" colspan="2">
      <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="4">
+       <widget class="QPushButton" name="SetTime">
+        <property name="text">
+         <string>Set Time</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Time Per Step(in seconds)</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="1">
        <widget class="QComboBox" name="treeType_cb">
         <item>
@@ -317,19 +348,15 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="3">
+       <widget class="QDoubleSpinBox" name="time"/>
+      </item>
      </layout>
     </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="mergeBTN">
+    <item row="2" column="2">
+     <widget class="QPushButton" name="inclusionBTN">
       <property name="text">
-       <string>Merge</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="intersectionBTN">
-      <property name="text">
-       <string>Intersection</string>
+       <string>Inclusion</string>
       </property>
      </widget>
     </item>
@@ -337,16 +364,6 @@
      <widget class="QPushButton" name="prev3">
       <property name="text">
        <string>&lt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QCGView" name="resultImg"/>
-    </item>
-    <item row="4" column="2">
-     <widget class="QPushButton" name="next3">
-      <property name="text">
-       <string>&gt;</string>
       </property>
      </widget>
     </item>
@@ -358,7 +375,7 @@
      <x>0</x>
      <y>0</y>
      <width>997</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

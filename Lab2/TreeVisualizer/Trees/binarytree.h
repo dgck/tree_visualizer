@@ -2,6 +2,7 @@
 #define BINARYTREE_H
 
 #include "tree.h"
+#include <vector>
 
 enum colors { red, black };
 
@@ -41,6 +42,11 @@ public:
     void inorder()override;
     void preorder()override;
     void postorder()override;
+
+    // НОВОЕ
+    void bfs_ptr_move();
+    std::vector <Node*> get_cur_bfs_vis();
+    std::vector <Node*> m_cur_bfs_vis;
 
 
     Node* get_root()
