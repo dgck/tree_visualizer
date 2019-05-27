@@ -14,6 +14,8 @@ enum colors { red, black };
  */
 class BinaryTree:public Tree
 {
+private:
+    void inorderInsert(BinaryTree*bt,Node*ptr);
 protected:
 
     /*!
@@ -26,8 +28,6 @@ public:
     BinaryTree();
     Node* root = nullptr;
 
-    // Tree interface
-public:
     /*!
      * \brief successor
      * \param p

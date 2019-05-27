@@ -181,6 +181,9 @@ void MainWindow::MakeConnects()
     ui->to1->setVisible(false);
     ui->from2->setVisible(false);
     ui->to2->setVisible(false);
+
+    ui->dfs1BTN->setVisible(false);
+    ui->dfs2BTN->setVisible(false);
 }
 
 void MainWindow::InsertInTree()
