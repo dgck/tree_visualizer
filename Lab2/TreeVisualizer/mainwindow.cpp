@@ -151,6 +151,12 @@ void MainWindow::MakeConnects()
     connect(ui->order1BTN,&QPushButton::clicked,this,&MainWindow::Traversal);
     connect(ui->order1BTN,&QPushButton::clicked,this,&MainWindow::Traversal);
 
+    connect(ui->diametr1BTN,&QPushButton::clicked,this,&MainWindow::FindDiametr);
+    connect(ui->diametr2BTN,&QPushButton::clicked,this,&MainWindow::FindDiametr);
+
+    connect(ui->Center1BTN,&QPushButton::clicked,this,&MainWindow::FindCenter);
+    connect(ui->Center2BTN,&QPushButton::clicked,this,&MainWindow::FindCenter);
+
     ui->insElem1->setMaximum(10000);
     ui->insElem1->setMinimum(-10000);
     ui->insElem2->setMaximum(10000);
@@ -218,6 +224,8 @@ void MainWindow::RemoveFromTree()
 
 void MainWindow::DeleteTree()
 {
+    //QGraphicsScene::clear();
+    //QGraphicsView::viewport().update();
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     if(buttonSender == ui->delete1TreeBTN)
     {
@@ -226,6 +234,8 @@ void MainWindow::DeleteTree()
             delete tree1;
             tree1 = treeCreator->createTree(Creator::RbTree);
             writer1->SetNewTree(tree1);
+            ui->firstTree_img->scene()->clear();
+            ui->firstTree_img->viewport()->update();
         }
     }
     else
@@ -235,6 +245,8 @@ void MainWindow::DeleteTree()
             delete tree2;
             tree2 = treeCreator->createTree(Creator::RbTree);
             writer2->SetNewTree(tree2);
+            ui->secondTree_img->scene()->clear();
+            ui->secondTree_img->viewport()->update();
         }
     }
 }
@@ -301,7 +313,10 @@ void MainWindow::on_treeType_cb_currentIndexChanged(int index)
 {
     delete tree1;
     delete tree2;
-
+    ui->firstTree_img->scene()->clear();
+    ui->firstTree_img->viewport()->update();
+    ui->secondTree_img->scene()->clear();
+    ui->secondTree_img->viewport()->update();
     switch (index)
     {
         case 0:
@@ -384,9 +399,6 @@ void MainWindow::FindIntersetion()
 
 void MainWindow::CheckInclusion()
 {
-    ui->resultImg->setVisible(true);
-    ui->prev3->setVisible(true);
-    ui->next3->setVisible(true);
     auto inclusion = tree1->inclusion(tree2);
     if(get<0>(inclusion))
     {
@@ -416,7 +428,6 @@ void MainWindow::FindDiametr()
     {
         diametr = tree1->diameter();
         tree_vertices = tree1->GetVertices();
-
     }
     else
     {
@@ -431,7 +442,13 @@ void MainWindow::FindDiametr()
         });
         diametr_vertices.push_back(get<1>(*it));
     }
-    //show diametr
+    Tree*diametr_tree = new BinaryTree;
+    for(auto el:diametr_vertices)
+    {
+        diametr_tree->insert(el);
+    }
+    writer3->SetNewTree(diametr_tree);
+    writer3->ShowLastStep();
 }
 
 void MainWindow::FindCenter()
@@ -462,7 +479,13 @@ void MainWindow::FindCenter()
         });
         center_vertices.push_back(get<1>(*it));
     }
-    //show center
+    Tree*center_tree = new BinaryTree;
+    for(auto el:center_vertices)
+    {
+        center_tree->insert(el);
+    }
+    writer3->SetNewTree(center_tree);
+    writer3->ShowLastStep();
 }
 
 void MainWindow::Traversal()

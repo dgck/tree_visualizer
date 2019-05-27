@@ -36,20 +36,21 @@ class ImageWriter:public QObject
 public:
     ImageWriter(QCGView*view,Tree*tree = nullptr);
 
-<<<<<<< HEAD
     void ShowSequenceOfImages(bool isTraversal = false);
-    void CreateImage(QGraphicsScene*scene);
+
     void ShowStep(int new_index,int &current_index,bool isTraversal = false);
-    bool is_writing();
+    /*!
+        \brief Method which sends previously scene to the mainwindow
+    */
     void WritePrevStep(bool isTraversal = false);
+    /*!
+        \brief Method which resets all information about current tree and their states
+    */
     void WriteNextStep(bool isTraversal = false);
-=======
-    void ShowSequenceOfImages();
     /*!
         \brief Method which sends on of the scenes to the mainwindow
     */
     void CreateImage(QGraphicsScene*scene);
-    void ShowStep(int new_index,int &current_index);
     /*!
         \brief Method which checks if writer is writing at the moment
     */
@@ -57,20 +58,15 @@ public:
     /*!
         \brief Method which sends next scene to the mainwindow
     */
-    void WritePrevStep();
-    /*!
-        \brief Method which sends previously scene to the mainwindow
-    */
-    void WriteNextStep();
-    /*!
-        \brief Method which resets all information about current tree and their states
-    */
->>>>>>> 1752b595cf58ed30bd44acbaab9b135f5bf79428
     void ResetSteps();
     /*!
         \brief Method which sets new tree to this writer
     */
     void SetNewTree(Tree*tree);
+    /*!
+        \brief Method which sends last step to the mainwindow
+    */
+    void ShowLastStep();
 
 signals:
     /*!
